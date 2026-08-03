@@ -1,0 +1,25 @@
+Para crear y  trabajar en una nueva rama
+
+git init 
+ 
+git checkout -b feature/(Nombre de la nueva rama) 
+ 
+git push -u origin feature/(Nombre de la nueva rama) 
+
+
+
+después de trabajar en la rama 
+ 
+git add .
+ 
+git commit -m "La nueva funcion"
+ 
+git push -u origin "El nombre de la rama"
+
+
+cambiarse a una rama ya existente
+git switch nombre-de-la-rama
+
+para salir de esa rama
+
+git switch main

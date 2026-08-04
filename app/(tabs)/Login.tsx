@@ -24,8 +24,8 @@ export default function HomeScreen() {
 
       <View style={styles.content}>
         <Text style={styles.title}>
-          <Text style={styles.green}>¡Bienvenido{'\n'}</Text>
-          <Text style={styles.orange}>a NovaMeall!</Text>
+          <Text style={styles.green}>¡Wellcome{'\n'}</Text>
+          <Text style={styles.orange}>to NovaMeall!</Text>
         </Text>
 
         <Image
@@ -35,11 +35,11 @@ export default function HomeScreen() {
         />
 
         <TouchableOpacity style={styles.loginButton}>
-          <Text style={styles.buttonText}>Iniciar Sesión</Text>
+          <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.registerButton}>
-          <Text style={styles.buttonText}>Registrarse</Text>
+          <Text style={styles.buttonText}>Register</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>

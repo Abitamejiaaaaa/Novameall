@@ -1,10 +1,11 @@
 import React from 'react';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   Dimensions,
   Image,
+  SafeAreaView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -24,19 +25,18 @@ export default function HomeScreen() {
 
       <View style={styles.content}>
         <Text style={styles.title}>
-          <Text style={styles.green}>¡Wellcome{'\n'}</Text>
-          <Text style={styles.orange}>to NovaMeall!</Text>
+          <Text style={styles.green}>Recover password</Text>
         </Text>
 
-        <Image
-          source={require('@/assets/images/imagen.jpeg')}
-          style={styles.image}
-          resizeMode="contain"
-        />
+        
+        <TextInput placeholder="New password" style={styles.input} />
+        const styles = styleSheet.create({
+          input:{
+           margingRight:20,
+          },
+        });
 
-        <TouchableOpacity style={styles.loginButton}>
-          <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
+        <TextInput placeholder="Enter your new password" style={styles.input} />
 
         <TouchableOpacity style={styles.registerButton}>
           <Text style={styles.buttonText}>Register</Text>
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   header: {
     height: height * 0.3,
-    backgroundColor: '#EECFA7',
+    backgroundColor: '#ffffff',
     justifyContent: 'center',
     alignItems: 'center',
   },

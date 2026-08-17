@@ -1,26 +1,19 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Dimensions,
   Image,
   Pressable,
   StyleSheet,
   Text,
-  TextInput,
-  View,
+  View
 } from "react-native";
 
-const { width } = Dimensions.get("window");
+const width = Dimensions.get("window").width;
 
-export default function SignUpScreen() {
-  const [username, setUsername] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
-  const [phone, setPhone] = useState<string>("");
-
-  const iniciarSesion = () => {
-    console.log("Usuario:", username);
-    console.log("Teléfono:", phone);
-    console.log("Contraseña:", password);
-  };
+export default function Queres() {
+  function iniciarSesion() {
+    throw new Error("Function not implemented.");
+  }
 
   return (
     <View style={styles.container}>
@@ -29,69 +22,31 @@ export default function SignUpScreen() {
 
       <View style={styles.fondoBlanco} />
 
-      <Image
-        source={require("../../assets/images/Logo.jpeg")}
-        style={styles.logo}
-      />
+      <View style={styles.imageContainer}>
+        <Image
+          source={require("../../assets/images/Logo.jpeg")}
+          style={styles.logo}
+        />
+      </View>
 
-      <Text style={styles.title}>
-        Bienvenido de nuevo
-      </Text>
-
-      <Text style={styles.subtitle}>
-        Inicia sesión para continuar
-      </Text>
-
-      <Text style={styles.label}>
-        Usuario
-      </Text>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Ingrese su usuario"
-        keyboardType="default"
-        autoCapitalize="none"
-        value={username}
-        onChangeText={(text) => setUsername(text)}
-      />
-
-      <Text style={styles.label}>
-        Teléfono
-      </Text>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Ingrese su número de teléfono"
-        keyboardType="phone-pad"
-        autoCapitalize="none"
-        value={phone}
-        onChangeText={(text) => setPhone(text)}
-      />
-
-      <Text style={styles.label}>
-        Contraseña
-      </Text>
-
-      <TextInput
-        style={styles.input}
-        placeholder="Ingrese su contraseña"
-        secureTextEntry
-        value={password}
-        onChangeText={(text) => setPassword(text)}
-      />
-
+      
       <Pressable
         style={styles.button}
         onPress={() => void iniciarSesion()}
       >
         <Text style={styles.buttonText}>
-          Continuar
+          Are you an user?
         </Text>
       </Pressable>
 
-      <Text style={styles.olvidaste}>
-        ¿Olvidaste tu contraseña?
-      </Text>
+      <Pressable
+        style={styles.buttonB}
+        onPress={() => void iniciarSesion()}
+      >
+        <Text style={styles.buttonText}>
+          Are you a restaurant?
+        </Text>
+      </Pressable>
 
     </View>
   );
@@ -99,13 +54,24 @@ export default function SignUpScreen() {
 
 const styles = StyleSheet.create({
 
+  imageContainer: {
+    alignItems: "center",
+    backgroundColor: "#FFFFFF",
+    height: 150,
+    justifyContent: "center",
+    marginTop: 45,
+    borderRadius: 30,
+  },
+
+
+
   fondoAmarillo: {
     position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     height: "40%",
-    backgroundColor: "#F6CB5A",
+    backgroundColor: "#F2B84B",
   },
 
   fondoBlanco: {
@@ -113,14 +79,18 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height: "60%",
+    height: 550,
     backgroundColor: "#FFFFFF",
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+
   },
 
   container: {
     flex: 1,
     backgroundColor: "#FFFFFF",
     alignItems: "center",
+    
   },
 
   logo: {
@@ -174,7 +144,7 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     borderRadius: 30,
     alignItems: "center",
-    marginTop: 10,
+    marginTop: 150,
     backgroundColor: "#B8D95B",
     zIndex: 1,
   },
@@ -194,4 +164,15 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
 
+
+    buttonB: {
+    width: "90%",
+    paddingVertical: 15,
+    borderRadius: 30,
+    alignItems: "center",
+    marginTop: 150,
+    backgroundColor: "#F2B84B",
+    zIndex: 1,
+  },
 });
+

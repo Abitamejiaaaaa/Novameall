@@ -15,9 +15,7 @@ const { width, height } = Dimensions.get('window');
 export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
-
-      
-      <View style={styles.header}>
+   <View>
 
         
         <Image
@@ -29,30 +27,32 @@ export default function HomeScreen() {
 
       </View>
 
-      
-      <View style={styles.content}>
-
-        <TouchableOpacity 
-        style={styles.loginButton}
-        onPress={() => router.push("/Iniciar-sesión")}
-        >
-        <Text style={styles.buttonText}>Iniciar-Sesión</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.registerButton}
-          onPress={() => router.push("/Registrarse")}
-        >
-          <Text style={styles.buttonText}>Registrarse</Text>
-        </TouchableOpacity>
-
-      </View>
+    
 
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+
+
+  fondoAmarillo: {
+  position: "absolute",
+  top: 0,
+  left: 0,
+  right: 0,
+  height: "45%",
+  backgroundColor: "#ffffff",
+},
+
+fondoBlanco: {
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  right: 0,
+  height: "55%",
+  backgroundColor: "#FFFFFF",
+},
 
   container: {
     flex: 1,
@@ -67,8 +67,10 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    width: width * 0.42,
-    height: width * 0.42,
+    width: width * 1.42,
+    height: width * 1.00,
+    marginTop: 80,
+    marginRight: 80,
   },
 
   content: {

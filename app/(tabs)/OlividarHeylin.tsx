@@ -1,8 +1,8 @@
+import { Ionicons } from "@expo/vector-icons";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import { Alert, Dimensions, Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import { auth, db } from "../../Firebase/config";
+import { auth } from "../../Firebase/config";
 
 
 
@@ -11,6 +11,7 @@ const { width, height } = Dimensions.get("window");
 export default function SignUpScreen() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [mostrarPassword, setMostrarPassword] = useState(false);
 
   const iniciarSesion = async () => {
     try {
@@ -47,13 +48,31 @@ export default function SignUpScreen() {
      />
 
      <Text style={styles.label}>Contraseña</Text>
-     <TextInput
-       style={styles.input}
-       placeholder="Ingrese su contraseña"
-       secureTextEntry
-       value={password}
-       onChangeText={(text) => setPassword(text)}
-     />
+
+     <View style={styles.inputContainer}>
+       <Ionicons
+         name="lock-closed-outline"
+         size={22}
+         color="#8BC6A5"
+         style={styles.inputIcon}
+       />
+
+       <TextInput
+         style={styles.inputWithIcon}
+         placeholder="Ingrese su contraseña"
+         secureTextEntry={!mostrarPassword}
+         value={password}
+         onChangeText={(text) => setPassword(text)}
+       />
+
+       <Pressable onPress={() => setMostrarPassword(!mostrarPassword)}>
+         <Ionicons
+           name={mostrarPassword ? "eye-outline" : "eye-off-outline"}
+           size={22}
+           color="#8BC6A5"
+         />
+       </Pressable>
+     </View>
 
      <Pressable style={styles.button} onPress={() => void iniciarSesion()}>
        <Text style={styles.buttonText}>Iniciar sesión</Text>
@@ -111,6 +130,24 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     paddingVertical: 12,
     marginBottom: 15,
+    fontSize: width * 0.04,
+  },
+  inputContainer: {
+    width: '90%',
+    height: 50,
+    borderWidth: 1,
+    borderColor: '#CCCCCC',
+    borderRadius: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 12,
+    marginBottom: 15,
+  },
+  inputIcon: {
+    marginRight: 10,
+  },
+  inputWithIcon: {
+    flex: 1,
     fontSize: width * 0.04,
   },
   loginButton: {

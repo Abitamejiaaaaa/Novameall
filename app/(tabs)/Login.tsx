@@ -16,8 +16,11 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.container}>
 
+       <View style={styles.fondoAmarillo} />
+
+       <View style={styles.fondoBlanco} />
       
-      <View style={styles.header}>
+   <View style={styles.header}>
 
         
         <Image
@@ -65,6 +68,25 @@ export default function HomeScreen() {
 }
 
 const styles = StyleSheet.create({
+
+
+  fondoAmarillo: {
+  position: "absolute",
+  top: 0,
+  left: 0,
+  right: 0,
+  height: "45%",
+  backgroundColor: "#F6CB5A",
+},
+
+fondoBlanco: {
+  position: "absolute",
+  bottom: 0,
+  left: 0,
+  right: 0,
+  height: "55%",
+  backgroundColor: "#FFFFFF",
+},
 
   container: {
     flex: 1,

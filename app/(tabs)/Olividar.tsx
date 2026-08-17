@@ -1,8 +1,7 @@
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { doc, setDoc } from "firebase/firestore";
 import React, { useState } from "react";
 import { Alert, Dimensions, Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
-import { auth, db } from "../../Firebase/config";
+import { auth } from "../../Firebase/config";
 
 
 
@@ -15,7 +14,6 @@ export default function SignUpScreen() {
   const iniciarSesion = async () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      Alert.alert("Éxito", "Sesión iniciada correctamente");
     } catch (error) {
       Alert.alert("Error", "No se pudo iniciar sesión");
     }
@@ -28,35 +26,22 @@ export default function SignUpScreen() {
     <View style={styles.container}>
       <Image source={require("../../assets/images/Logo.jpeg")} style={styles.logo} />
 
-      <Text style={styles.title}>Crear una cuenta</Text>
-
-      <Text style={styles.subtitle}>
-        Completa tus datos para registrarte
-      </Text>
+      <Text style={styles.title}>Reset password</Text>
 
      <Text style={styles.label}>
-       Correo electrónico
+       Email
      </Text>
      <TextInput
        style={styles.input}
-       placeholder="ejemplo@correo.com"
+       placeholder="Enter your email"
        keyboardType="email-address"
        autoCapitalize="none"
        value={email}
        onChangeText={(text) => setEmail(text)}
      />
 
-     <Text style={styles.label}>Contraseña</Text>
-     <TextInput
-       style={styles.input}
-       placeholder="Ingrese su contraseña"
-       secureTextEntry
-       value={password}
-       onChangeText={(text) => setPassword(text)}
-     />
-
      <Pressable style={styles.button} onPress={() => void iniciarSesion()}>
-       <Text style={styles.buttonText}>Iniciar sesión</Text>
+       <Text style={styles.buttonText}>Reset Password</Text>
      </Pressable>
    </View>
  );
@@ -74,8 +59,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    width: width * 0.42,
-    height: width * 0.42,
+    width: 250,
+    height: 250,
+    marginTop: 80,
+    marginLeft: 50,
   },
   content: {
     flex: 1,
@@ -112,6 +99,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     marginBottom: 15,
     fontSize: width * 0.04,
+    marginLeft: 18,
   },
   loginButton: {
     width: '90%',
@@ -138,7 +126,7 @@ const styles = StyleSheet.create({
     fontSize: width * 0.04,
     fontWeight: '600',
     marginBottom: 8,
-    marginLeft: '5%',
+    marginLeft: '7%',
   },
   button: {
     width: '90%',
@@ -147,6 +135,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     alignItems: 'center',
     marginTop: 20,
+    marginLeft: 18,
   },
   buttonText: {
     fontSize: width * 0.05,

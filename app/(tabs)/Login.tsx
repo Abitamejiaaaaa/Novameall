@@ -36,8 +36,8 @@ export default function HomeScreen() {
       <View style={styles.content}>
 
         <Text style={styles.title}>
-          <Text style={styles.green}>¡Bienvenido{"\n"}</Text>
-          <Text style={styles.orange}>a NovaMeall!</Text>
+          <Text style={styles.green}>¡Welcom{"\n"}</Text>
+          <Text style={styles.orange}>to NovaMeall!</Text>
         </Text>
 
         
@@ -51,14 +51,14 @@ export default function HomeScreen() {
         style={styles.loginButton}
         onPress={() => router.push("/Iniciar")}
         >
-        <Text style={styles.buttonText}>Iniciar-Sesión</Text>
+        <Text style={styles.buttonText}>Login</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
           style={styles.registerButton}
           onPress={() => router.push("/Registrarse")}
         >
-          <Text style={styles.buttonText}>Registrarse</Text>
+          <Text style={styles.buttonText}>Sing Up</Text>
         </TouchableOpacity>
 
       </View>
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
   left: 0,
   right: 0,
   height: "45%",
-  backgroundColor: "#F6CB5A",
+  backgroundColor: "#ffffff",
 },
 
 fondoBlanco: {

@@ -15,6 +15,7 @@ import {
   View,
 } from "react-native";
 import { auth, db } from "../../Firebase/config";
+import { navigate } from "expo-router/build/global-state/routing";
 
 const { width, height } = Dimensions.get("window");
 
@@ -179,7 +180,7 @@ export default function Registro() {
 
             <Pressable
               style={styles.button}
-              onPress={() => void registrarUsuario()}
+              onPress={() => navigate("/Home")}
             >
               <Text style={styles.buttonText}>Register</Text>
             </Pressable>

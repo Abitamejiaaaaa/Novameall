@@ -27,15 +27,31 @@ export default function Registro() {
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
   const registrarUsuario = async (): Promise<void> => {
-    if (!name || !lastname || !email || !password) {
+    if (!name.trim|| !lastname.trim || !email.trim || !password) {
       Alert.alert("Incomplete Fields", "Please fill in all fields.");
       return;
     }
 
-    if (password.length < 6) {
+    if (password.length < 8 || password.length > 20) {
       Alert.alert(
         "Invalid Password",
-        "Password must be at least 6 characters long."
+        "Password must be between 8 and 20 characters long."
+      );
+      return;
+    }
+
+    if (!email.includes("@")) {
+      Alert.alert(
+        "Invalid Email",
+        "Please enter a valid email address."
+      );
+      return;
+    }
+
+    if(!/^[a-zA-Z]+$/.test(name) || !/^[a-zA-Z]+$/.test(lastname)) {
+      Alert.alert(
+        "Invalid Name",
+        "Please enter a valid name (letters only)."
       );
       return;
     }
@@ -62,6 +78,9 @@ export default function Registro() {
       setLastname("");
       setEmail("");
       setPassword("");
+
+      navigate("/Home");
+
     } catch (error: unknown) {
       console.log(error);
 
@@ -74,7 +93,7 @@ export default function Registro() {
       } else if (err.code === "auth/weak-password") {
         Alert.alert(
           "Weak Password",
-          "Password must be at least 6 characters long."
+          "Password must be at least 8 characters long."
         );
       } else {
         Alert.alert("Error", "Could not create the account.");
@@ -84,6 +103,7 @@ export default function Registro() {
 
   return (
     <SafeAreaView style={styles.container}>
+      
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         bounces={false}
@@ -180,7 +200,7 @@ export default function Registro() {
 
             <Pressable
               style={styles.button}
-              onPress={() => navigate("/Home")}
+              onPress={() => registrarUsuario()}
             >
               <Text style={styles.buttonText}>Register</Text>
             </Pressable>
@@ -191,7 +211,7 @@ export default function Registro() {
   );
 }
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#F2B84B",

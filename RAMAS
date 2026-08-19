@@ -7,7 +7,6 @@ git checkout -b feature/(Nombre de la nueva rama)
 git push -u origin feature/(Nombre de la nueva rama) 
 
 
-
 después de trabajar en la rama 
  
 git add .

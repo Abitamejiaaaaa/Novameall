@@ -1,5 +1,8 @@
 
 import { navigate } from "expo-router/build/global-state/routing";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { Alert } from "react-native";
+
 import React, { useState } from "react";
 import {
   Dimensions,
@@ -14,14 +17,33 @@ import {
 const { width } = Dimensions.get("window");
 
 export default function SignUpScreen() {
-  const [username, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const [username, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const iniciarSesion = () => {
-    console.log("Email:", username);
-    console.log("Contraseña:", password);
+  const iniciarSesion = async () => {
+
+    if (!username.trim() || !password.trim()) {
+      Alert.alert("Incomplete Fields", "Please enter your email and password.");
+      return;
+    }
+
+    try {
+      const userCredential = await signInWithEmailAndPassword(getAuth(), username, password);
+      
+      console.log("Inicio de sesión exitoso:", userCredential.user.email);
+      navigate("/Home");
+
+    } catch (error: any) {
+      console.log(error);
+      if (error.code === 'auth/invalid-credential') {
+        Alert.alert("Error", "The email or password is incorrect.");
+      } else if (error.code === 'auth/invalid-email') {
+        Alert.alert("Error", "The email format is invalid.");
+      } else {
+        Alert.alert("Error", "An error occurred while trying to sign in.");
+      }
+    }
   };
-
   return (
     <View style={styles.container}>
 
@@ -80,18 +102,12 @@ export default function SignUpScreen() {
         onChangeText={(text) => setPassword(text)}
       />
       <Pressable style={styles.button}
-      onPress={() => {
-        if (!password.trim()) {
-          alert("Please enter a password.");
-          return;
-        }
-        navigate("/Home");
-      }}>
+      onPress={iniciarSesion}>
         <Text style={styles.buttonText}>Sign In</Text>
       </Pressable>
 
 
-      <Text style={styles.olvidaste} onPress={() => navigate("/OlividarHeylin")}>
+      <Text style={styles.olvidaste} onPress={() => navigate("/(tabs)/Home")}>
         ¿Forgot your password?
       </Text>
 

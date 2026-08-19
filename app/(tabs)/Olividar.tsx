@@ -2,26 +2,33 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { Alert, Dimensions, Image, Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import { auth } from "../../Firebase/config";
+import { sendPasswordResetEmail } from "firebase/auth"; 
 
+import { useRouter } from "expo-router";
 
 
 const { width, height } = Dimensions.get("window");
 
 export default function SignUpScreen() {
   const [email, setEmail] = useState<string>("");
-  const [password, setPassword] = useState<string>("");
+  const router = useRouter();
 
-  const iniciarSesion = async () => {
+  const recuperarContraeña = async () => {
+    if (!email.trim()) {
+      Alert.alert("Incomplete Fields", "Please enter your email.");
+      return;
+    }
+
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      await sendPasswordResetEmail(auth, email);
+      Alert.alert("Success", "Password reset email sent. Please check your inbox.");
+      router.push("/Iniciar");
     } catch (error) {
-      Alert.alert("Error", "No se pudo iniciar sesión");
+      Alert.alert("Error", "An error occurred while trying to send the password reset email.");
+      return;
     }
   };
 
-
-
-  
   return (
     <View style={styles.container}>
       <Image source={require("../../assets/images/Logo.jpeg")} style={styles.logo} />
@@ -40,9 +47,9 @@ export default function SignUpScreen() {
        onChangeText={(text) => setEmail(text)}
      />
 
-     <Pressable style={styles.button} onPress={() => void iniciarSesion()}>
-       <Text style={styles.buttonText}>Reset Password</Text>
-     </Pressable>
+      <Pressable style={styles.button} onPress={recuperarContraeña}>
+        <Text style={styles.buttonText}>Reset Password</Text>
+      </Pressable>
    </View>
  );
 };

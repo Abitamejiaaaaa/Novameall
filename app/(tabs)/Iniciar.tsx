@@ -27,6 +27,13 @@ export default function SignUpScreen() {
       return;
     }
 
+    if (!username.includes("@")) {
+      Alert.alert("Invalid Email", "Please enter a valid email address.");
+      return;
+    }
+
+    
+
     try {
       const userCredential = await signInWithEmailAndPassword(getAuth(), username, password);
       

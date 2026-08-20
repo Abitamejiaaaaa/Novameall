@@ -19,6 +19,10 @@ export default function SignUpScreen() {
       return;
     }
 
+    if (!email.includes("@")) {
+      Alert.alert("Invalid Email", "Please enter a valid email address.");
+      return;
+    }
     try {
       await sendPasswordResetEmail(auth, email);
       Alert.alert("Success", "Password reset email sent. Please check your inbox.");

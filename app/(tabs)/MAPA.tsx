@@ -11,7 +11,6 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const { width, height } = Dimensions.get('window');
-
 export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.container}>

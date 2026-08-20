@@ -48,7 +48,7 @@ export default function Registro() {
       return;
     }
 
-    if(!/^[a-zA-Z]+$/.test(name) || !/^[a-zA-Z]+$/.test(lastname)) {
+    if(!/[a-zA-Z]+$/.test(name) || !/[a-zA-Z]+$/.test(lastname)  || /[0-9]/.test(name) || /[0-9]/.test(lastname)) {
       Alert.alert(
         "Invalid Name",
         "Please enter a valid name (letters only)."
@@ -82,7 +82,7 @@ export default function Registro() {
       navigate("/Home");
 
     } catch (error: unknown) {
-      console.log(error);
+      console.log(error); 
 
       const err = error as { code?: string };
 

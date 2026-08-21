@@ -1,17 +1,17 @@
 
 import { navigate } from "expo-router/build/global-state/routing";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { Alert } from "react-native";
 
 import React, { useState } from "react";
 import {
+  Alert,
   Dimensions,
   Image,
   Pressable,
   StyleSheet,
   Text,
   TextInput,
-  View
+  View,
 } from "react-native";
 
 const { width } = Dimensions.get("window");
@@ -114,7 +114,7 @@ export default function SignUpScreen() {
       </Pressable>
 
 
-      <Text style={styles.olvidaste} onPress={() => navigate("/(tabs)/Home")}>
+      <Text style={styles.olvidaste} onPress={() => navigate("/Olividar")}>
         ¿Forgot your password?
       </Text>
 

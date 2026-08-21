@@ -1,3 +1,5 @@
+
+import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
   Dimensions,
@@ -11,8 +13,9 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const { width, height } = Dimensions.get('window');
 
-export default function HomeScreen() {
-  const [cantidad, setCantidad] = useState(5);
+export default function Cantidad() {
+  const router = useRouter();
+  const [cantidad, setCantidad] = useState(1);
 
   const aumentar = () => {
     setCantidad(cantidad + 1);
@@ -22,6 +25,13 @@ export default function HomeScreen() {
     if (cantidad > 1) {
       setCantidad(cantidad - 1);
     }
+  };
+
+  const irAPagar = () => {
+    router.push({
+      pathname: "/Pago",
+      params: { cantidadTacos: cantidad } 
+    });
   };
 
   return (
@@ -84,12 +94,12 @@ export default function HomeScreen() {
         </View>
 
         <Text style={styles.description}>
-          Imagina el aroma irresistible de la carne recién asada,
-          el chisporroteo en la plancha y el calor de una tortilla
-          suave que abraza cada ingrediente. Nuestros tacos no son
-          solo comida: son un viaje directo a la tradición, preparados
-          con recetas auténticas y el toque especial que solo se logra
-          con pasión.
+          Imagine the irresistible aroma of freshly grilled meat,
+          the sizzling on the griddle, and the warmth of a soft tortilla
+          embracing every ingredient. Our tacos are not just food:
+          they are a direct journey into tradition, prepared with
+          authentic recipes and that special touch only achieved
+          with passion
         </Text>
 
         <View style={styles.descriptionDots}>
@@ -99,7 +109,7 @@ export default function HomeScreen() {
         </View>
 
         <View style={styles.buyRow}>
-          <TouchableOpacity style={styles.buyButton}>
+          <TouchableOpacity style={styles.buyButton} onPress={irAPagar}>
             <Text style={styles.buyText}>Comprar</Text>
           </TouchableOpacity>
 
@@ -122,7 +132,7 @@ export default function HomeScreen() {
       </View>
 
       <View style={styles.bottomBar}>
-        <TouchableOpacity style={styles.navItem}>
+        <TouchableOpacity style={styles.navItem} onPress={() => router.push("/(tabs)/Home")}>
           <Text style={styles.navIcon}>⌂</Text>
         </TouchableOpacity>
 

@@ -15,24 +15,14 @@ export default function Pago() {
   const params = useLocalSearchParams();
   const cantidadRecibida = params.cantidadTacos ? Number(params.cantidadTacos) : 1;
 
+
+  const lat = params.lat ? Number(params.lat) : null;
+  const lng = params.lng ? Number(params.lng) : null;
+
   const [productos, setProductos] = useState([
-    { id: 1, nombre: 'Taco de pastor', precioUnitario: 3.25, cantidad: cantidadRecibida, imagen: require('../../assets/images/imagen.jpeg') },
-    { id: 2, nombre: 'Refresco', precioUnitario: 1.75, cantidad: 2, imagen: require('../../assets/images/bebida.jpg') },
+    { id: 1, nombre: 'Taco al pastor', precioUnitario: 3.25, cantidad: cantidadRecibida, imagen: require('../../assets/images/tacos.jpg') },
+    { id: 2, nombre: 'Soft Drink', precioUnitario: 1.75, cantidad: 2, imagen: require('../../assets/images/bebida.jpg') },
   ]);
-
-  const aumentar = (id: number) => {
-    setProductos(productos.map(prod => 
-      prod.id === id ? { ...prod, cantidad: prod.cantidad + 1 } : prod
-    ));
-  };
-
-  const disminuir = (id: number) => {
-    setProductos(productos.map(prod => 
-      prod.id === id && prod.cantidad > 1 
-        ? { ...prod, cantidad: prod.cantidad - 1 } 
-        : prod
-    ));
-  };
 
   const subtotal = productos.reduce((suma, prod) => suma + (prod.precioUnitario * prod.cantidad), 0);
   const costoEnvio = 0.00;
@@ -44,42 +34,50 @@ export default function Pago() {
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
           
           <View style={styles.header}>
-            <TouchableOpacity style={styles.back} onPress={() => router.back()}>
+            <TouchableOpacity style={styles.back} onPress={() => router.push("/tacos")}>
               <Ionicons name="arrow-back" size={21} color="#fff" />
             </TouchableOpacity>
-            <Text style={styles.title}>Pago</Text>
+            <Text style={styles.title}>Payment</Text>
           </View>
 
-          <Text style={styles.section}>Método de pago</Text>
+          <Text style={styles.section}>Payment Methood</Text>
           <TouchableOpacity style={styles.box}>
             <View style={styles.visa}>
               <Text style={styles.visaText}>VISA</Text>
             </View>
             <View style={styles.info}>
               <Text style={styles.bold}>Visa **** 4589</Text>
-              <Text style={styles.orangeText}>Cambiar método de pago</Text>
+              <Text style={styles.orangeText}>Change Payment Methood</Text>
             </View>
             <Ionicons name="chevron-forward" size={25} color="#000" />
           </TouchableOpacity>
 
-          <Text style={styles.section}>Dirección de entrega</Text>
-          <TouchableOpacity style={styles.address}>
-            <Ionicons name="location" size={23} color="#000" />
+          <Text style={styles.section}>Delivery Address </Text>
+          
+          {/* SECCIÓN DE DIRECCIÓN DINÁMICA */}
+          <TouchableOpacity style={styles.address} onPress={() => router.push("/MAPA")}>
+            <Ionicons name="location" size={23} color="#000" style={{ marginTop: 2 }} />
             <View style={styles.info}>
-              <Text style={styles.bold}>Mi casa</Text>
-              <Text style={styles.addressText}>
-                Colonia Las Flores, Calle Principal, Casa #12, Ciudad Arce, La Libertad.
+              <Text style={styles.bold}>
+                {lat && lng ? "Ubicación seleccionada en Mapa" : "My Home"}
               </Text>
-              <Text style={styles.orangeText}>Cambiar dirección</Text>
+              <Text style={styles.addressText}>
+                {lat && lng 
+                  ? `Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)}`
+                  : "Colonia Las Flores, Calle Principal, Casa #12, Ciudad Arce, La Libertad."
+                }
+              </Text>
+              <Text style={styles.orangeText}>Change Address </Text>
             </View>
             <Ionicons name="chevron-forward" size={25} color="#000" />
           </TouchableOpacity>
 
-          <Text style={styles.section}>Resumen del pedido</Text>
+          {/* Resto de tu resumen de pedido... */}
+          <Text style={styles.section}>Order Summary</Text>
           <View style={styles.order}>
             {productos.map((prod) => (
               <View style={styles.product} key={prod.id}>
-                <Image source={prod.imagen } style={styles.productImage} />
+                <Image source={prod.imagen} style={styles.productImage} />
                 <View style={styles.info}>
                   <Text style={styles.productName}>{prod.nombre}</Text>
                   <Text style={styles.quantity}>x{prod.cantidad}</Text>
@@ -104,34 +102,27 @@ export default function Pago() {
 
             <View style={styles.protected}>
               <Ionicons name="shield-checkmark" size={17} color="#333" />
-              <Text style={styles.protectedText}>Tus pagos están protegidos</Text>
+              <Text style={styles.protectedText}>Your payments are protected</Text>
             </View>
           </View>
 
           <TouchableOpacity style={styles.confirm}>
             <Ionicons name="lock-closed" size={18} color="#fff" />
-            <Text style={styles.confirmText}>Confirmar pedido</Text>
+            <Text style={styles.confirmText}>Confirn Order</Text>
           </TouchableOpacity>
 
         </ScrollView>
       </View>
 
+      {/* Barra inferior */}
       <View style={styles.bottom}>
-        <TouchableOpacity onPress={() => router.back()}>
+        <TouchableOpacity onPress={() => router.push("/(tabs)/Home")}>
           <Ionicons name="home-outline" size={27} color="#000" />
         </TouchableOpacity>
-        <TouchableOpacity>
-          <Ionicons name="restaurant-outline" size={27} color="#000" />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Ionicons name="heart-outline" size={28} color="#000" />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Ionicons name="clipboard-outline" size={27} color="#000" />
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <Ionicons name="person-outline" size={27} color="#000" />
-        </TouchableOpacity>
+        <TouchableOpacity><Ionicons name="restaurant-outline" size={27} color="#000" /></TouchableOpacity>
+        <TouchableOpacity><Ionicons name="heart-outline" size={28} color="#000" /></TouchableOpacity>
+        <TouchableOpacity><Ionicons name="clipboard-outline" size={27} color="#000" /></TouchableOpacity>
+        <TouchableOpacity><Ionicons name="person-outline" size={27} color="#000" /></TouchableOpacity>
       </View>
     </SafeAreaView>
   );

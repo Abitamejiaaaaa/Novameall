@@ -12,21 +12,21 @@ import {
 const { width, height } = Dimensions.get('window');
 
 const terminos = [
-  'Al registrarse y utilizar NovaMeall, el usuario acepta estos términos y condiciones.',
+  'By registering and using NovaMeall, the user agrees to these terms and conditions.',
 
-  'Los negocios son responsables de publicar información correcta sobre sus productos, incluyendo precio, cantidad, ingredientes, fecha de elaboración, fecha de vencimiento y hora límite de venta.',
+  'Businesses are responsible for publishing accurate information about their products, including price, quantity, ingredients, production date, expiration date, and sale cutoff time.',
 
-  'No se permite publicar alimentos vencidos, dañados o que representen un riesgo para los consumidores.',
+  'Posting expired, damaged, or unsafe food that poses a risk to consumers is prohibited.',
 
-  'Los usuarios podrán reservar y comprar productos mediante los métodos de pago disponibles en la plataforma.',
+  'Users may reserve and purchase products using the payment methods available on the platform.',
 
-  'NovaMeall podrá cobrar al negocio una comisión por cada venta realizada mediante la plataforma.',
+  'NovaMeall may charge the business a commission for each sale made through the platform.',
 
-  'Los precios y la disponibilidad de los productos deberán mantenerse actualizados para evitar pedidos de productos que ya no estén disponibles.',
+  'Product prices and availability must be kept up to date to prevent orders for products that are no longer available.',
 
-  'Está prohibido utilizar NovaMeall para realizar fraudes, publicar información falsa o afectar el funcionamiento de la plataforma.',
+  'It is prohibited to use NovaMeall to commit fraud, publish false information, or interfere with the operation of the platform.',
 
-  'NovaMeall podrá suspender o eliminar cuentas que incumplan estos términos y condiciones.',
+  'NovaMeall may suspend or delete accounts that breach these terms and conditions.',
 ];
 
 export default function App() {

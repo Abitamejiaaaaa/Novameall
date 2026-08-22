@@ -45,5 +45,6 @@ app-example
 # Configuración privada de Firebase
 firebaseConfig.js
 
+node_modules/
 
 scripts/serviceAccountKey.json

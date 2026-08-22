@@ -1,162 +1,182 @@
-import { router } from 'expo-router';
 import React from 'react';
 import {
+  Alert,
   Dimensions,
-  Image,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
+  View,
 } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
 
 const { width, height } = Dimensions.get('window');
 
-export default function HomeScreen() {
+const terminos = [
+  'Al registrarse y utilizar NovaMeall, el usuario acepta estos términos y condiciones.',
+
+  'Los negocios son responsables de publicar información correcta sobre sus productos, incluyendo precio, cantidad, ingredientes, fecha de elaboración, fecha de vencimiento y hora límite de venta.',
+
+  'No se permite publicar alimentos vencidos, dañados o que representen un riesgo para los consumidores.',
+
+  'Los usuarios podrán reservar y comprar productos mediante los métodos de pago disponibles en la plataforma.',
+
+  'NovaMeall podrá cobrar al negocio una comisión por cada venta realizada mediante la plataforma.',
+
+  'Los precios y la disponibilidad de los productos deberán mantenerse actualizados para evitar pedidos de productos que ya no estén disponibles.',
+
+  'Está prohibido utilizar NovaMeall para realizar fraudes, publicar información falsa o afectar el funcionamiento de la plataforma.',
+
+  'NovaMeall podrá suspender o eliminar cuentas que incumplan estos términos y condiciones.',
+];
+
+export default function App() {
+  const aceptar = () => {
+    Alert.alert(
+      'Confirmación',
+      'Has aceptado los Términos y Condiciones de NovaMeall.'
+    );
+  };
+
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
 
-       <View style={styles.fondoAmarillo} />
+      <View style={styles.card}>
 
-       <View style={styles.fondoBlanco} />
-      
-   <View style={styles.header}>
+        {/* ENCABEZADO */}
+        <View style={styles.header}>
 
-        
-        <Image
-          source={require('../../assets/images/Logo.jpeg')}
-          style={styles.logo}
-          resizeMode="contain"
-        />
+          <View style={styles.logo}>
+            <Text style={styles.logoText}>N</Text>
+          </View>
 
+          <Text style={styles.title}>
+            Términos y Condiciones
+          </Text>
+
+          <Text style={styles.subtitle}>
+            NovaMeall
+          </Text>
+
+        </View>
+
+        {/* CONTENIDO */}
+        <ScrollView
+          style={styles.content}
+          showsVerticalScrollIndicator={true}
+        >
+          {terminos.map((texto, index) => (
+            <Text
+              key={index}
+              style={styles.paragraph}
+            >
+              {texto}
+            </Text>
+          ))}
+        </ScrollView>
+
+        {/* BOTÓN */}
+        <View style={styles.buttonContainer}>
+
+          <TouchableOpacity
+            style={styles.button}
+            activeOpacity={0.8}
+            onPress={aceptar}
+          >
+            <Text style={styles.buttonText}>
+              Aceptar y continuar
+            </Text>
+          </TouchableOpacity>
+
+        </View>
 
       </View>
 
-      
-      <View style={styles.content}>
-
-        <Text style={styles.title}>
-          <Text style={styles.green}>¡Welcom{"\n"}</Text>
-          <Text style={styles.orange}>to NovaMeall!</Text>
-        </Text>
-
-        
-        <Image
-          source={require('../../assets/images/imagen.jpeg')}
-          style={styles.image}
-          resizeMode="contain"
-        />
-
-        <TouchableOpacity 
-        style={styles.loginButton}
-        onPress={() => router.push("../Iniciar")}
-        >
-        <Text style={styles.buttonText}>Login</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.registerButton}
-          onPress={() => router.push("../Registrarse")}
-        >
-          <Text style={styles.buttonText}>Sing Up</Text>
-        </TouchableOpacity>
-
-      </View>
-
-    </SafeAreaView>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-
-
-  fondoAmarillo: {
-  position: "absolute",
-  top: 0,
-  left: 0,
-  right: 0,
-  height: "45%",
-  backgroundColor: "#ffffff",
-},
-
-fondoBlanco: {
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  right: 0,
-  height: "55%",
-  backgroundColor: "#FFFFFF",
-},
-
   container: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
-  },
-
-  header: {
-    height: height * 0.30,
-    backgroundColor: '#EECFA7',
+    backgroundColor: '#F6F5F2',
     justifyContent: 'center',
     alignItems: 'center',
   },
 
+  card: {
+    width: width * 0.88,
+    height: height * 0.82,
+    backgroundColor: '#FFFFFF',
+    borderRadius: 25,
+    overflow: 'hidden',
+    elevation: 5,
+  },
+
+  header: {
+    backgroundColor: '#EECFA7',
+    alignItems: 'center',
+    paddingVertical: 25,
+    paddingHorizontal: 20,
+  },
+
   logo: {
-    width: width * 0.42,
-    height: width * 0.42,
+    width: 65,
+    height: 65,
+    borderRadius: 33,
+    backgroundColor: '#DA8D07',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 10,
+  },
+
+  logoText: {
+    color: '#FFFFFF',
+    fontSize: 30,
+    fontWeight: 'bold',
+  },
+
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: '#3B3B3B',
+    textAlign: 'center',
+  },
+
+  subtitle: {
+    marginTop: 5,
+    fontSize: 15,
+    color: '#726B25',
+    fontWeight: '600',
   },
 
   content: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
-    borderTopLeftRadius: 35,
-    borderTopRightRadius: 35,
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingTop: 25,
+    paddingHorizontal: 22,
+    paddingTop: 20,
   },
 
-  title: {
-    fontSize: width * 0.08,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 20,
+  paragraph: {
+    fontSize: 15,
+    color: '#444444',
+    lineHeight: 24,
+    marginBottom: 16,
+    textAlign: 'justify',
   },
 
-  green: {
-    color: '#726B25',
+  buttonContainer: {
+    padding: 18,
   },
 
-  orange: {
-    color: '#DA8D07',
-  },
-
-  image: {
-    width: width * 0.72,
-    height: height * 0.26,
-    marginBottom: 35,
-  },
-
-  loginButton: {
-    width: '90%',
+  button: {
     backgroundColor: '#B8D95B',
-    paddingVertical: 15,
-    borderRadius: 30,
-    alignItems: 'center',
-    marginBottom: 18,
-  },
-
-  registerButton: {
-    width: '90%',
-    backgroundColor: '#DA8D07',
     paddingVertical: 15,
     borderRadius: 30,
     alignItems: 'center',
   },
 
   buttonText: {
-    fontSize: width * 0.05,
+    color: '#2F2F2F',
+    fontSize: 16,
     fontWeight: 'bold',
-    color: '#000',
   },
-
 });

@@ -2,6 +2,7 @@ import React from 'react';
 import {
   Alert,
   Dimensions,
+  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -46,7 +47,7 @@ export default function App() {
         <View style={styles.header}>
 
           <View style={styles.logo}>
-            <Text style={styles.logoText}>N</Text>
+             <Image style={styles.logo} source={require('../../assets/images/Logo.jpeg')}></Image>
           </View>
 
           <Text style={styles.title}>
@@ -120,10 +121,9 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    width: 65,
-    height: 65,
+    width: 85,
+    height: 85,
     borderRadius: 33,
-    backgroundColor: '#DA8D07',
     justifyContent: 'center',
     alignItems: 'center',
     marginBottom: 10,

@@ -1,130 +1,53 @@
-import { router } from 'expo-router';
 import React from 'react';
-import {
-  Dimensions,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useRouter } from 'expo-router';
+import { Ionicons } from '@expo/vector-icons';
+import { auth } from '../../Firebase/config';
 
-const { width, height } = Dimensions.get('window');
+export default function ChatTabScreen() {
+  const router = useRouter();
 
-export default function HomeScreen() {
+  const abrirSoporte = () => {
+    const user = auth.currentUser;
+    // Si hay usuario usa su UID único, de lo contrario genera una sala temporal
+    const supportChatId = user ? `soporte_${user.uid}` : 'soporte_invitado';
+    router.push(`/chat/${supportChatId}` as never);
+  };
+
   return (
-    <SafeAreaView style={styles.container}>
-   <View>
+    <View style={styles.container}>
+      <Ionicons name="headset-outline" size={70} color="#F2B84B" style={styles.icon} />
+      <Text style={styles.title}>Atención al Cliente NovaMeal</Text>
+      <Text style={styles.subtitle}>
+        ¿Tienes un problema con un pedido o tu cuenta? Habla directamente con nuestro equipo de soporte.
+      </Text>
 
-        
-        <Image
-          source={require('../../assets/images/Logo.jpeg')}
-          style={styles.logo}
-          resizeMode="contain"
-        />
-
-
-      </View>
-
-    
-
-    </SafeAreaView>
+      <TouchableOpacity style={styles.button} onPress={abrirSoporte}>
+        <Ionicons name="chatbubbles-outline" size={20} color="#000" style={{ marginRight: 8 }} />
+        <Text style={styles.buttonText}>Iniciar Chat de Ayuda</Text>
+      </TouchableOpacity>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-
-
-  fondoAmarillo: {
-  position: "absolute",
-  top: 0,
-  left: 0,
-  right: 0,
-  height: "45%",
-  backgroundColor: "#ffffff",
-},
-
-fondoBlanco: {
-  position: "absolute",
-  bottom: 0,
-  left: 0,
-  right: 0,
-  height: "55%",
-  backgroundColor: "#FFFFFF",
-},
-
-  container: {
-    flex: 1,
-    backgroundColor: '#F5F5F5',
+  container: { 
+    flex: 1, 
+    backgroundColor: '#FFFFFF', 
+    alignItems: 'center', 
+    justifyContent: 'center', 
+    padding: 20 
   },
-
-  header: {
-    height: height * 0.30,
-    backgroundColor: '#EECFA7',
-    justifyContent: 'center',
-    alignItems: 'center',
+  icon: { marginBottom: 15 },
+  title: { fontSize: 22, fontWeight: 'bold', color: '#726B25', marginBottom: 10, textAlign: 'center' },
+  subtitle: { fontSize: 14, color: '#666666', textAlign: 'center', marginBottom: 25, paddingHorizontal: 15 },
+  button: { 
+    flexDirection: 'row', 
+    backgroundColor: '#B8D95B', 
+    paddingVertical: 14, 
+    paddingHorizontal: 24, 
+    borderRadius: 25, 
+    alignItems: 'center' 
   },
-
-  logo: {
-    width: width * 1.42,
-    height: width * 1.00,
-    marginTop: 80,
-    marginRight: 80,
-  },
-
-  content: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-    borderTopLeftRadius: 35,
-    borderTopRightRadius: 35,
-    alignItems: 'center',
-    paddingHorizontal: 20,
-    paddingTop: 25,
-  },
-
-  title: {
-    fontSize: width * 0.08,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    marginBottom: 20,
-  },
-
-  green: {
-    color: '#726B25',
-  },
-
-  orange: {
-    color: '#DA8D07',
-  },
-
-  image: {
-    width: width * 0.72,
-    height: height * 0.26,
-    marginBottom: 35,
-  },
-
-  loginButton: {
-    width: '90%',
-    backgroundColor: '#B8D95B',
-    paddingVertical: 15,
-    borderRadius: 30,
-    alignItems: 'center',
-    marginBottom: 18,
-  },
-
-  registerButton: {
-    width: '90%',
-    backgroundColor: '#DA8D07',
-    paddingVertical: 15,
-    borderRadius: 30,
-    alignItems: 'center',
-  },
-
-  buttonText: {
-    fontSize: width * 0.05,
-    fontWeight: 'bold',
-    color: '#000',
-  },
-
+  buttonText: { fontSize: 16, fontWeight: 'bold', color: '#000000' },
 });

@@ -12,7 +12,7 @@ import {
   serverTimestamp 
 } from 'firebase/firestore';
 
-import { auth, db } from '../../Firebase/config';
+import { auth, db } from '../../../Firebase/config';
 
 export default function ChatRoomScreen() {
   const { chatId } = useLocalSearchParams();

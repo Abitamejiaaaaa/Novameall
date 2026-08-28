@@ -10,11 +10,11 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import Toast from 'react-native-toast-message';
 
 export default function Pago() {
   const params = useLocalSearchParams();
   const cantidadRecibida = params.cantidadTacos ? Number(params.cantidadTacos) : 1;
-
 
   const lat = params.lat ? Number(params.lat) : null;
   const lng = params.lng ? Number(params.lng) : null;
@@ -28,6 +28,15 @@ export default function Pago() {
   const costoEnvio = 0.00;
   const total = subtotal + costoEnvio;
 
+  function simulacionDeCompra() {
+
+    Toast.show({
+      type: 'success',
+      text1: 'Payment successful',
+      text2: 'Your order has been successfully processed.',
+    });
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
@@ -40,21 +49,20 @@ export default function Pago() {
             <Text style={styles.title}>Payment</Text>
           </View>
 
-          <Text style={styles.section}>Payment Methood</Text>
+          <Text style={styles.section}>Payment Method</Text>
           <TouchableOpacity style={styles.box}>
             <View style={styles.visa}>
               <Text style={styles.visaText}>VISA</Text>
             </View>
             <View style={styles.info}>
               <Text style={styles.bold}>Visa **** 4589</Text>
-              <Text style={styles.orangeText}>Change Payment Methood</Text>
+              <Text style={styles.orangeText}>Change Payment Method</Text>
             </View>
             <Ionicons name="chevron-forward" size={25} color="#000" />
           </TouchableOpacity>
 
           <Text style={styles.section}>Delivery Address </Text>
-          
-          {/* SECCIÓN DE DIRECCIÓN DINÁMICA */}
+
           <TouchableOpacity style={styles.address} onPress={() => router.push("/MAPA")}>
             <Ionicons name="location" size={23} color="#000" style={{ marginTop: 2 }} />
             <View style={styles.info}>
@@ -72,7 +80,6 @@ export default function Pago() {
             <Ionicons name="chevron-forward" size={25} color="#000" />
           </TouchableOpacity>
 
-          {/* Resto de tu resumen de pedido... */}
           <Text style={styles.section}>Order Summary</Text>
           <View style={styles.order}>
             {productos.map((prod) => (
@@ -106,15 +113,15 @@ export default function Pago() {
             </View>
           </View>
 
-          <TouchableOpacity style={styles.confirm}>
+          {/* 3. El onPress se coloca directamente en el TouchableOpacity */}
+          <TouchableOpacity style={styles.confirm} onPress={()=> simulacionDeCompra()}>
             <Ionicons name="lock-closed" size={18} color="#fff" />
-            <Text style={styles.confirmText}>Confirn Order</Text>
+            <Text style={styles.confirmText}>Confirm Order</Text>
           </TouchableOpacity>
 
         </ScrollView>
       </View>
 
-      {/* Barra inferior */}
       <View style={styles.bottom}>
         <TouchableOpacity onPress={() => router.push("/(tabs)/Home")}>
           <Ionicons name="home-outline" size={27} color="#000" />
@@ -135,7 +142,7 @@ const styles = StyleSheet.create({
 
   content: { 
     flex: 1,
-     backgroundColor: '#FFFFFF', margin: 7, marginBottom: 0, borderTopLeftRadius: 24, borderTopRightRadius: 24, paddingHorizontal: 20 },
+    backgroundColor: '#FFFFFF', margin: 7, marginBottom: 0, borderTopLeftRadius: 24, borderTopRightRadius: 24, paddingHorizontal: 20 },
  
   scroll: {
     paddingTop: 14, 
@@ -297,5 +304,4 @@ const styles = StyleSheet.create({
     alignItems: 'center', 
     borderTopLeftRadius: 10, 
     borderTopRightRadius: 10 },
-
 });

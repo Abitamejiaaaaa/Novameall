@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useLocalSearchParams, Stack } from 'expo-router';
-import { GiftedChat } from 'react-native-gifted-chat';
-import { onAuthStateChanged } from 'firebase/auth';
+import { GiftedChat, IMessage } from 'react-native-gifted-chat';
+import { onAuthStateChanged, User } from 'firebase/auth';
 import { 
   collection, 
   addDoc, 
@@ -12,12 +12,12 @@ import {
   serverTimestamp 
 } from 'firebase/firestore';
 
-import { auth, db } from '../../../Firebase/config';
+import { auth, db } from '../../Firebase/chat';
 
 export default function ChatRoomScreen() {
   const { chatId } = useLocalSearchParams();
-  const [messages, setMessages] = useState([]);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [messages, setMessages] = useState<IMessage[]>([]);
+  const [currentUser, setCurrentUser] = useState<User | null>(null);
 
   useEffect(() => {
     const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
@@ -33,7 +33,7 @@ export default function ChatRoomScreen() {
     const q = query(messagesRef, orderBy('createdAt', 'desc'));
 
     const unsubscribeMessages = onSnapshot(q, (snapshot) => {
-      const fetchedMessages = snapshot.docs.map((docSnap) => {
+      const fetchedMessages: IMessage[] = snapshot.docs.map((docSnap) => {
         const data = docSnap.data();
 
         let createdAtDate = new Date();
@@ -47,7 +47,7 @@ export default function ChatRoomScreen() {
           createdAt: createdAtDate,
           user: {
             _id: data.user?._id || 'soporte_id',
-            name: data.user?.name || 'Soporte NovaMeal',
+            name: data.user?.name || 'Soporte NovaMeall',
           },
         };
       });
@@ -58,8 +58,7 @@ export default function ChatRoomScreen() {
     return () => unsubscribeMessages();
   }, [chatId]);
 
-
-  const onSend = useCallback(async (newMessages = []) => {
+  const onSend = useCallback(async (newMessages: IMessage[] = []) => {
     if (!chatId) return;
 
     const [messageToSend] = newMessages;

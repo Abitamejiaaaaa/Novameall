@@ -2,14 +2,13 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { auth } from '../../Firebase/config';
+import { auth } from '../../Firebase/chat';
 
 export default function ChatTabScreen() {
   const router = useRouter();
 
   const abrirSoporte = () => {
     const user = auth.currentUser;
-    // Si hay usuario usa su UID único, de lo contrario genera una sala temporal
     const supportChatId = user ? `soporte_${user.uid}` : 'soporte_invitado';
     router.push(`/chat/${supportChatId}` as never);
   };
@@ -17,7 +16,7 @@ export default function ChatTabScreen() {
   return (
     <View style={styles.container}>
       <Ionicons name="headset-outline" size={70} color="#F2B84B" style={styles.icon} />
-      <Text style={styles.title}>Atención al Cliente NovaMeal</Text>
+      <Text style={styles.title}>Atención al Cliente NovaMeall</Text>
       <Text style={styles.subtitle}>
         ¿Tienes un problema con un pedido o tu cuenta? Habla directamente con nuestro equipo de soporte.
       </Text>

@@ -3,15 +3,16 @@ import { StyleSheet, View } from 'react-native';
 import { useLocalSearchParams, Stack } from 'expo-router';
 import { GiftedChat, IMessage } from 'react-native-gifted-chat';
 import { onAuthStateChanged, User } from 'firebase/auth';
-import { 
-  collection, 
-  addDoc, 
-  onSnapshot, 
-  query, 
-  orderBy, 
-  serverTimestamp 
+import {
+  collection,
+  addDoc,
+  onSnapshot,
+  query,
+  orderBy,
+  serverTimestamp,
 } from 'firebase/firestore';
 
+// @ts-ignore
 import { auth, db } from '../../Firebase/chat';
 
 export default function ChatRoomScreen() {
@@ -23,13 +24,20 @@ export default function ChatRoomScreen() {
     const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
       setCurrentUser(user);
     });
+
     return () => unsubscribeAuth();
   }, []);
 
   useEffect(() => {
     if (!chatId) return;
 
-    const messagesRef = collection(db, 'chats', String(chatId), 'messages');
+    const messagesRef = collection(
+      db,
+      'chats',
+      String(chatId),
+      'messages'
+    );
+
     const q = query(messagesRef, orderBy('createdAt', 'desc'));
 
     const unsubscribeMessages = onSnapshot(q, (snapshot) => {
@@ -37,7 +45,11 @@ export default function ChatRoomScreen() {
         const data = docSnap.data();
 
         let createdAtDate = new Date();
-        if (data.createdAt && typeof data.createdAt.toDate === 'function') {
+
+        if (
+          data.createdAt &&
+          typeof data.createdAt.toDate === 'function'
+        ) {
           createdAtDate = data.createdAt.toDate();
         }
 
@@ -58,44 +70,68 @@ export default function ChatRoomScreen() {
     return () => unsubscribeMessages();
   }, [chatId]);
 
-  const onSend = useCallback(async (newMessages: IMessage[] = []) => {
-    if (!chatId) return;
+  const onSend = useCallback(
+    async (newMessages: IMessage[] = []) => {
+      if (!chatId || newMessages.length === 0) return;
 
-    const [messageToSend] = newMessages;
-    const senderId = currentUser ? currentUser.uid : 'cliente_anonimo';
-    const senderName = currentUser?.displayName || currentUser?.email || 'Cliente';
+      const messageToSend = newMessages[0];
 
-    try {
-      const messagesRef = collection(db, 'chats', String(chatId), 'messages');
-      await addDoc(messagesRef, {
-        text: messageToSend.text,
-        createdAt: serverTimestamp(),
-        user: {
-          _id: senderId,
-          name: senderName,
-        },
-      });
-    } catch (error) {
-      console.error("Error al enviar mensaje:", error);
-    }
-  }, [currentUser, chatId]);
+      const senderId = currentUser
+        ? currentUser.uid
+        : 'cliente_anonimo';
 
-  const currentUserId = currentUser ? currentUser.uid : 'cliente_anonimo';
+      const senderName =
+        currentUser?.displayName ||
+        currentUser?.email ||
+        'Cliente';
+
+      try {
+        const messagesRef = collection(
+          db,
+          'chats',
+          String(chatId),
+          'messages'
+        );
+
+        await addDoc(messagesRef, {
+          text: messageToSend.text,
+          createdAt: serverTimestamp(),
+          user: {
+            _id: senderId,
+            name: senderName,
+          },
+        });
+      } catch (error) {
+        console.error('Error al enviar mensaje:', error);
+      }
+    },
+    [currentUser, chatId]
+  );
+
+  const currentUserId = currentUser
+    ? currentUser.uid
+    : 'cliente_anonimo';
 
   return (
     <View style={styles.container}>
-      <Stack.Screen options={{ title: 'Soporte NovaMeal' }} />
+      <Stack.Screen
+        options={{ title: 'Soporte NovaMeal' }}
+      />
 
       <GiftedChat
         messages={messages}
         onSend={(msgs) => onSend(msgs)}
         user={{
           _id: currentUserId,
-          name: currentUser?.displayName || currentUser?.email || 'Cliente',
+          name:
+            currentUser?.displayName ||
+            currentUser?.email ||
+            'Cliente',
         }}
-        placeholder="Escribe tu mensaje..."
+        textInputProps={{
+          placeholder: 'Escribe tu mensaje...',
+        }}
         messagesContainerStyle={styles.messagesContainer}
-        isKeyboardInternallyHandled={false}
       />
     </View>
   );
@@ -106,6 +142,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
   },
+
   messagesContainer: {
     backgroundColor: '#FFFFFF',
   },

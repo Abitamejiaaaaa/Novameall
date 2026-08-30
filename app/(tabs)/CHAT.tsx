@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+// @ts-ignore
 import { auth } from '../../Firebase/chat';
 
 export default function ChatTabScreen() {

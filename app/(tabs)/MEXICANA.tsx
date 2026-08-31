@@ -1,58 +1,178 @@
 import React from "react";
 import {
-  Dimensions,
-  Image,
-  Pressable,
-  StyleSheet,
+  View,
   Text,
-  View
+  StyleSheet,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  ScrollView,
+  SafeAreaView,
+  Dimensions,
 } from "react-native";
 
-const width = Dimensions.get("window").width;
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
-export default function Queres() {
-  function iniciarSesion() {
-    throw new Error("Function not implemented.");
-  }
+const { width } = Dimensions.get("window");
 
+const restaurantes = [
+  {
+    id: 1,
+    nombre: "Restaurante Mexicano",
+    imagen:
+      "https://images.unsplash.com/photo-1552332386-f8dd00dc2f85?q=80&w=1000",
+  },
+  {
+    id: 2,
+    nombre: "La Bikina",
+    imagen:
+      "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?q=80&w=1000",
+  },
+  {
+    id: 3,
+    nombre: "El Patrón",
+    imagen:
+      "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?q=80&w=1000",
+  },
+  {
+    id: 4,
+    nombre: "Taquería",
+    imagen:
+      "https://images.unsplash.com/photo-1565299507177-b0ac66763828?q=80&w=1000",
+  },
+];
+
+export default function App() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <View style={styles.phone}>
+        
+        {/* CONTENIDO */}
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.scrollContent}
+        >
 
-      <View style={styles.fondoAmarillo} />
+          {/* HEADER */}
+          <View style={styles.header}>
+            <Image
+              source={{
+                uri: "",
+              }}
+              style={styles.headerImage}
+            />
 
-      <View style={styles.fondoBlanco} />
+            <View style={styles.overlay} />
 
-      <View style={styles.imageContainer}>
-        <Image
-          source={require("../../assets/images/Logo.jpeg")}
-          style={styles.logo}
-        />
+            <Text style={styles.title}>Mexicana</Text>
+          </View>
+
+          {/* BUSCADOR */}
+          <View style={styles.searchContainer}>
+            <TextInput
+              placeholder=""
+              style={styles.searchInput}
+            />
+
+            <Ionicons
+              name="search-outline"
+              size={32}
+              color="#111"
+              style={styles.searchIcon}
+            />
+          </View>
+
+          {/* RESTAURANTES */}
+          <View style={styles.restaurantsContainer}>
+
+            {restaurantes.map((restaurante) => (
+              <TouchableOpacity
+                key={restaurante.id}
+                style={styles.restaurantCard}
+                activeOpacity={0.8}
+              >
+
+                <Image
+                  source={{ uri: restaurante.imagen }}
+                  style={styles.restaurantImage}
+                />
+
+                {/* FLECHA */}
+                <View style={styles.arrowContainer}>
+                  <Ionicons
+                    name="chevron-forward"
+                    size={42}
+                    color="#fff"
+                  />
+                </View>
+
+              </TouchableOpacity>
+            ))}
+
+          </View>
+
+        </ScrollView>
+
+        {/* NAVBAR */}
+        <View style={styles.bottomBar}>
+
+          <TouchableOpacity>
+            <Ionicons
+              name="home-outline"
+              size={32}
+              color="#111"
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity>
+            <MaterialCommunityIcons
+              name="silverware-fork-knife"
+              size={32}
+              color="#111"
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity>
+            <Ionicons
+              name="heart-outline"
+              size={34}
+              color="#111"
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity>
+            <Ionicons
+              name="clipboard-outline"
+              size={32}
+              color="#111"
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity>
+            <Ionicons
+              name="headset-outline"
+              size={32}
+              color="#111"
+            />
+          </TouchableOpacity>
+
+        </View>
+
       </View>
-
-      
-      <Pressable
-        style={styles.button}
-        onPress={() => void iniciarSesion()}
-      >
-        <Text style={styles.buttonText}>
-          Are you an user?
-        </Text>
-      </Pressable>
-
-      <Pressable
-        style={styles.buttonB}
-        onPress={() => void iniciarSesion()}
-      >
-        <Text style={styles.buttonText}>
-          Are you a restaurant?
-        </Text>
-      </Pressable>
-
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+
+  phone: {
+    flex: 1,
+    position: "relative",
+  },
+
+  scrollContent: {
+    paddingBottom: 20,
+  },
 
   imageContainer: {
     alignItems: "center",
@@ -173,6 +293,89 @@ const styles = StyleSheet.create({
     marginTop: 150,
     backgroundColor: "#F2B84B",
     zIndex: 1,
+  },
+
+  bottomBar: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    paddingVertical: 12,
+    backgroundColor: "#FFFFFF",
+    borderTopWidth: 1,
+    borderTopColor: "#EEEEEE",
+  },
+
+  header: {
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+    marginBottom: 20,
+  },
+
+  headerImage: {
+    width: width * 0.9,
+    height: 200,
+    borderRadius: 15,
+  },
+
+  overlay: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(0, 0, 0, 0.2)",
+    borderRadius: 15,
+  },
+
+  searchContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginHorizontal: 20,
+    marginBottom: 20,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: "#CCCCCC",
+    borderRadius: 10,
+    backgroundColor: "#FFFFFF",
+  },
+
+  searchInput: {
+    flex: 1,
+    paddingVertical: 10,
+    fontSize: width * 0.04,
+  },
+
+  searchIcon: {
+    marginLeft: 10,
+  },
+
+  restaurantsContainer: {
+    flexDirection: "column",
+    paddingHorizontal: 20,
+    gap: 15,
+  },
+
+  restaurantCard: {
+    position: "relative",
+    borderRadius: 15,
+    overflow: "hidden",
+    height: 150,
+  },
+
+  restaurantImage: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+  },
+
+  arrowContainer: {
+    position: "absolute",
+    bottom: 10,
+    right: 10,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    borderRadius: 50,
+    padding: 5,
   },
 });
 

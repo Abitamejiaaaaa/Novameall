@@ -1,3 +1,4 @@
+import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 import {
   Dimensions,
@@ -5,174 +6,184 @@ import {
   Pressable,
   StyleSheet,
   Text,
-  View
+  View,
 } from "react-native";
 
 const width = Dimensions.get("window").width;
 
-export default function Queres() {
-  function iniciarSesion() {
-    throw new Error("Function not implemented.");
-  }
-
+export default function Configuracion() {
   return (
     <View style={styles.container}>
+      <View style={styles.header}>
+        <View style={styles.logoContainer}>
+          <Image
+            source={require("../../assets/images/Logo.jpeg")}
+            style={styles.logo}
+          />
+        </View>
 
-      <View style={styles.fondoAmarillo} />
-
-      <View style={styles.fondoBlanco} />
-
-      <View style={styles.imageContainer}>
-        <Image
-          source={require("../../assets/images/Logo.jpeg")}
-          style={styles.logo}
-        />
+        <View style={styles.profile}>
+          <Ionicons name="person" size={25} color="#555" />
+        </View>
       </View>
 
-      
-      <Pressable
-        style={styles.button}
-        onPress={() => void iniciarSesion()}
-      >
-        <Text style={styles.buttonText}>
-          Are you an user?
-        </Text>
-      </Pressable>
+      <Text style={styles.title}>Configuración</Text>
 
-      <Pressable
-        style={styles.buttonB}
-        onPress={() => void iniciarSesion()}
-      >
-        <Text style={styles.buttonText}>
-          Are you a restaurant?
-        </Text>
-      </Pressable>
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>Mi cuenta</Text>
 
+        <Pressable style={styles.option}>
+          <Ionicons name="person-outline" size={23} color="#444" />
+          <Text style={styles.optionText}>
+            Mi cuenta y datos personales
+          </Text>
+        </Pressable>
+
+        <Pressable style={styles.option}>
+          <Ionicons name="lock-closed-outline" size={23} color="#444" />
+          <Text style={styles.optionText}>
+            Cambiar contraseñas
+          </Text>
+        </Pressable>
+      </View>
+
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>Preferencias</Text>
+
+        <Pressable style={styles.option}>
+          <Ionicons name="card-outline" size={23} color="#444" />
+          <Text style={styles.optionText}>Métodos de pago</Text>
+        </Pressable>
+
+        <Pressable style={styles.option}>
+          <Ionicons name="notifications-outline" size={23} color="#444" />
+          <Text style={styles.optionText}>Notificaciones</Text>
+        </Pressable>
+
+        <Pressable style={styles.option}>
+          <Ionicons name="language-outline" size={23} color="#444" />
+          <Text style={styles.optionText}>Idioma</Text>
+        </Pressable>
+      </View>
+
+      <View style={styles.card}>
+        <Text style={styles.cardTitle}>Ayuda y soporte</Text>
+
+        <Pressable style={styles.option}>
+          <Ionicons name="help-circle-outline" size={23} color="#444" />
+          <Text style={styles.optionText}>Ayuda y soporte</Text>
+        </Pressable>
+
+        <Pressable style={styles.option}>
+          <Ionicons
+            name="shield-checkmark-outline"
+            size={23}
+            color="#444"
+          />
+          <Text style={styles.optionText}>
+            Políticas de privacidad
+          </Text>
+        </Pressable>
+      </View>
+
+      <Pressable style={styles.logoutButton}>
+        <Text style={styles.logoutText}>Cerrar sesión</Text>
+      </Pressable>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-
-  imageContainer: {
-    alignItems: "center",
-    backgroundColor: "#FFFFFF",
-    height: 150,
-    justifyContent: "center",
-    marginTop: 45,
-    borderRadius: 30,
-  },
-
-
-
-  fondoAmarillo: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    height: "40%",
-    backgroundColor: "#F2B84B",
-  },
-
-  fondoBlanco: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 550,
-    backgroundColor: "#FFFFFF",
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-
-  },
-
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#FFD45F",
+    paddingHorizontal: width * 0.09,
+    paddingTop: 35,
+  },
+
+  header: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "center",
-    
+  },
+
+  logoContainer: {
+    alignItems: "center",
   },
 
   logo: {
-    width: width * 0.42,
-    height: width * 0.42,
+    width: width * 0.18,
+    height: width * 0.18,
     resizeMode: "contain",
-    marginTop: 30,
-    marginBottom: 20,
-    zIndex: 1,
+  },
+
+  profile: {
+    width: width * 0.11,
+    height: width * 0.11,
+    borderRadius: width * 0.06,
+    backgroundColor: "#E8C45A",
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   title: {
-    fontSize: width * 0.08,
+    fontSize: width * 0.065,
     fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 10,
-    zIndex: 1,
+    marginTop: 18,
+    marginBottom: 25,
+    color: "#111",
   },
 
-  subtitle: {
-    fontSize: width * 0.04,
-    textAlign: "center",
-    marginBottom: 30,
-    color: "#666",
-    zIndex: 1,
-  },
-
-  label: {
-    width: "90%",
-    fontSize: width * 0.04,
-    fontWeight: "600",
-    marginBottom: 8,
-    zIndex: 1,
-  },
-
-  input: {
-    width: "90%",
-    borderWidth: 1,
-    borderColor: "#CCCCCC",
-    borderRadius: 10,
-    paddingHorizontal: 15,
-    paddingVertical: 12,
-    marginBottom: 18,
-    fontSize: width * 0.04,
+  card: {
+    width: "100%",
     backgroundColor: "#FFFFFF",
-    zIndex: 1,
+    borderRadius: 18,
+    paddingHorizontal: width * 0.045,
+    paddingVertical: 14,
+    marginBottom: 24,
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+    elevation: 5,
   },
 
-  button: {
-    width: "90%",
-    paddingVertical: 15,
-    borderRadius: 30,
-    alignItems: "center",
-    marginTop: 150,
-    backgroundColor: "#B8D95B",
-    zIndex: 1,
-  },
-
-  buttonText: {
+  cardTitle: {
     fontSize: width * 0.05,
     fontWeight: "bold",
-    color: "#000",
+    color: "#222",
+    marginBottom: 7,
   },
 
-  olvidaste: {
-    marginTop: 15,
-    fontSize: width * 0.035,
-    color: "#DA8D07",
-    fontWeight: "600",
-    textAlign: "center",
-    zIndex: 1,
-  },
-
-
-    buttonB: {
-    width: "90%",
-    paddingVertical: 15,
-    borderRadius: 30,
+  option: {
+    flexDirection: "row",
     alignItems: "center",
-    marginTop: 150,
-    backgroundColor: "#F2B84B",
-    zIndex: 1,
+    minHeight: 47,
+  },
+
+  optionText: {
+    fontSize: width * 0.04,
+    color: "#333",
+    marginLeft: 14,
+  },
+
+  logoutButton: {
+    width: "85%",
+    alignSelf: "center",
+    height: 52,
+    borderRadius: 28,
+    backgroundColor: "#FF9700",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+
+  logoutText: {
+    fontSize: width * 0.04,
+    fontWeight: "bold",
+    color: "#222",
   },
 });
-

@@ -1,4 +1,12 @@
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+declare module "react-native" {
+  export const Dimensions: any;
+  export const Image: any;
+  export const Pressable: any;
+  export const StyleSheet: any;
+  export const Text: any;
+  export const View: any;
+}
+
 import React from "react";
 import {
   Dimensions,

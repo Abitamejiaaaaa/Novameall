@@ -67,7 +67,7 @@ export default function App() {
             style={styles.headerImage}
           />
 
-          {/* Oscurecer un poco la imagen */}
+          {}
           <View style={styles.headerOverlay} />
 
           <Text style={styles.title}>Almuerzos</Text>
@@ -103,7 +103,8 @@ export default function App() {
 
         </View>
 
-        {/* ================= CATEGORÍAS ================= */}
+        {
+      }
 
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -187,7 +188,7 @@ export default function App() {
             </Text>
           </TouchableOpacity>
 
-          {/* RESTAURANTES */}
+          {}
 
           <TouchableOpacity
             style={styles.navButton}
@@ -204,7 +205,7 @@ export default function App() {
             </Text>
           </TouchableOpacity>
 
-          {/* FAVORITOS */}
+          {}
 
           <TouchableOpacity
             style={styles.navButton}
@@ -225,7 +226,7 @@ export default function App() {
             </Text>
           </TouchableOpacity>
 
-          {/* PEDIDOS */}
+          {}
 
           <TouchableOpacity
             style={styles.navButton}
@@ -242,7 +243,7 @@ export default function App() {
             </Text>
           </TouchableOpacity>
 
-          {/* SOPORTE */}
+          {}
 
           <TouchableOpacity
             style={styles.navButton}

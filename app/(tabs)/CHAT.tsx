@@ -17,14 +17,14 @@ export default function ChatTabScreen() {
   return (
     <View style={styles.container}>
       <Ionicons name="headset-outline" size={70} color="#F2B84B" style={styles.icon} />
-      <Text style={styles.title}>Atención al Cliente NovaMeall</Text>
+      <Text style={styles.title}>Customer Support NovaMeall</Text>
       <Text style={styles.subtitle}>
-        ¿Tienes un problema con un pedido o tu cuenta? Habla directamente con nuestro equipo de soporte.
+        Having an issue with an order or your account? Talk directly to our support team.
       </Text>
 
       <TouchableOpacity style={styles.button} onPress={abrirSoporte}>
         <Ionicons name="chatbubbles-outline" size={20} color="#000" style={{ marginRight: 8 }} />
-        <Text style={styles.buttonText}>Iniciar Chat de Ayuda</Text>
+        <Text style={styles.buttonText}>Start Support Chat</Text>
       </TouchableOpacity>
     </View>
   );

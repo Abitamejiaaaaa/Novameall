@@ -1,5 +1,4 @@
-
-import { useRouter } from 'expo-router';
+https://github.com/Abitamejiaaaaa/Novameall.git
 import React, { useState } from 'react';
 import {
   Dimensions,
@@ -13,8 +12,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 
 const { width, height } = Dimensions.get('window');
 
+const router = {
+  push: (_route: string | { pathname: string; params?: Record<string, unknown> }) => undefined,
+};
+
 export default function Cantidad() {
-  const router = useRouter();
   const [cantidad, setCantidad] = useState(1);
 
   const aumentar = () => {
@@ -45,7 +47,7 @@ export default function Cantidad() {
 
         <View style={styles.profileContainer}>
           <Image
-            source={require('../../assets/images/Hamburger.jpg')}
+            source={require('../../assets/images/tacos.jpg')}
             style={styles.profileImage}
             resizeMode="cover"
           />

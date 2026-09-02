@@ -1,4 +1,4 @@
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import React from "react";
 import {
   Dimensions,
@@ -29,11 +29,11 @@ export default function Explorar() {
           />
 
           <Text style={styles.title}>
-            TAQUERIA
+            HAMBURGER K
           </Text>
 
           <Text style={styles.description}>
-            En el corazón de la ciudad, esta taquería combina
+            En el corazón de un pequeño negocio, esta taquería combina
             el espíritu festivo de México con el calor humano
             salvadoreño. El aroma de las tortillas recién
             hechas y la carne asada al carbón se mezcla con
@@ -69,7 +69,7 @@ export default function Explorar() {
       <View style={styles.bottomBar}>
 
         <Pressable style={styles.navButton}>
-          <MaterialCommunityIcons
+          <Ionicons
             name="home-outline"
             size={28}
             color="#432400"
@@ -85,7 +85,7 @@ export default function Explorar() {
         </Pressable>
 
         <Pressable style={styles.navButton}>
-          <MaterialCommunityIcons
+          <Ionicons
             name="heart-outline"
             size={30}
             color="#432400"
@@ -93,7 +93,7 @@ export default function Explorar() {
         </Pressable>
 
         <Pressable style={styles.navButton}>
-          <MaterialCommunityIcons
+          <Ionicons
             name="clipboard-outline"
             size={28}
             color="#432400"
@@ -101,8 +101,8 @@ export default function Explorar() {
         </Pressable>
 
         <Pressable style={styles.navButton}>
-          <MaterialCommunityIcons
-            name="headset"
+          <Ionicons
+            name="headset-outline"
             size={28}
             color="#432400"
           />

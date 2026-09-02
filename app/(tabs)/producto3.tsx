@@ -1,4 +1,4 @@
-
+https://github.com/Abitamejiaaaaa/Novameall.git
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
@@ -45,7 +45,7 @@ export default function Cantidad() {
 
         <View style={styles.profileContainer}>
           <Image
-            source={require('../../assets/images/Hamburger.jpg')}
+            source={require('../../assets/images/tacos.jpg')}
             style={styles.profileImage}
             resizeMode="cover"
           />

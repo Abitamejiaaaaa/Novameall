@@ -1,7 +1,7 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import { useRouter } from 'expo-router';
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 // @ts-ignore
 import { auth } from '../../Firebase/chat';
 
@@ -11,7 +11,7 @@ export default function ChatTabScreen() {
   const abrirSoporte = () => {
     const user = auth.currentUser;
     const supportChatId = user ? `soporte_${user.uid}` : 'soporte_invitado';
-    router.push(`/chat/${supportChatId}` as never);
+    router.push(`/chat/${supportChatId}`);
   };
 
   return (

@@ -1,13 +1,11 @@
 import React, { useState } from 'react';
 import { View, StyleSheet } from 'react-native';
-import { GiftedChat } from 'react-native-gifted-chat';
-import { useLocalSearchParams } from 'expo-router';
+import { GiftedChat, IMessage } from 'react-native-gifted-chat';
 
 export default function RestaurantChatScreen() {
-  const { restaurantName } = useLocalSearchParams();
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState<IMessage[]>([]);
 
-  const onSend = (newMessages = []) => {
+  const onSend = (newMessages: IMessage[] = []) => {
     setMessages(previousMessages =>
       GiftedChat.append(previousMessages, newMessages)
     );

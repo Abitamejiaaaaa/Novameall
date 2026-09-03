@@ -1,4 +1,4 @@
-https://github.com/Abitamejiaaaaa/Novameall.git
+
 import React, { useState } from 'react';
 import {
   Dimensions,

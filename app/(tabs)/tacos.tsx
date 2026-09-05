@@ -45,7 +45,7 @@ export default function Cantidad() {
 
         <View style={styles.profileContainer}>
           <Image
-            source={require('../../assets/images/Hamburger.jpg')}
+            source={require('../../assets/images/Restaurante.jpeg')}
             style={styles.profileImage}
             resizeMode="cover"
           />

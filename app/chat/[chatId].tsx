@@ -1,138 +1,206 @@
-import React, { useEffect, useState, useCallback } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { useLocalSearchParams, Stack } from 'expo-router';
-import { GiftedChat, IMessage } from 'react-native-gifted-chat';
-import { onAuthStateChanged, User } from 'firebase/auth';
+import React, { useState, useEffect, useCallback } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { GiftedChat, Bubble, Send, IMessage } from 'react-native-gifted-chat';
+import { Ionicons } from '@expo/vector-icons';
+import { Stack, useRouter, useLocalSearchParams } from 'expo-router';
 import {
   collection,
-  addDoc,
-  onSnapshot,
   query,
   orderBy,
+  onSnapshot,
+  addDoc,
   serverTimestamp,
 } from 'firebase/firestore';
+import { onAuthStateChanged, User } from 'firebase/auth';
 
-// @ts-ignore
-import { auth, db } from '../../Firebase/chat';
+import { db, auth } from '../../Firebase/chat';
 
-export default function ChatRoomScreen() {
+const logo = require('../../assets/images/Logo.jpeg');
+
+export default function SupportChatScreen() {
+  const router = useRouter();
   const { chatId } = useLocalSearchParams();
-  const [messages, setMessages] = useState<IMessage[]>([]);
-  const [currentUser, setCurrentUser] = useState<User | null>(null);
 
+  const [messages, setMessages] = useState<IMessage[]>([]);
+  const [firebaseUser, setFirebaseUser] = useState<User | null>(null);
+
+  // Detectar al usuario REAL que inició sesión en Firebase
   useEffect(() => {
-    const unsubscribeAuth = onAuthStateChanged(auth, (user) => {
-      setCurrentUser(user);
+    const unsubscribe = onAuthStateChanged(auth, user => {
+      setFirebaseUser(user);
     });
 
-    return () => unsubscribeAuth();
+    return unsubscribe;
   }, []);
 
+  // Escuchar los mensajes
   useEffect(() => {
-    if (!chatId) return;
+    if (!chatId || !firebaseUser) return;
 
-    const messagesRef = collection(
+    const ref = collection(
       db,
       'chats',
       String(chatId),
       'messages'
     );
 
-    const q = query(messagesRef, orderBy('createdAt', 'desc'));
+    const q = query(
+      ref,
+      orderBy('createdAt', 'desc')
+    );
 
-    const unsubscribeMessages = onSnapshot(q, (snapshot) => {
-      const fetchedMessages: IMessage[] = snapshot.docs.map((docSnap) => {
-        const data = docSnap.data();
+    const unsubscribe = onSnapshot(
+      q,
+      snapshot => {
+        const loadedMessages: IMessage[] = snapshot.docs.map(doc => {
+          const data = doc.data();
 
-        let createdAtDate = new Date();
+          return {
+            _id: doc.id,
+            text: data.text || '',
+            createdAt:
+              data.createdAt?.toDate?.() || new Date(),
+            user: {
+              _id: data.user?._id || 'soporte',
+              name: data.user?.name || 'NovaMeall Support',
+            },
+          };
+        });
 
-        if (
-          data.createdAt &&
-          typeof data.createdAt.toDate === 'function'
-        ) {
-          createdAtDate = data.createdAt.toDate();
-        }
+        setMessages(loadedMessages);
+      },
+      error => {
+        console.log('Error leyendo mensajes:', error);
+      }
+    );
 
-        return {
-          _id: docSnap.id,
-          text: data.text || '',
-          createdAt: createdAtDate,
-          user: {
-            _id: data.user?._id || 'soporte_id',
-            name: data.user?.name || 'Soporte NovaMeall',
-          },
-        };
-      });
+    return unsubscribe;
+  }, [chatId, firebaseUser]);
 
-      setMessages(fetchedMessages);
-    });
-
-    return () => unsubscribeMessages();
-  }, [chatId]);
-
+  // Enviar mensaje
   const onSend = useCallback(
     async (newMessages: IMessage[] = []) => {
-      if (!chatId || newMessages.length === 0) return;
+      if (!chatId || !newMessages.length || !firebaseUser) {
+        console.log('No hay usuario autenticado.');
+        return;
+      }
 
-      const messageToSend = newMessages[0];
-
-      const senderId = currentUser
-        ? currentUser.uid
-        : 'cliente_anonimo';
-
-      const senderName =
-        currentUser?.displayName ||
-        currentUser?.email ||
-        'Cliente';
+      const message = newMessages[0];
 
       try {
-        const messagesRef = collection(
+        const ref = collection(
           db,
           'chats',
           String(chatId),
           'messages'
         );
 
-        await addDoc(messagesRef, {
-          text: messageToSend.text,
+        await addDoc(ref, {
+          text: message.text,
           createdAt: serverTimestamp(),
           user: {
-            _id: senderId,
-            name: senderName,
+            _id: firebaseUser.uid,
+            name:
+              firebaseUser.displayName ||
+              firebaseUser.email ||
+              'Customer',
           },
         });
       } catch (error) {
-        console.error('Error al enviar mensaje:', error);
+        console.log('Error enviando mensaje:', error);
       }
     },
-    [currentUser, chatId]
+    [chatId, firebaseUser]
   );
-
-  const currentUserId = currentUser
-    ? currentUser.uid
-    : 'cliente_anonimo';
 
   return (
     <View style={styles.container}>
-      <Stack.Screen
-        options={{ title: 'Soporte NovaMeal' }}
-      />
+      <Stack.Screen options={{ headerShown: false }} />
 
-      <GiftedChat
-        messages={messages}
-        onSend={(msgs) => onSend(msgs)}
-        user={{
-          _id: currentUserId,
-          name:
-            currentUser?.displayName ||
-            currentUser?.email ||
-            'Cliente',
-        }}
-        textInputProps={{
-          placeholder: 'Escribe tu mensaje...',
-        }}
-        messagesContainerStyle={styles.messagesContainer}
-      />
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => router.back()}>
+          <Ionicons
+            name="chevron-back"
+            size={28}
+            color="#31583F"
+          />
+        </TouchableOpacity>
+
+        <Image
+          source={logo}
+          style={styles.logo}
+        />
+
+        <View style={{ flex: 1 }}>
+          <Text style={styles.title}>
+            NovaMeall Support
+          </Text>
+
+          <Text style={styles.online}>
+            ● We're here to help
+          </Text>
+        </View>
+
+        <Ionicons
+          name="headset-outline"
+          size={25}
+          color="#31583F"
+        />
+      </View>
+
+      <View style={styles.chat}>
+        <View style={styles.welcome}>
+          <Ionicons
+            name="chatbubble-ellipses-outline"
+            size={22}
+            color="#D99A22"
+          />
+
+          <View>
+            <Text style={styles.welcomeTitle}>
+              How can we help?
+            </Text>
+
+            <Text style={styles.welcomeText}>
+              Send us a message and we'll help you.
+            </Text>
+          </View>
+        </View>
+
+        <GiftedChat
+          messages={messages}
+          onSend={onSend}
+          user={{
+            _id: firebaseUser?.uid || 'no-auth',
+          }}
+          placeholder="Write a message..."
+          alwaysShowSend
+          renderBubble={props => (
+            <Bubble
+              {...props}
+              wrapperStyle={{
+                left: styles.leftBubble,
+                right: styles.rightBubble,
+              }}
+              textStyle={{
+                left: styles.leftText,
+                right: styles.rightText,
+              }}
+            />
+          )}
+          renderSend={props => (
+            <Send {...props}>
+              <View style={styles.send}>
+                <Ionicons
+                  name="send"
+                  size={18}
+                  color="#FFFFFF"
+                />
+              </View>
+            </Send>
+          )}
+        />
+      </View>
     </View>
   );
 }
@@ -140,10 +208,93 @@ export default function ChatRoomScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#FFF8E8',
+  },
+
+  header: {
+    height: 90,
+    backgroundColor: '#F4BB45',
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    gap: 12,
+  },
+
+  logo: {
+    width: 48,
+    height: 48,
+    borderRadius: 14,
     backgroundColor: '#FFFFFF',
   },
 
-  messagesContainer: {
+  title: {
+    fontSize: 17,
+    fontWeight: '800',
+    color: '#000000',
+  },
+
+  online: {
+    color: '#000000',
+    fontSize: 12,
+    marginTop: 3,
+  },
+
+  chat: {
+    flex: 1,
+    margin: 12,
     backgroundColor: '#FFFFFF',
+    borderRadius: 22,
+    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: '#F4BB45',
+  },
+
+  welcome: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    padding: 14,
+    borderBottomWidth: 1,
+    borderBottomColor: '#F4BB45',
+  },
+
+  welcomeTitle: {
+    fontWeight: '800',
+    color: '#000000',
+  },
+
+  welcomeText: {
+    fontSize: 11,
+    color: '#000000',
+    marginTop: 2,
+  },
+
+  leftBubble: {
+    backgroundColor: '#FFF3D6',
+    borderRadius: 18,
+  },
+
+  rightBubble: {
+    backgroundColor: '#4C8C63',
+    borderRadius: 18,
+  },
+
+  leftText: {
+    color: '#000000',
+  },
+
+  rightText: {
+    color: '#FFFFFF',
+  },
+
+  send: {
+    width: 42,
+    height: 42,
+    borderRadius: 21,
+    backgroundColor: '#F4BB45',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 5,
+    marginBottom: 5,
   },
 });

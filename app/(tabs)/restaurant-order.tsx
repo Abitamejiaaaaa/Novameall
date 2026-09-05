@@ -223,7 +223,6 @@ export default function RestaurantOrderScreen() {
         data={filteredOrders}
         keyExtractor={item => item.id}
         renderItem={renderOrder}
-        showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.list}
         ListEmptyComponent={
           <View style={styles.empty}>

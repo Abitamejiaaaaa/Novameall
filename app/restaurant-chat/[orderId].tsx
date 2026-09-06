@@ -1,38 +1,40 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  Image,
-  KeyboardAvoidingView,
-  Platform,
-} from 'react-native';
-import {
-  GiftedChat,
-  Bubble,
-  Send,
-  IMessage,
-  InputToolbar,
-  Composer,
-} from 'react-native-gifted-chat';
 import { Ionicons } from '@expo/vector-icons';
 import {
   Stack,
-  useRouter,
   useLocalSearchParams,
+  useRouter,
 } from 'expo-router';
+import { onAuthStateChanged, User } from 'firebase/auth';
 import {
-  collection,
-  query,
-  orderBy,
-  onSnapshot,
   addDoc,
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
   serverTimestamp,
 } from 'firebase/firestore';
-import { onAuthStateChanged, User } from 'firebase/auth';
+import React, { useCallback, useEffect, useState } from 'react';
+import {
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {
+  Bubble,
+  Composer,
+  GiftedChat,
+  IMessage,
+  InputToolbar,
+  Send,
+} from 'react-native-gifted-chat';
 
-import { db, auth } from '../../Firebase/chat';
+// Firebase/chat is a JavaScript module without TypeScript declarations.
+// @ts-expect-error The module is intentionally consumed as the existing JS implementation.
+import { auth, db } from '../../Firebase/chat';
 
 const logo = require('../../assets/images/Logo.jpeg');
 
@@ -268,11 +270,9 @@ export default function RestaurantChatScreen() {
               firebaseUser?.uid ||
               'restaurant',
           }}
-          placeholder="Write a message..."
-          alwaysShowSend
-          scrollToBottom
-          textInputProps={{
+            textInputProps={{
             style: styles.composer,
+            placeholder: 'Write a message...',
             placeholderTextColor: '#808080'
           }}
           renderBubble={props => (
@@ -292,7 +292,6 @@ export default function RestaurantChatScreen() {
           renderSend={props => (
             <Send
               {...props}
-              disabled={!firebaseUser}
             >
               <View
                 style={[
@@ -325,11 +324,11 @@ export default function RestaurantChatScreen() {
           renderComposer={props => (
             <Composer
               {...props}
-              textInputStyle={
-                styles.composer
-              }
-              placeholder="Write a message..."
-              placeholderTextColor="#808080"
+              textInputProps={{
+                style: styles.composer,
+                placeholder: 'Write a message...',
+                placeholderTextColor: '#808080',
+              }}
             />
           )}
         />

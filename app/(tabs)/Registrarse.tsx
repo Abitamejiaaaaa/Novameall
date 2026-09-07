@@ -15,7 +15,7 @@ import {
   View,
 } from "react-native";
 import { auth, db } from "../../Firebase/config";
-import { navigate } from "expo-router/build/global-state/routing";
+import { useRouter } from "expo-router";
 
 const { width, height } = Dimensions.get("window");
 
@@ -26,8 +26,11 @@ export default function Registro() {
   const [password, setPassword] = useState<string>("");
   const [showPassword, setShowPassword] = useState<boolean>(false);
 
+  const router = useRouter();
+
   const registrarUsuario = async (): Promise<void> => {
-    if (!name.trim|| !lastname.trim || !email.trim || !password) {
+
+    if (!name.trim() || !lastname.trim() || !email.trim() || !password) {
       Alert.alert("Incomplete Fields", "Please fill in all fields.");
       return;
     }
@@ -48,7 +51,7 @@ export default function Registro() {
       return;
     }
 
-    if(!/[a-zA-Z]+$/.test(name) || !/[a-zA-Z]+$/.test(lastname)  || /[0-9]/.test(name) || /[0-9]/.test(lastname)) {
+    if (!/[a-zA-Z]+$/.test(name) || !/[a-zA-Z]+$/.test(lastname) || /[0-9]/.test(name) || /[0-9]/.test(lastname)) {
       Alert.alert(
         "Invalid Name",
         "Please enter a valid name (letters only)."
@@ -79,7 +82,7 @@ export default function Registro() {
       setEmail("");
       setPassword("");
 
-      navigate("/Home");
+      router.replace("/Home"); 
 
     } catch (error: unknown) {
       console.log(error); 
@@ -103,13 +106,11 @@ export default function Registro() {
 
   return (
     <SafeAreaView style={styles.container}>
-      
       <ScrollView
         contentContainerStyle={styles.scrollContent}
         bounces={false}
         showsVerticalScrollIndicator={false}
       >
-
         <View style={styles.header}>
           <View style={styles.logoContainer}>
             <Image
@@ -121,7 +122,6 @@ export default function Registro() {
         </View>
 
         <View style={styles.card}>
-
           <View style={[styles.dot, styles.dot1]} />
           <View style={[styles.dot, styles.dot2]} />
           <View style={[styles.dot, styles.dot3]} />
@@ -146,7 +146,6 @@ export default function Registro() {
               />
             </View>
 
-
             <Text style={styles.label}>Last Name</Text>
             <View style={styles.inputContainer}>
               <FontAwesome name="user" size={18} color="#E89218" style={styles.inputIcon} />
@@ -158,7 +157,6 @@ export default function Registro() {
                 onChangeText={(text: string) => setLastname(text)}
               />
             </View>
-
 
             <Text style={styles.label}>Email Address</Text>
             <View style={styles.inputContainer}>
@@ -173,7 +171,6 @@ export default function Registro() {
                 onChangeText={(text: string) => setEmail(text)}
               />
             </View>
-
 
             <Text style={styles.label}>Password</Text>
             <View style={styles.inputContainer}>

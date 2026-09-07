@@ -11,25 +11,8 @@ import {
   View,
 } from "react-native";
 
-export default function Cantidad() {
-  const [cantidad, setCantidad] = useState(1);
-
-  const aumentar = () => {
-    setCantidad(cantidad + 1);
-  };
-
-  const disminuir = () => {
-    if (cantidad > 1) {
-      setCantidad(cantidad - 1);
-    }
-  };
-
-  const irAPagar = () => {
-    router.push({
-      pathname: "/Pago",
-      params: { cantidadTacos: cantidad },
-    });
-  };
+export default function Restaurante() {
+  const [cantidad, setCantidad] = useState(5);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -46,7 +29,7 @@ export default function Cantidad() {
           </Pressable>
 
           <Image
-            source={require("../../assets/images/Restaurante.jpeg")}
+            source={require("../../assets/images/local-spagueti.jpg")}
             style={styles.profile}
           />
 
@@ -55,7 +38,7 @@ export default function Cantidad() {
           </Pressable>
 
           <Image
-            source={require("../../assets/images/tacos.jpg")}
+            source={require("../../assets/images/spagueti.webp")}
             style={styles.foodImage}
           />
 
@@ -66,14 +49,14 @@ export default function Cantidad() {
 
         <View style={styles.content}>
           <View style={styles.titleRow}>
-            <Text style={styles.title}>Tacos</Text>
-            <Text style={styles.price}>$3.25</Text>
+            <Text style={styles.title}>Espagueti</Text>
+            <Text style={styles.price}>$6.00</Text>
           </View>
 
           <View style={styles.infoRow}>
             <View style={styles.infoItem}>
               <Ionicons name="star" size={23} color="#000000" />
-              <Text style={styles.infoText}>4.5</Text>
+              <Text style={styles.infoText}>4.9</Text>
             </View>
 
             <View style={styles.infoItem}>
@@ -88,26 +71,40 @@ export default function Cantidad() {
           </View>
 
           <Text style={styles.description}>
-            Imagine the irresistible aroma of freshly grilled meat, the sizzling
-            on the griddle, and the warmth of a soft tortilla embracing every
-            ingredient. Our tacos are not just food: they are a direct journey
-            into tradition, prepared with authentic recipes and that special
-            touch only achieved with passion.
+            Delicioso espagueti preparado con pasta perfectamente cocida,
+            acompañado de una sabrosa salsa de tomate, carne sazonada y queso
+            parmesano. Una comida casera, deliciosa y perfecta para compartir.
           </Text>
 
           <View style={styles.buyRow}>
-            <Pressable style={styles.buyButton} onPress={irAPagar}>
+            <Pressable
+              style={styles.buyButton}
+              onPress={() =>
+                router.push({
+                  pathname: "/(tabs)/pagos",
+                  params: { producto: "espagueti" },
+                })
+              }
+            >
               <Text style={styles.buyText}>Comprar</Text>
             </Pressable>
 
             <View style={styles.quantity}>
-              <Pressable onPress={aumentar} style={styles.quantityButton}>
+              <Pressable
+                onPress={() => setCantidad(cantidad + 1)}
+                style={styles.quantityButton}
+              >
                 <Text style={styles.quantitySymbol}>+</Text>
               </Pressable>
 
               <Text style={styles.quantityNumber}>{cantidad}</Text>
 
-              <Pressable onPress={disminuir} style={styles.quantityButton}>
+              <Pressable
+                onPress={() =>
+                  setCantidad(cantidad > 1 ? cantidad - 1 : 1)
+                }
+                style={styles.quantityButton}
+              >
                 <Text style={styles.quantitySymbol}>−</Text>
               </Pressable>
             </View>
@@ -116,7 +113,7 @@ export default function Cantidad() {
       </ScrollView>
 
       <View style={styles.bottomBar}>
-        <Pressable onPress={() => router.push("/(tabs)/Home")}>
+        <Pressable>
           <Ionicons name="home-outline" size={27} color="#000000" />
         </Pressable>
 

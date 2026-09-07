@@ -125,13 +125,13 @@ export default function MapaScreen() {
   return (
     <SafeAreaView style={styles.container}>
 
-      {/* ENCABEZADO */}
+
       <View style={styles.header}>
         <Image style={styles.logo} source={require('../../assets/images/Logo.jpeg')}></Image>
         <Text style={styles.headerTitle}>Location</Text>
       </View>
 
-      {/* MAPA */}
+
       <MapView
         provider={PROVIDER_GOOGLE}
         style={styles.map}
@@ -151,7 +151,6 @@ export default function MapaScreen() {
         />
       </MapView>
 
-      {/* INFORMACIÓN */}
       <View style={styles.infoContainer}>
 
         <Text style={styles.title}>

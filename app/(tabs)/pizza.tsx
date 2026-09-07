@@ -11,25 +11,8 @@ import {
   View,
 } from "react-native";
 
-export default function Cantidad() {
+export default function Restaurante() {
   const [cantidad, setCantidad] = useState(1);
-
-  const aumentar = () => {
-    setCantidad(cantidad + 1);
-  };
-
-  const disminuir = () => {
-    if (cantidad > 1) {
-      setCantidad(cantidad - 1);
-    }
-  };
-
-  const irAPagar = () => {
-    router.push({
-      pathname: "/Pago",
-      params: { cantidadTacos: cantidad },
-    });
-  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -46,7 +29,7 @@ export default function Cantidad() {
           </Pressable>
 
           <Image
-            source={require("../../assets/images/Restaurante.jpeg")}
+            source={require("../../assets/images/Restaurante.webp")}
             style={styles.profile}
           />
 
@@ -55,7 +38,7 @@ export default function Cantidad() {
           </Pressable>
 
           <Image
-            source={require("../../assets/images/tacos.jpg")}
+            source={require("../../assets/images/Pizza.jpg")}
             style={styles.foodImage}
           />
 
@@ -66,14 +49,14 @@ export default function Cantidad() {
 
         <View style={styles.content}>
           <View style={styles.titleRow}>
-            <Text style={styles.title}>Tacos</Text>
-            <Text style={styles.price}>$3.25</Text>
+            <Text style={styles.title}>Pizza</Text>
+            <Text style={styles.price}>$5.50</Text>
           </View>
 
           <View style={styles.infoRow}>
             <View style={styles.infoItem}>
               <Ionicons name="star" size={23} color="#000000" />
-              <Text style={styles.infoText}>4.5</Text>
+              <Text style={styles.infoText}>4.8</Text>
             </View>
 
             <View style={styles.infoItem}>
@@ -83,59 +66,51 @@ export default function Cantidad() {
 
             <View style={styles.infoItem}>
               <Ionicons name="time-outline" size={25} color="#000000" />
-              <Text style={styles.infoText}>30 min</Text>
+              <Text style={styles.infoText}>3h</Text>
             </View>
           </View>
 
           <Text style={styles.description}>
-            Imagine the irresistible aroma of freshly grilled meat, the sizzling
-            on the griddle, and the warmth of a soft tortilla embracing every
-            ingredient. Our tacos are not just food: they are a direct journey
-            into tradition, prepared with authentic recipes and that special
-            touch only achieved with passion.
+            Delicious pizza prepared with a soft and crispy crust, topped with
+            melted cheese, tomato sauce, and fresh, delightful ingredients. A
+            perfect option to enjoy and share.
           </Text>
 
           <View style={styles.buyRow}>
-            <Pressable style={styles.buyButton} onPress={irAPagar}>
-              <Text style={styles.buyText}>Comprar</Text>
+            <Pressable
+              style={styles.buyButton}
+              onPress={() =>
+                router.push({
+                  pathname: "/(tabs)/pagos",
+                  params: { producto: "pizza" },
+                })
+              }
+            >
+              <Text style={styles.buyText}>Buy</Text>
             </Pressable>
 
             <View style={styles.quantity}>
-              <Pressable onPress={aumentar} style={styles.quantityButton}>
+              <Pressable
+                onPress={() => setCantidad(cantidad + 1)}
+                style={styles.quantityButton}
+              >
                 <Text style={styles.quantitySymbol}>+</Text>
               </Pressable>
 
               <Text style={styles.quantityNumber}>{cantidad}</Text>
 
-              <Pressable onPress={disminuir} style={styles.quantityButton}>
+              <Pressable
+                onPress={() =>
+                  setCantidad(cantidad > 1 ? cantidad - 1 : 1)
+                }
+                style={styles.quantityButton}
+              >
                 <Text style={styles.quantitySymbol}>−</Text>
               </Pressable>
             </View>
           </View>
         </View>
       </ScrollView>
-
-      <View style={styles.bottomBar}>
-        <Pressable onPress={() => router.push("/(tabs)/Home")}>
-          <Ionicons name="home-outline" size={27} color="#000000" />
-        </Pressable>
-
-        <Pressable>
-          <MaterialCommunityIcons name="food-outline" size={29} color="#000000" />
-        </Pressable>
-
-        <Pressable>
-          <Ionicons name="heart-outline" size={29} color="#000000" />
-        </Pressable>
-
-        <Pressable>
-          <Ionicons name="clipboard-outline" size={28} color="#000000" />
-        </Pressable>
-
-        <Pressable>
-          <Ionicons name="headset-outline" size={28} color="#000000" />
-        </Pressable>
-      </View>
     </SafeAreaView>
   );
 }
@@ -145,34 +120,29 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#FFFFFF",
   },
-
   scrollContainer: {
-    paddingBottom: 30,
+    paddingBottom: 40,
   },
-
   topSection: {
-    height: 360,
+    height: 380,
     position: "relative",
   },
-
   yellowBackground: {
     position: "absolute",
     top: 0,
     left: 0,
     right: 0,
-    height: 355,
+    height: 335,
     backgroundColor: "#F6CF59",
     borderBottomLeftRadius: 45,
     borderBottomRightRadius: 45,
   },
-
   menuButton: {
     position: "absolute",
     top: 18,
     left: 22,
     zIndex: 10,
   },
-
   profile: {
     position: "absolute",
     top: 15,
@@ -184,130 +154,101 @@ const styles = StyleSheet.create({
     borderWidth: 2,
     borderColor: "#FFFFFF",
   },
-
   foodImage: {
     position: "absolute",
-    width: 290,
-    height: 290,
-    borderRadius: 145,
-    top: 80,
+    width: 280,
+    height: 280,
+    borderRadius: 140,
+    top: 75,
     alignSelf: "center",
     zIndex: 5,
   },
-
   leftArrow: {
     position: "absolute",
-    left: 28,
-    top: 205,
+    left: 25,
+    top: 195,
     zIndex: 10,
   },
-
   rightArrow: {
     position: "absolute",
-    right: 28,
-    top: 205,
+    right: 25,
+    top: 195,
     zIndex: 10,
   },
-
   content: {
     paddingHorizontal: 30,
-    paddingTop: 15,
+    paddingTop: 10,
   },
-
   titleRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: 20,
   },
-
   title: {
     fontSize: 31,
     fontWeight: "700",
     color: "#111111",
   },
-
   price: {
     fontSize: 29,
     fontWeight: "700",
     color: "#111111",
   },
-
   infoRow: {
     flexDirection: "row",
     justifyContent: "space-around",
     marginBottom: 20,
   },
-
   infoItem: {
     flexDirection: "row",
     alignItems: "center",
     gap: 7,
   },
-
   infoText: {
     fontSize: 17,
     fontWeight: "600",
     color: "#111111",
   },
-
   description: {
     fontSize: 15,
     lineHeight: 21,
     textAlign: "center",
     color: "#444444",
-    paddingHorizontal: 5,
     marginBottom: 25,
   },
-
   buyRow: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
   },
-
   buyButton: {
     backgroundColor: "#F6CF59",
     paddingVertical: 13,
     paddingHorizontal: 32,
     borderRadius: 25,
   },
-
   buyText: {
     fontSize: 17,
     fontWeight: "700",
     color: "#111111",
   },
-
   quantity: {
     flexDirection: "row",
     alignItems: "center",
     gap: 18,
   },
-
   quantityButton: {
     paddingHorizontal: 2,
   },
-
   quantitySymbol: {
     fontSize: 28,
     color: "#111111",
     fontWeight: "500",
   },
-
   quantityNumber: {
     fontSize: 19,
     fontWeight: "600",
     color: "#111111",
-  },
-
-  bottomBar: {
-    height: 64,
-    backgroundColor: "#F5A300",
-    borderTopLeftRadius: 14,
-    borderTopRightRadius: 14,
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
   },
 });

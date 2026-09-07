@@ -1,20 +1,17 @@
-
-import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { router } from "expo-router";
+import React, { useState } from "react";
 import {
-  Dimensions,
   Image,
+  Pressable,
+  SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-
-const { width, height } = Dimensions.get('window');
+} from "react-native";
 
 export default function Cantidad() {
-  const router = useRouter();
   const [cantidad, setCantidad] = useState(1);
 
   const aumentar = () => {
@@ -30,127 +27,114 @@ export default function Cantidad() {
   const irAPagar = () => {
     router.push({
       pathname: "/Pago",
-      params: { cantidadTacos: cantidad } 
+      params: { cantidadTacos: cantidad },
     });
   };
 
   return (
-    <SafeAreaView style={styles.container} edges={['top', 'bottom']}>
-      <View style={styles.yellowHeader}>
-        <TouchableOpacity style={styles.menuButton}>
-          <View style={styles.menuLine} />
-          <View style={styles.menuLine} />
-          <View style={styles.menuLine} />
-        </TouchableOpacity>
+    <SafeAreaView style={styles.container}>
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={true}
+        bounces={true}
+      >
+        <View style={styles.topSection}>
+          <View style={styles.yellowBackground} />
 
-        <View style={styles.profileContainer}>
+          <Pressable style={styles.menuButton}>
+            <Ionicons name="menu" size={32} color="#FFFFFF" />
+          </Pressable>
+
           <Image
-            source={require('../../assets/images/Restaurante.jpeg')}
-            style={styles.profileImage}
-            resizeMode="cover"
+            source={require("../../assets/images/Restaurante.jpeg")}
+            style={styles.profile}
           />
-        </View>
 
-        <Text style={styles.dots}>•••</Text>
+          <Pressable style={styles.leftArrow}>
+            <Ionicons name="chevron-back" size={34} color="#FFFFFF" />
+          </Pressable>
 
-        <TouchableOpacity style={styles.leftArrow}>
-          <Text style={styles.arrowText}>‹</Text>
-        </TouchableOpacity>
-
-        <View style={styles.foodImageContainer}>
           <Image
-            source={require('../../assets/images/tacos.jpg')}
+            source={require("../../assets/images/tacos.jpg")}
             style={styles.foodImage}
-            resizeMode="cover"
           />
+
+          <Pressable style={styles.rightArrow}>
+            <Ionicons name="chevron-forward" size={34} color="#FFFFFF" />
+          </Pressable>
         </View>
 
-        <TouchableOpacity style={styles.rightArrow}>
-          <Text style={styles.arrowText}>›</Text>
-        </TouchableOpacity>
-      </View>
-
-      <View style={styles.card}>
-        <View style={styles.titleRow}>
-          <Text style={styles.title}>Tacos</Text>
-          <Text style={styles.price}>$3.25</Text>
-        </View>
-
-        <View style={styles.infoRow}>
-          <View style={styles.infoItem}>
-            <Text style={styles.infoIcon}>★</Text>
-            <Text style={styles.infoText}>4.5</Text>
+        <View style={styles.content}>
+          <View style={styles.titleRow}>
+            <Text style={styles.title}>Tacos</Text>
+            <Text style={styles.price}>$3.25</Text>
           </View>
 
-          <View style={styles.infoItem}>
-            <Text style={styles.infoIcon}>▰</Text>
-            <Text style={styles.infoText}>Free</Text>
+          <View style={styles.infoRow}>
+            <View style={styles.infoItem}>
+              <Ionicons name="star" size={23} color="#000000" />
+              <Text style={styles.infoText}>4.5</Text>
+            </View>
+
+            <View style={styles.infoItem}>
+              <MaterialCommunityIcons name="truck" size={25} color="#000000" />
+              <Text style={styles.infoText}>Free</Text>
+            </View>
+
+            <View style={styles.infoItem}>
+              <Ionicons name="time-outline" size={25} color="#000000" />
+              <Text style={styles.infoText}>30 min</Text>
+            </View>
           </View>
 
-          <View style={styles.infoItem}>
-            <Text style={styles.infoIcon}>◷</Text>
-            <Text style={styles.infoText}>3h</Text>
+          <Text style={styles.description}>
+            Imagine the irresistible aroma of freshly grilled meat, the sizzling
+            on the griddle, and the warmth of a soft tortilla embracing every
+            ingredient. Our tacos are not just food: they are a direct journey
+            into tradition, prepared with authentic recipes and that special
+            touch only achieved with passion.
+          </Text>
+
+          <View style={styles.buyRow}>
+            <Pressable style={styles.buyButton} onPress={irAPagar}>
+              <Text style={styles.buyText}>Comprar</Text>
+            </Pressable>
+
+            <View style={styles.quantity}>
+              <Pressable onPress={aumentar} style={styles.quantityButton}>
+                <Text style={styles.quantitySymbol}>+</Text>
+              </Pressable>
+
+              <Text style={styles.quantityNumber}>{cantidad}</Text>
+
+              <Pressable onPress={disminuir} style={styles.quantityButton}>
+                <Text style={styles.quantitySymbol}>−</Text>
+              </Pressable>
+            </View>
           </View>
         </View>
-
-        <Text style={styles.description}>
-          Imagine the irresistible aroma of freshly grilled meat,
-          the sizzling on the griddle, and the warmth of a soft tortilla
-          embracing every ingredient. Our tacos are not just food:
-          they are a direct journey into tradition, prepared with
-          authentic recipes and that special touch only achieved
-          with passion
-        </Text>
-
-        <View style={styles.descriptionDots}>
-          <View style={styles.smallDot} />
-          <View style={styles.smallDot} />
-          <View style={styles.smallDot} />
-        </View>
-
-        <View style={styles.buyRow}>
-          <TouchableOpacity style={styles.buyButton} onPress={irAPagar}>
-            <Text style={styles.buyText}>Comprar</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.quantityButton}
-            onPress={aumentar}
-          >
-            <Text style={styles.quantitySymbol}>+</Text>
-          </TouchableOpacity>
-
-          <Text style={styles.quantityText}>{cantidad}</Text>
-
-          <TouchableOpacity
-            style={styles.quantityButton}
-            onPress={disminuir}
-          >
-            <Text style={styles.quantitySymbol}>−</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      </ScrollView>
 
       <View style={styles.bottomBar}>
-        <TouchableOpacity style={styles.navItem} onPress={() => router.push("/(tabs)/Home")}>
-          <Text style={styles.navIcon}>⌂</Text>
-        </TouchableOpacity>
+        <Pressable onPress={() => router.push("/(tabs)/Home")}>
+          <Ionicons name="home-outline" size={27} color="#000000" />
+        </Pressable>
 
-        <TouchableOpacity style={styles.navItem}>
-          <Text style={styles.navIcon}>⌒</Text>
-        </TouchableOpacity>
+        <Pressable>
+          <MaterialCommunityIcons name="food-outline" size={29} color="#000000" />
+        </Pressable>
 
-        <TouchableOpacity style={styles.navItem}>
-          <Text style={styles.heartIcon}>♡</Text>
-        </TouchableOpacity>
+        <Pressable>
+          <Ionicons name="heart-outline" size={29} color="#000000" />
+        </Pressable>
 
-        <TouchableOpacity style={styles.navItem}>
-          <Text style={styles.navIcon}>▣</Text>
-        </TouchableOpacity>
+        <Pressable>
+          <Ionicons name="clipboard-outline" size={28} color="#000000" />
+        </Pressable>
 
-        <TouchableOpacity style={styles.navItem}>
-          <Text style={styles.navIcon}>♧</Text>
-        </TouchableOpacity>
+        <Pressable>
+          <Ionicons name="headset-outline" size={28} color="#000000" />
+        </Pressable>
       </View>
     </SafeAreaView>
   );
@@ -159,243 +143,171 @@ export default function Cantidad() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#EFEFEF',
+    backgroundColor: "#FFFFFF",
   },
 
-  yellowHeader: {
-    height: height * 0.37,
-    backgroundColor: '#F7CF59',
-    position: 'relative',
-    borderBottomLeftRadius: 38,
-    borderBottomRightRadius: 38,
+  scrollContainer: {
+    paddingBottom: 30,
+  },
+
+  topSection: {
+    height: 360,
+    position: "relative",
+  },
+
+  yellowBackground: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    height: 355,
+    backgroundColor: "#F6CF59",
+    borderBottomLeftRadius: 45,
+    borderBottomRightRadius: 45,
   },
 
   menuButton: {
-    position: 'absolute',
+    position: "absolute",
     top: 18,
-    left: 20,
-    width: 32,
-    height: 28,
-    justifyContent: 'space-between',
+    left: 22,
     zIndex: 10,
   },
 
-  menuLine: {
-    width: 25,
-    height: 3,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 3,
-  },
-
-  profileContainer: {
-    position: 'absolute',
-    top: 10,
-    right: 18,
-    width: 37,
-    height: 37,
-    borderRadius: 20,
-    overflow: 'hidden',
+  profile: {
+    position: "absolute",
+    top: 15,
+    right: 22,
+    width: 55,
+    height: 55,
+    borderRadius: 28,
+    zIndex: 10,
     borderWidth: 2,
-    borderColor: '#FFFFFF',
-  },
-
-  profileImage: {
-    width: '100%',
-    height: '100%',
-  },
-
-  dots: {
-    position: 'absolute',
-    top: 76,
-    right: 31,
-    color: '#FFFFFF',
-    fontSize: 17,
-    letterSpacing: 2,
-  },
-
-  foodImageContainer: {
-    position: 'absolute',
-    top: height * 0.13,
-    left: width / 2 - width * 0.22,
-    width: width * 0.44,
-    height: width * 0.44,
-    borderRadius: width * 0.22,
-    overflow: 'hidden',
+    borderColor: "#FFFFFF",
   },
 
   foodImage: {
-    width: '100%',
-    height: '100%',
+    position: "absolute",
+    width: 290,
+    height: 290,
+    borderRadius: 145,
+    top: 80,
+    alignSelf: "center",
+    zIndex: 5,
   },
 
   leftArrow: {
-    position: 'absolute',
-    left: 35,
-    top: height * 0.22,
-    width: 35,
-    height: 45,
-    justifyContent: 'center',
-    alignItems: 'center',
+    position: "absolute",
+    left: 28,
+    top: 205,
+    zIndex: 10,
   },
 
   rightArrow: {
-    position: 'absolute',
-    right: 25,
-    top: height * 0.22,
-    width: 35,
-    height: 45,
-    justifyContent: 'center',
-    alignItems: 'center',
+    position: "absolute",
+    right: 28,
+    top: 205,
+    zIndex: 10,
   },
 
-  arrowText: {
-    color: '#FFFFFF',
-    fontSize: 42,
-    fontWeight: '200',
-  },
-
-  card: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-    marginTop: -1,
-    borderTopLeftRadius: 38,
-    borderTopRightRadius: 38,
-    paddingHorizontal: 18,
-    paddingTop: 29,
+  content: {
+    paddingHorizontal: 30,
+    paddingTop: 15,
   },
 
   titleRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingHorizontal: 15,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 20,
   },
 
   title: {
-    fontSize: width * 0.07,
-    fontWeight: '800',
-    color: '#111111',
+    fontSize: 31,
+    fontWeight: "700",
+    color: "#111111",
   },
 
   price: {
-    fontSize: width * 0.065,
-    fontWeight: '700',
-    color: '#111111',
+    fontSize: 29,
+    fontWeight: "700",
+    color: "#111111",
   },
 
   infoRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    marginTop: 22,
-    paddingHorizontal: 15,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginBottom: 20,
   },
 
   infoItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-  },
-
-  infoIcon: {
-    fontSize: 17,
-    color: '#000000',
-    fontWeight: '400',
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 7,
   },
 
   infoText: {
-    fontSize: 12,
-    fontWeight: '500',
-    color: '#222222',
+    fontSize: 17,
+    fontWeight: "600",
+    color: "#111111",
   },
 
   description: {
-    fontSize: 10.5,
-    lineHeight: 14,
-    color: '#333333',
-    textAlign: 'center',
-    marginTop: 15,
-    paddingHorizontal: 18,
-    fontWeight: '400',
-  },
-
-  descriptionDots: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginTop: 6,
-    gap: 4,
-  },
-
-  smallDot: {
-    width: 3,
-    height: 3,
-    borderRadius: 3,
-    backgroundColor: '#555555',
+    fontSize: 15,
+    lineHeight: 21,
+    textAlign: "center",
+    color: "#444444",
+    paddingHorizontal: 5,
+    marginBottom: 25,
   },
 
   buyRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginTop: 10,
-    paddingHorizontal: 2,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
 
   buyButton: {
-    backgroundColor: '#F7CF59',
-    paddingVertical: 8,
-    paddingHorizontal: 22,
-    borderRadius: 20,
-    marginRight: 'auto',
+    backgroundColor: "#F6CF59",
+    paddingVertical: 13,
+    paddingHorizontal: 32,
+    borderRadius: 25,
   },
 
   buyText: {
-    fontSize: 13,
-    fontWeight: '700',
-    color: '#111111',
+    fontSize: 17,
+    fontWeight: "700",
+    color: "#111111",
+  },
+
+  quantity: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 18,
   },
 
   quantityButton: {
-    width: 28,
-    height: 28,
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingHorizontal: 2,
   },
 
   quantitySymbol: {
-    fontSize: 23,
-    color: '#111111',
-    fontWeight: '400',
+    fontSize: 28,
+    color: "#111111",
+    fontWeight: "500",
   },
 
-  quantityText: {
-    fontSize: 14,
-    fontWeight: '600',
-    minWidth: 22,
-    textAlign: 'center',
+  quantityNumber: {
+    fontSize: 19,
+    fontWeight: "600",
+    color: "#111111",
   },
 
   bottomBar: {
-    height: 51,
-    backgroundColor: '#FF9900',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    paddingHorizontal: 12,
-  },
-
-  navItem: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  navIcon: {
-    fontSize: 23,
-    color: '#171717',
-  },
-
-  heartIcon: {
-    fontSize: 29,
-    color: '#171717',
+    height: 64,
+    backgroundColor: "#F5A300",
+    borderTopLeftRadius: 14,
+    borderTopRightRadius: 14,
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
   },
 });

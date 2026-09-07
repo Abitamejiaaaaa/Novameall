@@ -5,6 +5,7 @@ import {
   Image,
   Pressable,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -15,34 +16,38 @@ export default function Restaurante() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.topSection}>
-        <View style={styles.yellowBackground} />
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        showsVerticalScrollIndicator={true}
+        bounces={true}
+      >
+        <View style={styles.topSection}>
+          <View style={styles.yellowBackground} />
 
-        <Pressable style={styles.menuButton}>
-          <Ionicons name="menu" size={32} color="#FFFFFF" />
-        </Pressable>
+          <Pressable style={styles.menuButton}>
+            <Ionicons name="menu" size={32} color="#FFFFFF" />
+          </Pressable>
 
-        <Image
-          source={require("../../assets/images/local-haamburguesa.jpg")}
-          style={styles.profile}
-        />
+          <Image
+            source={require("../../assets/images/local-haamburguesa.jpg")}
+            style={styles.profile}
+          />
 
-        <Pressable style={styles.leftArrow}>
-          <Ionicons name="chevron-back" size={34} color="#FFFFFF" />
-        </Pressable>
+          <Pressable style={styles.leftArrow}>
+            <Ionicons name="chevron-back" size={34} color="#FFFFFF" />
+          </Pressable>
 
-        <Image
-          source={require("../../assets/images/hamburguesa.avif")}
-          style={styles.foodImage}
-        />
+          <Image
+            source={require("../../assets/images/hamburguesa.avif")}
+            style={styles.foodImage}
+          />
 
-        <Pressable style={styles.rightArrow}>
-          <Ionicons name="chevron-forward" size={34} color="#FFFFFF" />
-        </Pressable>
-      </View>
+          <Pressable style={styles.rightArrow}>
+            <Ionicons name="chevron-forward" size={34} color="#FFFFFF" />
+          </Pressable>
+        </View>
 
-      <View style={styles.content}>
-        <View>
+        <View style={styles.content}>
           <View style={styles.titleRow}>
             <Text style={styles.title}>Hamburguesa</Text>
             <Text style={styles.price}>$5.50</Text>
@@ -55,11 +60,7 @@ export default function Restaurante() {
             </View>
 
             <View style={styles.infoItem}>
-              <MaterialCommunityIcons
-                name="truck"
-                size={25}
-                color="#000000"
-              />
+              <MaterialCommunityIcons name="truck" size={25} color="#000000" />
               <Text style={styles.infoText}>Free</Text>
             </View>
 
@@ -71,46 +72,46 @@ export default function Restaurante() {
 
           <Text style={styles.description}>
             Deliciosa hamburguesa preparada con una jugosa carne, queso
-            derretido, lechuga fresca, tomate y una deliciosa salsa,
-            acompañada de un pan suave y tostado. Perfecta para disfrutar
-            en cualquier momento.
+            derretido, lechuga fresca, tomate y una deliciosa salsa, acompañada
+            de un pan suave y tostado. Perfecta para disfrutar en cualquier
+            momento.
           </Text>
-        </View>
 
-        <View style={styles.buyRow}>
-          <Pressable
-            style={styles.buyButton}
-            onPress={() =>
-              router.push({
-                pathname: "/(tabs)/pagos",
-                params: { producto: "hamburguesa" },
-              })
-            }
-          >
-            <Text style={styles.buyText}>Comprar</Text>
-          </Pressable>
-
-          <View style={styles.quantity}>
+          <View style={styles.buyRow}>
             <Pressable
-              onPress={() => setCantidad(cantidad + 1)}
-              style={styles.quantityButton}
-            >
-              <Text style={styles.quantitySymbol}>+</Text>
-            </Pressable>
-
-            <Text style={styles.quantityNumber}>{cantidad}</Text>
-
-            <Pressable
+              style={styles.buyButton}
               onPress={() =>
-                setCantidad(cantidad > 1 ? cantidad - 1 : 1)
+                router.push({
+                  pathname: "/(tabs)/pagos",
+                  params: { producto: "hamburguesa" },
+                })
               }
-              style={styles.quantityButton}
             >
-              <Text style={styles.quantitySymbol}>−</Text>
+              <Text style={styles.buyText}>Comprar</Text>
             </Pressable>
+
+            <View style={styles.quantity}>
+              <Pressable
+                onPress={() => setCantidad(cantidad + 1)}
+                style={styles.quantityButton}
+              >
+                <Text style={styles.quantitySymbol}>+</Text>
+              </Pressable>
+
+              <Text style={styles.quantityNumber}>{cantidad}</Text>
+
+              <Pressable
+                onPress={() =>
+                  setCantidad(cantidad > 1 ? cantidad - 1 : 1)
+                }
+                style={styles.quantityButton}
+              >
+                <Text style={styles.quantitySymbol}>−</Text>
+              </Pressable>
+            </View>
           </View>
         </View>
-      </View>
+      </ScrollView>
 
       <View style={styles.bottomBar}>
         <Pressable>
@@ -118,11 +119,7 @@ export default function Restaurante() {
         </Pressable>
 
         <Pressable>
-          <MaterialCommunityIcons
-            name="food-outline"
-            size={29}
-            color="#000000"
-          />
+          <MaterialCommunityIcons name="food-outline" size={29} color="#000000" />
         </Pressable>
 
         <Pressable>
@@ -145,6 +142,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#FFFFFF",
+  },
+
+  scrollContainer: {
+    paddingBottom: 30,
   },
 
   topSection: {
@@ -184,9 +185,9 @@ const styles = StyleSheet.create({
 
   foodImage: {
     position: "absolute",
-    width: 310,
-    height: 310,
-    borderRadius: 155,
+    width: 290,
+    height: 290,
+    borderRadius: 145,
     top: 80,
     alignSelf: "center",
     zIndex: 5,
@@ -194,31 +195,28 @@ const styles = StyleSheet.create({
 
   leftArrow: {
     position: "absolute",
-    left: 35,
+    left: 28,
     top: 205,
     zIndex: 10,
   },
 
   rightArrow: {
     position: "absolute",
-    right: 35,
+    right: 28,
     top: 205,
     zIndex: 10,
   },
 
   content: {
-    flex: 1,
     paddingHorizontal: 30,
-    paddingTop: 25,
-    paddingBottom: 20,
-    justifyContent: "space-between",
+    paddingTop: 15,
   },
 
   titleRow: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 25,
+    marginBottom: 20,
   },
 
   title: {
@@ -236,7 +234,7 @@ const styles = StyleSheet.create({
   infoRow: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginBottom: 25,
+    marginBottom: 20,
   },
 
   infoItem: {
@@ -257,6 +255,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "#444444",
     paddingHorizontal: 5,
+    marginBottom: 25,
   },
 
   buyRow: {
@@ -302,8 +301,6 @@ const styles = StyleSheet.create({
 
   bottomBar: {
     height: 64,
-    marginHorizontal: 0,
-    marginBottom: 0,
     backgroundColor: "#F5A300",
     borderTopLeftRadius: 14,
     borderTopRightRadius: 14,

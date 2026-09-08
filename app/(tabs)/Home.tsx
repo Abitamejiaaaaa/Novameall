@@ -8,6 +8,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
+  Touchable,
   TouchableOpacity,
   View,
 } from 'react-native';
@@ -17,6 +18,7 @@ import {
   Ionicons,
   MaterialCommunityIcons,
 } from '@expo/vector-icons';
+import { navigate, router } from 'expo-router/build/global-state/router';
  
  
 const tacosImg = require('../../assets/images/tacos.jpg');
@@ -126,14 +128,13 @@ export default function HomeScreen() {
             <Text style={styles.sectionTitle}>Best Sellers</Text>
             <View style={styles.cardsRow}>
              
-              <TouchableOpacity style={styles.foodCard} activeOpacity={0.85}>
-                <Image source={tacosImg} style={styles.foodImage} />
+              <TouchableOpacity style={styles.foodCard} activeOpacity={0.85} onPress={() => router.push('/tacos')}>
+              <Image source={tacosImg} style={styles.foodImage} />
               </TouchableOpacity>
- 
-              <TouchableOpacity style={styles.foodCard} activeOpacity={0.85}>
-                <Image source={restauranteImg} style={styles.foodImage} />
+
+              <TouchableOpacity style={styles.foodCard} activeOpacity={0.85} onPress={() => router.push('/Restaurante')}>
+              <Image source={restauranteImg} style={styles.foodImage} />
               </TouchableOpacity>
- 
             </View>
           </View>
  

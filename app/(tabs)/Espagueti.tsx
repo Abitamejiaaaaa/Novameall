@@ -38,7 +38,7 @@ export default function Restaurante() {
           </Pressable>
 
           <Image
-            source={require("../../assets/images/spagueti.webp")}
+            source={require("../../assets/images/spagueti.jpeg")}
             style={styles.foodImage}
           />
 

@@ -15,22 +15,22 @@ const productos: any = {
   hamburguesa: {
     nombre: "Hamburguesa",
     precio: 5.5,
-    imagen: require("../../assets/images/hamburguesa.avif"),
+    imagen: require("@/assets/images/hamburguesa.jpeg"),
   },
   pizza: {
     nombre: "Pizza",
     precio: 5.5,
-    imagen: require("../../assets/images/Pizza.jpg"),
+    imagen: require("@/assets/images/Pizza.jpg"),
   },
   pollo: {
     nombre: "Pollo asado",
     precio: 6.50,
-    imagen: require("../../assets/images/pollo-asado.png"),
+    imagen: require("@/assets/images/pollo-asado.png"),
   },
   espagueti: {
     nombre: "Espagueti",
     precio: 6.00,
-    imagen: require("../../assets/images/spagueti.webp"),
+    imagen: require("@/assets/images/spagueti.jpeg"),
   },
 };
 

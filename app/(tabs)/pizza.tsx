@@ -38,7 +38,7 @@ export default function Restaurante() {
           </Pressable>
 
           <Image
-            source={require("../../assets/images/Pizza.jpg")}
+            source={require("@/assets/images/Pizza.jpg")}
             style={styles.foodImage}
           />
 

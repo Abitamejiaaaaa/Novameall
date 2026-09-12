@@ -26,8 +26,8 @@ export default function Cantidad() {
 
   const irAPagar = () => {
     router.push({
-      pathname: "/Pago-Pizza" as any,
-      params: { cantidadPizzas: cantidad },
+      pathname: "/Pago-GALLETA",
+      params: { cantidadGalletas: cantidad },
     });
   };
 
@@ -57,7 +57,7 @@ export default function Cantidad() {
           </Pressable>
 
           <Image
-            source={require("@/assets/images/Pizza.jpg")}
+            source={require("@/assets/images/Galletas.png")}
             style={styles.foodImage}
           />
 
@@ -68,8 +68,8 @@ export default function Cantidad() {
 
         <View style={styles.content}>
           <View style={styles.titleRow}>
-            <Text style={styles.title}>Pizza</Text>
-            <Text style={styles.price}>$12.99</Text>
+            <Text style={styles.title}>Galletas</Text>
+            <Text style={styles.price}>$1.25</Text>
           </View>
 
           <View style={styles.infoRow}>
@@ -90,9 +90,7 @@ export default function Cantidad() {
           </View>
 
           <Text style={styles.description}>
-            A golden, crispy crust topped with melted cheese, tangy tomato sauce, and the freshest ingredients.
-             Each slice bursts with flavor, from the smoky notes of oven‑baked dough to the vibrant mix of herbs and spices.
-              More than a meal, it’s a moment to savor and share.
+            Delight in the sweet, freshly baked perfection of our homemade chocolate chip cookies. Crispy on the outside, wonderfully soft on the inside, and loaded with rich chocolate flavor in every single bite.
           </Text>
 
           <View style={styles.buyRow}>

@@ -8,9 +8,8 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  Touchable,
   TouchableOpacity,
-  View,
+  View
 } from 'react-native';
  
 import {
@@ -18,7 +17,7 @@ import {
   Ionicons,
   MaterialCommunityIcons,
 } from '@expo/vector-icons';
-import { navigate, router } from 'expo-router/build/global-state/router';
+import { router } from 'expo-router';
  
  
 const tacosImg = require('../../assets/images/tacos.jpg');
@@ -46,24 +45,24 @@ const CATEGORIES: Category[] = [
 export default function HomeScreen() {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('1');
- 
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar barStyle="dark-content" backgroundColor="#F5C453" />
-     
-     
+      
+      
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.scrollContent}
       >
-       
+        
         <View style={styles.topSection}>
-         
-         
+          
+          
           <View style={styles.headerRow}>
             <View style={styles.searchContainer}>
               <TextInput
-                placeholder="Buscar"
+                placeholder="Search"
                 placeholderTextColor="#666"
                 style={styles.searchInput}
                 value={searchQuery}
@@ -75,19 +74,19 @@ export default function HomeScreen() {
             </View>
  
             <View style={styles.headerIcons}>
-              <TouchableOpacity style={styles.iconCircle} activeOpacity={0.8}>
+              <TouchableOpacity style={styles.iconCircle} activeOpacity={0.8} onPress={() => router.push('/(tabs)/restaurant-order')}>
                 <Ionicons name="cart-outline" size={20} color="#E67E22" />
               </TouchableOpacity>
-              <TouchableOpacity style={styles.iconCircle} activeOpacity={0.8}>
+              <TouchableOpacity style={styles.iconCircle} activeOpacity={0.8} onPress={() => router.push('/inbox')}>
                 <Ionicons name="notifications-outline" size={20} color="#E67E22" />
               </TouchableOpacity>
-              <TouchableOpacity style={styles.iconCircle} activeOpacity={0.8}>
+              <TouchableOpacity style={styles.iconCircle} activeOpacity={0.8} onPress={() => router.push('/(tabs)/CONFIGURACION-NARANJA')}>
                 <Ionicons name="person-outline" size={20} color="#E67E22" />
               </TouchableOpacity>
             </View>
           </View>
  
-         
+          
           <View style={styles.greetingContainer}>
             <Text style={styles.greetingTitle}>Welcome</Text>
             <Text style={styles.greetingSubtitle}>
@@ -96,10 +95,10 @@ export default function HomeScreen() {
           </View>
         </View>
  
-       
+        
         <View style={styles.whiteSection}>
-         
-         
+          
+          
           <ScrollView
             horizontal
             showsHorizontalScrollIndicator={false}
@@ -108,12 +107,24 @@ export default function HomeScreen() {
             {CATEGORIES.map((item) => {
               const isSelected = selectedCategory === item.id;
               return (
-                <TouchableOpacity
-                  key={item.id}
-                  style={styles.categoryCard}
-                  activeOpacity={0.8}
-                  onPress={() => setSelectedCategory(item.id)}
-                >
+               <TouchableOpacity
+    key={item.id}
+    style={styles.categoryCard}
+    activeOpacity={0.8}
+    onPress={() => {
+      setSelectedCategory(item.id);
+
+      if (item.name === 'Snacks') {
+        router.push('/(tabs)/Galletas');
+      } else if (item.name === 'Meals') {
+        router.push('/(tabs)/pizza');
+      } else if (item.name === 'Vegan') {
+        router.push('/(tabs)/salah');
+      }else if (item.name === 'Desserts') {
+        router.push('/(tabs)/Iniciar');
+      }
+    }}
+  >
                   <View style={[styles.categoryIconCircle, isSelected && styles.selectedCategoryCircle]}>
                     <MaterialCommunityIcons name={item.icon} size={30} color="#E67E22" />
                   </View>
@@ -123,11 +134,11 @@ export default function HomeScreen() {
             })}
           </ScrollView>
  
-         
+          
           <View style={styles.bestSellersContainer}>
             <Text style={styles.sectionTitle}>Best Sellers</Text>
             <View style={styles.cardsRow}>
-             
+              
               <TouchableOpacity style={styles.foodCard} activeOpacity={0.85} onPress={() => router.push('/tacos')}>
               <Image source={tacosImg} style={styles.foodImage} />
               </TouchableOpacity>
@@ -138,7 +149,7 @@ export default function HomeScreen() {
             </View>
           </View>
  
-         
+          
           <TouchableOpacity style={styles.promoBanner} activeOpacity={0.9}>
             <View style={styles.promoTextContainer}>
               <Text style={styles.promoText}>
@@ -323,11 +334,11 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     borderRadius: 20,
     flexDirection: 'row',
-    height: 140,
+    height: 180,
     overflow: 'hidden',
   },
   promoTextContainer: {
-    flex: 1.2,
+    flex: 0.9,
     padding: 16,
     justifyContent: 'center',
   },
@@ -346,6 +357,7 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '100%',
     resizeMode: 'cover',
+    width: 1000
   },
  
   bottomBar: {

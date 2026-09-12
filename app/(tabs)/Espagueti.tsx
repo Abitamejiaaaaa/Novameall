@@ -38,7 +38,7 @@ export default function Restaurante() {
           </Pressable>
 
           <Image
-            source={require("../../assets/images/spagueti.jpeg")}
+            source={require("@/assets/images/spagueti.jpeg")}
             style={styles.foodImage}
           />
 
@@ -111,28 +111,6 @@ export default function Restaurante() {
           </View>
         </View>
       </ScrollView>
-
-      <View style={styles.bottomBar}>
-        <Pressable>
-          <Ionicons name="home-outline" size={27} color="#000000" />
-        </Pressable>
-
-        <Pressable>
-          <MaterialCommunityIcons name="food-outline" size={29} color="#000000" />
-        </Pressable>
-
-        <Pressable>
-          <Ionicons name="heart-outline" size={29} color="#000000" />
-        </Pressable>
-
-        <Pressable>
-          <Ionicons name="clipboard-outline" size={28} color="#000000" />
-        </Pressable>
-
-        <Pressable>
-          <Ionicons name="headset-outline" size={28} color="#000000" />
-        </Pressable>
-      </View>
     </SafeAreaView>
   );
 }
@@ -296,15 +274,5 @@ const styles = StyleSheet.create({
     fontSize: 19,
     fontWeight: "600",
     color: "#111111",
-  },
-
-  bottomBar: {
-    height: 64,
-    backgroundColor: "#F5A300",
-    borderTopLeftRadius: 14,
-    borderTopRightRadius: 14,
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
   },
 });

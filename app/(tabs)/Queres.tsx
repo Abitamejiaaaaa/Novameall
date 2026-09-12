@@ -8,6 +8,7 @@ import {
   View,
   useWindowDimensions,
 } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function Queres() {
   const { width, height } = useWindowDimensions();
@@ -15,59 +16,70 @@ export default function Queres() {
   function iniciarSesion() {
     throw new Error("Function not implemented.");
   }
-  
- 
+
   const dynamicStyles = StyleSheet.create({
     logo: {
-      width: width * 0.5,
-      height: width * 0.3,
+      width: Math.min(width * 0.45, 150),
+      height: Math.min(width * 0.25, 90),
       resizeMode: "contain",
     },
     buttonText: {
-      fontSize: width * 0.045,
+      fontSize: Math.min(width * 0.045, 18),
       fontWeight: "bold",
       color: "#000",
+      textAlign: "center",
+    },
+    imageContainer: {
+      marginTop: height * 0.08,
+      width: Math.min(width * 0.85, 340),
+      height: height * 0.22,
+      maxHeight: 180,
     },
   });
 
   return (
-    <View style={styles.container}>
-
+    <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
       <View style={[styles.fondoAmarillo, { height: height * 0.45 }]} />
       <View style={styles.fondoBlanco} />
 
-
-      <View style={styles.imageContainer}>
+      <View style={[styles.imageContainer, dynamicStyles.imageContainer]}>
         <Image
           source={require("../../assets/images/Logo.jpeg")}
           style={dynamicStyles.logo}
         />
       </View>
 
-
       <View style={styles.buttonContainer}>
         <Pressable
-          style={[styles.button, styles.buttonA]}
+          style={({ pressed }) => [
+            styles.button, 
+            styles.buttonA,
+            pressed && styles.pressedButton
+          ]}
           onPress={() => void iniciarSesion()}
         >
           <Text style={dynamicStyles.buttonText}>Are you a user?</Text>
         </Pressable>
 
         <Pressable
-          style={[styles.button, styles.buttonB]}
+          style={({ pressed }) => [
+            styles.button, 
+            styles.buttonB,
+            pressed && styles.pressedButton
+          ]}
           onPress={() => void iniciarSesion()}
         >
-          <Text style={dynamicStyles.buttonText}>Are you a restkkkkkaurant?</Text>
+          <Text style={dynamicStyles.buttonText}>Are you a restaurant?</Text>
         </Pressable>
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
+    backgroundColor: "#F2B84B",
     alignItems: "center",
   },
   fondoAmarillo: {
@@ -82,25 +94,21 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    height: "60%",
+    height: "58%",
     backgroundColor: "#FFFFFF",
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    borderTopLeftRadius: 35,
+    borderTopRightRadius: 35,
   },
   imageContainer: {
     alignItems: "center",
     backgroundColor: "#FFFFFF",
-    width: "80%",
-    maxWidth: 300,
-    height: 150,
     justifyContent: "center",
-    marginTop: 60,
     borderRadius: 30,
-    elevation: 5, // Sombra para Android
-    shadowColor: "#000", // Sombra para iOS
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+    elevation: 6,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.12,
+    shadowRadius: 5,
     zIndex: 2,
   },
   buttonContainer: {
@@ -108,17 +116,28 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 20,
+    paddingHorizontal: 24,
     zIndex: 2,
-    gap: 15, 
+    gap: 16,
+    marginBottom: 20,
   },
   button: {
-    width: "90%",
+    width: "100%",
     maxWidth: 400,
     paddingVertical: 16,
+    paddingHorizontal: 20,
     borderRadius: 30,
     alignItems: "center",
     justifyContent: "center",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 3,
+    elevation: 3,
+  },
+  pressedButton: {
+    opacity: 0.85,
+    transform: [{ scale: 0.98 }],
   },
   buttonA: {
     backgroundColor: "#B8D95B",

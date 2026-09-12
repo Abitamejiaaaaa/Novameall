@@ -26,8 +26,8 @@ export default function Cantidad() {
 
   const irAPagar = () => {
     router.push({
-      pathname: "/Pago-Pizza" as any,
-      params: { cantidadPizzas: cantidad },
+      pathname: "/Pago-Salad" as any,
+      params: { cantidadSalads: cantidad },
     });
   };
 
@@ -47,7 +47,7 @@ export default function Cantidad() {
 
           <Pressable onPress={() => router.push("/(tabs)/Restaurante")}>
             <Image
-              source={require("@/assets/images/Galletas.png")}
+              source={require("@/assets/images/Salad.jpg")}
               style={styles.profile}
             />
           </Pressable>
@@ -57,7 +57,7 @@ export default function Cantidad() {
           </Pressable>
 
           <Image
-            source={require("@/assets/images/Pizza.jpg")}
+            source={require("@/assets/images/Salad.jpg")}
             style={styles.foodImage}
           />
 
@@ -68,8 +68,8 @@ export default function Cantidad() {
 
         <View style={styles.content}>
           <View style={styles.titleRow}>
-            <Text style={styles.title}>Pizza</Text>
-            <Text style={styles.price}>$12.99</Text>
+            <Text style={styles.title}>Salad</Text>
+            <Text style={styles.price}>$6.99</Text>
           </View>
 
           <View style={styles.infoRow}>
@@ -90,9 +90,10 @@ export default function Cantidad() {
           </View>
 
           <Text style={styles.description}>
-            A golden, crispy crust topped with melted cheese, tangy tomato sauce, and the freshest ingredients.
-             Each slice bursts with flavor, from the smoky notes of oven‑baked dough to the vibrant mix of herbs and spices.
-              More than a meal, it’s a moment to savor and share.
+            A crisp, colorful salad bursting with freshness. Crunchy lettuce, ripe tomatoes,
+             and vibrant vegetables come together,
+             drizzled with a light dressing that enhances every bite. Simple yet full of flavor
+             , it’s the perfect balance of health and taste.
           </Text>
 
           <View style={styles.buyRow}>

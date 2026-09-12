@@ -9,12 +9,11 @@ import {
 } from 'react-native';
 import MapView, {
   Marker,
-  PROVIDER_GOOGLE,
   Region,
 } from 'react-native-maps';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { navigate } from 'expo-router/build/global-state/routing';
+import { router } from 'expo-router';
 import { onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../../Firebase/config';
@@ -22,17 +21,16 @@ import { auth, db } from '../../Firebase/config';
 export default function MapaScreen() {
 
   const [coordinates, setCoordinates] = useState({
-    latitude: 13.6929,
+    latitude: 13.9929,
     longitude: -89.2182,
   });
-
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         console.log("Usuario autenticado detectado:", user.uid);
         try {
-          const docRef = doc(db, "usuarios", user.uid);
+          const docRef = doc(db, "Usuarios", user.uid);
           const docSnap = await getDoc(docRef);
 
           if (docSnap.exists()) {
@@ -64,13 +62,6 @@ export default function MapaScreen() {
     return () => unsubscribe();
   }, []);
 
-  const region: Region = {
-    latitude: coordinates.latitude,
-    longitude: coordinates.longitude,
-    latitudeDelta: 0.05,
-    longitudeDelta: 0.05,
-  };
-
   const onMarkerDragEnd = (event: any) => {
     setCoordinates(event.nativeEvent.coordinate);
   };
@@ -86,14 +77,13 @@ export default function MapaScreen() {
 
       const userRef = doc(db, "Usuarios", user.uid);
       
-      navigate({
+      router.push({
         pathname: '/Pago',
         params: { 
           lat: coordinates.latitude, 
           lng: coordinates.longitude 
-  }
-});
-
+        }
+      });
 
       await setDoc(userRef, {
         ubicación: {
@@ -103,58 +93,45 @@ export default function MapaScreen() {
         }
       }, { merge: true }); 
 
-
-      setCoordinates({
-        latitude: coordinates.latitude,
-        longitude: coordinates.longitude,
-      });
-
-      Alert.alert(
-        '¡Ubicación guardada!',
-        `Latitud: ${coordinates.latitude.toFixed(6)}\nLongitud: ${coordinates.longitude.toFixed(6)}`
-      );
       console.log("Guardado exitoso para el usuario UID:", user.uid);
     } catch (error) {
       console.error("Error al guardar la ubicación:", error);
       Alert.alert("Error", "No se pudo guardar la ubicación.");
     }
-
-
   };
 
   return (
     <SafeAreaView style={styles.container}>
-
 
       <View style={styles.header}>
         <Image style={styles.logo} source={require('../../assets/images/Logo.jpeg')}></Image>
         <Text style={styles.headerTitle}>Location</Text>
       </View>
 
-
-      <MapView
-        provider={PROVIDER_GOOGLE}
-        style={styles.map}
-        region={{
-          latitude: coordinates.latitude,
-          longitude: coordinates.longitude,
-          latitudeDelta: 0.05,
-          longitudeDelta: 0.05,
-        }}
-      >
-        <Marker
-          coordinate={coordinates}
-          draggable
-          onDragEnd={onMarkerDragEnd}
-          title="Localiton"
-          description="Drag the marker to choose the location"
-        />
-      </MapView>
+      <View style={styles.mapContainer}>
+        <MapView
+          style={styles.map}
+          region={{
+            latitude: coordinates.latitude,
+            longitude: coordinates.longitude,
+            latitudeDelta: 0.05,
+            longitudeDelta: 0.05,
+          }}
+        >
+          <Marker
+            coordinate={coordinates}
+            draggable
+            onDragEnd={onMarkerDragEnd}
+            title="Location"
+            description="Drag the marker to choose the location"
+          />
+        </MapView>
+      </View>
 
       <View style={styles.infoContainer}>
 
         <Text style={styles.title}>
-          Select loction
+          Select location
         </Text>
 
         <Text style={styles.coordinates}>
@@ -195,12 +172,12 @@ const styles = StyleSheet.create({
   },
 
   logo: {
-    fontSize: 4,
     fontWeight: 'bold',
     color: '#726B25',
     marginRight: 30,
     height: 70,
-    width: 70
+    width: 70,
+    resizeMode: 'contain',
   },
 
   headerTitle: {
@@ -209,8 +186,13 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
 
-  map: {
+  mapContainer: {
     flex: 1,
+    width: '100%',
+  },
+
+  map: {
+    ...StyleSheet.absoluteFill,
   },
 
   infoContainer: {

@@ -1,178 +1,523 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Dimensions,
   Image,
-  Pressable,
+  SafeAreaView,
+  ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
-  View
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
-
-const width = Dimensions.get("window").width;
-
-export default function Queres() {
-  function iniciarSesion() {
-    throw new Error("Function not implemented.");
-  }
-
+ 
+import { Ionicons } from "@expo/vector-icons";
+ 
+const { width } = Dimensions.get("window");
+ 
+const categories = [
+  {
+    name: "Desayunos",
+    image:
+      "https://paleobull.com/cdn/shop/articles/vista-superior-cereal-tortilla-panqueques-desayuno_8507cba7-008e-4e3a-a325-268c8cfaa437.jpg?v=1702651842",
+  },
+  {
+    name: "Almuerzos",
+    image:
+      "https://i0.wp.com/decoriente.co/wp-content/uploads/2022/11/ALMUERZOS-SALUDABLES.png?fit=600%2C600&ssl=1",
+  },
+  {
+    name: "Cenas",
+    image:
+      "https://www.annarecetasfaciles.com/files/huevos-rotos-patatas-1024x575-1.jpg",
+  },
+  {
+    name: "Reposterias",
+    image:
+      "https://mejorconsalud.as.com/wp-content/uploads/2026/06/postres-sin-horno-368x207.png",
+  },
+];
+ 
+export default function App() {
+  const [search, setSearch] = useState("");
+  const [active, setActive] = useState("home");
+ 
+  const filteredCategories = categories.filter((item) =>
+    item.name.toLowerCase().includes(search.toLowerCase())
+  );
+ 
   return (
-    <View style={styles.container}>
-
-      <View style={styles.fondoAmarillo} />
-
-      <View style={styles.fondoBlanco} />
-
-      <View style={styles.imageContainer}>
-        <Image
-          source={require("../../assets/images/Logo.jpeg")}
-          style={styles.logo}
-        />
+    <SafeAreaView style={styles.safeArea}>
+      <StatusBar
+        barStyle="dark-content"
+        backgroundColor="#FFD34E"
+      />
+ 
+      <View style={styles.container}>
+ 
+        {}
+ 
+        <View style={styles.header}>
+ 
+          <Image
+            source={{
+              uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOAiBzm9ODFVldUhVWpYHrBnzmCK8My-1AbV2BNezO4UAgzb8QtNaBVPw&s=10",
+            }}
+            style={styles.headerImage}
+          />
+ 
+          {}
+          <View style={styles.headerOverlay} />
+ 
+          <Text style={styles.title}>Categorias</Text>
+ 
+          <TouchableOpacity style={styles.profileButton}>
+            <Ionicons
+              name="person"
+              size={30}
+              color="#FFFFFF"
+            />
+          </TouchableOpacity>
+ 
+        </View>
+ 
+        {}
+ 
+        <View style={styles.searchContainer}>
+ 
+          <TextInput
+            value={search}
+            onChangeText={setSearch}
+            placeholder="Buscar comida..."
+            placeholderTextColor="#777"
+            style={styles.searchInput}
+          />
+ 
+          <Ionicons
+            name="search-outline"
+            size={31}
+            color="#222"
+            style={styles.searchIcon}
+          />
+ 
+        </View>
+ 
+        {
+      }
+ 
+        <ScrollView
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.scrollContent}
+        >
+ 
+          {filteredCategories.map((category, index) => (
+ 
+            <TouchableOpacity
+              key={index}
+              activeOpacity={0.85}
+              style={styles.categoryCard}
+              onPress={() => {
+                console.log(
+                  "Categoría seleccionada:",
+                  category.name
+                );
+              }}
+            >
+ 
+              <Image
+                source={{ uri: category.image }}
+                style={styles.categoryImage}
+              />
+ 
+              <View style={styles.categoryOverlay} />
+ 
+              <Text style={styles.categoryText}>
+                {category.name}
+              </Text>
+ 
+              <Ionicons
+                name="chevron-forward-outline"
+                size={48}
+                color="#FFFFFF"
+                style={styles.arrow}
+              />
+ 
+            </TouchableOpacity>
+ 
+          ))}
+ 
+          {filteredCategories.length === 0 && (
+            <View style={styles.noResults}>
+              <Ionicons
+                name="search-outline"
+                size={50}
+                color="#777"
+              />
+ 
+              <Text style={styles.noResultsText}>
+                No se encontró esa categoría
+              </Text>
+            </View>
+          )}
+ 
+        </ScrollView>
+ 
+       
+ 
+        <View style={styles.bottomNavigation}>
+ 
+         
+ 
+          <TouchableOpacity
+            style={styles.navButton}
+            onPress={() => setActive("home")}
+          >
+            <Ionicons
+              name={
+                active === "home"
+                  ? "home"
+                  : "home-outline"
+              }
+              size={30}
+              color="#222"
+            />
+ 
+            <Text style={styles.navText}>
+              Inicio
+            </Text>
+          </TouchableOpacity>
+ 
+          {}
+ 
+          <TouchableOpacity
+            style={styles.navButton}
+            onPress={() => setActive("restaurants")}
+          >
+            <Ionicons
+              name="restaurant-outline"
+              size={30}
+              color="#222"
+            />
+ 
+            <Text style={styles.navText}>
+              Restaurantes
+            </Text>
+          </TouchableOpacity>
+ 
+          {}
+ 
+          <TouchableOpacity
+            style={styles.navButton}
+            onPress={() => setActive("favorites")}
+          >
+            <Ionicons
+              name={
+                active === "favorites"
+                  ? "heart"
+                  : "heart-outline"
+              }
+              size={30}
+              color="#222"
+            />
+ 
+            <Text style={styles.navText}>
+              Favoritos
+            </Text>
+          </TouchableOpacity>
+ 
+          {}
+ 
+          <TouchableOpacity
+            style={styles.navButton}
+            onPress={() => setActive("orders")}
+          >
+            <Ionicons
+              name="clipboard-outline"
+              size={30}
+              color="#222"
+            />
+ 
+            <Text style={styles.navText}>
+              Pedidos
+            </Text>
+          </TouchableOpacity>
+ 
+          {}
+ 
+          <TouchableOpacity
+            style={styles.navButton}
+            onPress={() => setActive("support")}
+          >
+            <Ionicons
+              name="headset-outline"
+              size={30}
+              color="#222"
+            />
+ 
+            <Text style={styles.navText}>
+              Soporte
+            </Text>
+          </TouchableOpacity>
+ 
+        </View>
+ 
       </View>
-
-      
-      <Pressable
-        style={styles.button}
-        onPress={() => void iniciarSesion()}
-      >
-        <Text style={styles.buttonText}>
-          Are you an user?
-        </Text>
-      </Pressable>
-
-      <Pressable
-        style={styles.buttonB}
-        onPress={() => void iniciarSesion()}
-      >
-        <Text style={styles.buttonText}>
-          Are you a restaurant?
-        </Text>
-      </Pressable>
-
-    </View>
+    </SafeAreaView>
   );
 }
-
+ 
+ 
+ 
+ 
 const styles = StyleSheet.create({
-
-  imageContainer: {
-    alignItems: "center",
-    backgroundColor: "#FFFFFF",
-    height: 150,
-    justifyContent: "center",
-    marginTop: 45,
-    borderRadius: 30,
+ 
+  safeArea: {
+    flex: 1,
+    backgroundColor: "#FFD34E",
   },
-
-
-
-  fondoAmarillo: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    height: "40%",
-    backgroundColor: "#F2B84B",
-  },
-
-  fondoBlanco: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 550,
-    backgroundColor: "#FFFFFF",
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-
-  },
-
+ 
   container: {
     flex: 1,
-    backgroundColor: "#FFFFFF",
-    alignItems: "center",
-    
+    backgroundColor: "#FFD34E",
   },
-
-  logo: {
-    width: width * 0.42,
-    height: width * 0.42,
-    resizeMode: "contain",
-    marginTop: 30,
-    marginBottom: 20,
-    zIndex: 1,
+ 
+ 
+ 
+  header: {
+    height: 195,
+    marginHorizontal: 0,
+    position: "relative",
+    overflow: "hidden",
+ 
+    borderBottomLeftRadius: 35,
+    borderBottomRightRadius: 35,
   },
-
+ 
+  headerImage: {
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
+  },
+ 
+  headerOverlay: {
+    position: "absolute",
+    left: 0,
+    right: 0,
+    top: 0,
+    bottom: 0,
+ 
+    backgroundColor: "rgba(0,0,0,0.25)",
+  },
+ 
   title: {
-    fontSize: width * 0.08,
-    fontWeight: "bold",
+    position: "absolute",
+ 
+    width: "100%",
     textAlign: "center",
-    marginBottom: 10,
-    zIndex: 1,
+ 
+    top: 80,
+ 
+    color: "#FFFFFF",
+ 
+    fontSize: 30,
+    fontWeight: "700",
+ 
+    textShadowColor: "rgba(0,0,0,0.7)",
+    textShadowOffset: {
+      width: 1,
+      height: 2,
+    },
+    textShadowRadius: 4,
   },
-
-  subtitle: {
-    fontSize: width * 0.04,
-    textAlign: "center",
-    marginBottom: 30,
-    color: "#666",
-    zIndex: 1,
+ 
+  profileButton: {
+    position: "absolute",
+ 
+    right: 18,
+    top: 18,
+ 
+    width: 48,
+    height: 48,
+ 
+    borderRadius: 24,
+ 
+    alignItems: "center",
+    justifyContent: "center",
   },
-
-  label: {
-    width: "90%",
-    fontSize: width * 0.04,
-    fontWeight: "600",
-    marginBottom: 8,
-    zIndex: 1,
-  },
-
-  input: {
-    width: "90%",
-    borderWidth: 1,
-    borderColor: "#CCCCCC",
-    borderRadius: 10,
-    paddingHorizontal: 15,
-    paddingVertical: 12,
-    marginBottom: 18,
-    fontSize: width * 0.04,
+ 
+ 
+ 
+  searchContainer: {
+    height: 55,
+ 
+    marginHorizontal: 52,
+    marginTop: -2,
+    marginBottom: 22,
+ 
     backgroundColor: "#FFFFFF",
-    zIndex: 1,
-  },
-
-  button: {
-    width: "90%",
-    paddingVertical: 15,
+ 
     borderRadius: 30,
+ 
+    flexDirection: "row",
     alignItems: "center",
-    marginTop: 150,
-    backgroundColor: "#B8D95B",
-    zIndex: 1,
+ 
+    elevation: 4,
+ 
+    shadowColor: "#000",
+    shadowOpacity: 0.15,
+    shadowRadius: 5,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
   },
-
-  buttonText: {
-    fontSize: width * 0.05,
-    fontWeight: "bold",
-    color: "#000",
+ 
+  searchInput: {
+    flex: 1,
+ 
+    height: "100%",
+ 
+    paddingLeft: 22,
+    paddingRight: 5,
+ 
+    fontSize: 17,
+ 
+    color: "#222",
   },
-
-  olvidaste: {
+ 
+  searchIcon: {
+    marginRight: 17,
+  },
+ 
+ 
+ 
+  scrollContent: {
+    paddingHorizontal: 0,
+    paddingBottom: 15,
+  },
+ 
+ 
+  categoryCard: {
+    width: "92%",
+    height: 108,
+ 
+    alignSelf: "center",
+ 
+    marginBottom: 20,
+ 
+    borderRadius: 25,
+ 
+    overflow: "hidden",
+ 
+    position: "relative",
+ 
+    elevation: 5,
+ 
+    shadowColor: "#000",
+    shadowOpacity: 0.2,
+    shadowRadius: 5,
+    shadowOffset: {
+      width: 0,
+      height: 3,
+    },
+  },
+ 
+  categoryImage: {
+    position: "absolute",
+ 
+    width: "100%",
+    height: "100%",
+ 
+    resizeMode: "cover",
+  },
+ 
+  categoryOverlay: {
+    position: "absolute",
+ 
+    width: "100%",
+    height: "100%",
+ 
+    backgroundColor: "rgba(0,0,0,0.25)",
+  },
+ 
+  categoryText: {
+    position: "absolute",
+ 
+    left: 20,
+    top: 28,
+ 
+    color: "#FFFFFF",
+ 
+    fontSize: 34,
+ 
+    fontWeight: "800",
+ 
+    textShadowColor: "rgba(0,0,0,0.6)",
+    textShadowOffset: {
+      width: 1,
+      height: 2,
+    },
+    textShadowRadius: 4,
+  },
+ 
+  arrow: {
+    position: "absolute",
+ 
+    right: 18,
+    top: 28,
+  },
+ 
+ 
+ 
+  noResults: {
+    alignItems: "center",
+    justifyContent: "center",
+ 
+    marginTop: 40,
+  },
+ 
+  noResultsText: {
     marginTop: 15,
-    fontSize: width * 0.035,
-    color: "#DA8D07",
-    fontWeight: "600",
-    textAlign: "center",
-    zIndex: 1,
+ 
+    fontSize: 17,
+ 
+    color: "#555",
   },
-
-
-    buttonB: {
-    width: "90%",
-    paddingVertical: 15,
-    borderRadius: 30,
+ 
+ 
+ 
+  bottomNavigation: {
+    height: 78,
+ 
+    marginHorizontal: 0,
+ 
+    backgroundColor: "#FF9D00",
+ 
+    borderTopLeftRadius: 27,
+    borderTopRightRadius: 27,
+ 
+    flexDirection: "row",
+ 
     alignItems: "center",
-    marginTop: 150,
-    backgroundColor: "#F2B84B",
-    zIndex: 1,
+    justifyContent: "space-around",
+ 
+    paddingHorizontal: 5,
   },
+ 
+  navButton: {
+    flex: 1,
+ 
+    alignItems: "center",
+    justifyContent: "center",
+  },
+ 
+  navText: {
+    fontSize: 8,
+ 
+    marginTop: 2,
+ 
+    color: "#222",
+  },
+ 
 });
-

@@ -1,4 +1,6 @@
+
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { router } from "expo-router";
 import React from "react";
 import {
   Dimensions,
@@ -29,36 +31,33 @@ export default function Explorar() {
           />
  
           <Text style={styles.title}>
-            TAQUERIA
+            TAQUERIA PIKIN
           </Text>
  
           <Text style={styles.description}>
-            En el corazón de la ciudad, esta taquería combina
-            el espíritu festivo de México con el calor humano
-            salvadoreño. El aroma de las tortillas recién
-            hechas y la carne asada al carbón se mezcla con
-            la música alegre que acompaña cada visita.
+            In the heart of the city, this taquería blends
+            the festive spirit of Mexico with the warmth
+            of Salvadoran hospitality. The aroma of freshly
+            made tortillas and charcoal‑grilled meat mixes
+            with the cheerful music that accompanies every visit.
           </Text>
  
           <Text style={styles.description}>
-            Las mesas, decoradas con colores vivos y detalles
-            artesanales, invitan a quedarse y compartir.
+            The tables, decorated with vibrant colors and 
+            handcrafted details, invite you to stay and share.
           </Text>
  
           <Text style={styles.description}>
-            Aquí, los tacos se sirven generosos, con
-            ingredientes frescos y salsas que van desde lo
-            suave hasta lo valientemente picante. Además,
-            no faltan toques locales: curtido, frijoles
-            refritos y hasta un toque de loroco para quienes
-            buscan algo diferente. Es un lugar donde la
-            comida no solo alimenta, sino que crea momentos
-            para recordar.
+            Here, tacos are served generously, with fresh ingredients
+            and sauces ranging from mild to boldly spicy. Local touches
+            are never missing: curtido, refried beans, and even a hint of
+            loroco for those seeking something different. It is a place where
+            food not only nourishes, but also creates moments to remember.
           </Text>
  
-          <Pressable style={styles.productsButton}>
+          <Pressable style={styles.productsButton} onPress={() => router.push("/(tabs)/tacos")}>
             <Text style={styles.productsText}>
-              Explorar sus productos
+              Explore their products
             </Text>
           </Pressable>
  

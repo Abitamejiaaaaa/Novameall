@@ -45,17 +45,19 @@ export default function Cantidad() {
             <Ionicons name="menu" size={32} color="#FFFFFF" />
           </Pressable>
 
-          <Image
-            source={require("../../assets/images/Restaurante.jpeg")}
-            style={styles.profile}
-          />
+          <Pressable onPress={() => router.push("/(tabs)/Restaurante")}>
+            <Image
+              source={require("@/assets/images/tacos.jpg")}
+              style={styles.profile}
+            />
+          </Pressable>
 
           <Pressable style={styles.leftArrow}>
             <Ionicons name="chevron-back" size={34} color="#FFFFFF" />
           </Pressable>
 
           <Image
-            source={require("../../assets/images/tacos.jpg")}
+            source={require("@/assets/images/tacos.jpg")}
             style={styles.foodImage}
           />
 
@@ -97,7 +99,7 @@ export default function Cantidad() {
 
           <View style={styles.buyRow}>
             <Pressable style={styles.buyButton} onPress={irAPagar}>
-              <Text style={styles.buyText}>Comprar</Text>
+              <Text style={styles.buyText}>Buy</Text>
             </Pressable>
 
             <View style={styles.quantity}>

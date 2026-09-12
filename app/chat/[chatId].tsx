@@ -173,8 +173,6 @@ export default function SupportChatScreen() {
           user={{
             _id: firebaseUser?.uid || 'no-auth',
           }}
-          placeholder="Write a message..."
-          alwaysShowSend
           renderBubble={props => (
             <Bubble
               {...props}

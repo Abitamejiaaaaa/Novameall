@@ -1,11 +1,12 @@
 {
   "expo": {
-    "name": "Messp",
-    "slug": "Messp",
+    "name": "NovaMeall",
+    "slug": "NovaMeall",
     "version": "1.0.0",
     "orientation": "portrait",
-    "scheme": "messp",
+    "scheme": "novameall",
     "userInterfaceStyle": "automatic",
+    "icon": "./assets/images/Logo.jpeg",
     "ios": {
       "supportsTablet": true
     },
@@ -13,7 +14,8 @@
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.andres1482.Messp"
     },
     "web": {
       "output": "static"
@@ -31,15 +33,17 @@
             "backgroundColor": "#000000"
           }
         }
-      ],
-      "expo-font",
-      "expo-image",
-      "expo-status-bar",
-      "expo-web-browser"
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
       "reactCompiler": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "dd517bb9-6c99-4cb0-9c63-bbf59bee132b"
+      }
     }
   }
 }

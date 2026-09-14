@@ -1,25 +1,26 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-import { GiftedChat, Bubble, Send, IMessage } from 'react-native-gifted-chat';
 import { Ionicons } from '@expo/vector-icons';
-import { Stack, useRouter, useLocalSearchParams } from 'expo-router';
+import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
+import { onAuthStateChanged, User } from 'firebase/auth';
 import {
-  collection,
-  query,
-  orderBy,
-  onSnapshot,
   addDoc,
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
   serverTimestamp,
 } from 'firebase/firestore';
-import { onAuthStateChanged, User } from 'firebase/auth';
+import React, { useCallback, useEffect, useState } from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, useWindowDimensions, View } from 'react-native';
+import { Bubble, GiftedChat, IMessage, Send } from 'react-native-gifted-chat';
 
-import { db, auth } from '../../Firebase/chat';
+import { auth, db } from '../../Firebase/chat';
 
 const logo = require('../../assets/images/Logo.jpeg');
 
 export default function SupportChatScreen() {
   const router = useRouter();
   const { chatId } = useLocalSearchParams();
+  const { width, height } = useWindowDimensions();
 
   const [messages, setMessages] = useState<IMessage[]>([]);
   const [firebaseUser, setFirebaseUser] = useState<User | null>(null);
@@ -113,55 +114,60 @@ export default function SupportChatScreen() {
     [chatId, firebaseUser]
   );
 
+  // Estilos dinámicos basados en el ancho de la pantalla
+  const isLargeScreen = width > 768;
+
   return (
     <View style={styles.container}>
       <Stack.Screen options={{ headerShown: false }} />
 
-      <View style={styles.header}>
+      {/* Header Responsivo */}
+      <View style={[styles.header, { height: height * 0.11, paddingHorizontal: width * 0.04 }]}>
         <TouchableOpacity onPress={() => router.back()}>
           <Ionicons
             name="chevron-back"
-            size={28}
+            size={isLargeScreen ? 32 : 28}
             color="#31583F"
           />
         </TouchableOpacity>
 
         <Image
           source={logo}
-          style={styles.logo}
+          style={[styles.logo, { width: isLargeScreen ? 56 : 46, height: isLargeScreen ? 56 : 46 }]}
         />
 
         <View style={{ flex: 1 }}>
-          <Text style={styles.title}>
+          <Text style={[styles.title, { fontSize: isLargeScreen ? 20 : 16 }]}>
             NovaMeall Support
           </Text>
 
-          <Text style={styles.online}>
+          <Text style={[styles.online, { fontSize: isLargeScreen ? 14 : 11 }]}>
             ● We're here to help
           </Text>
         </View>
 
         <Ionicons
           name="headset-outline"
-          size={25}
+          size={isLargeScreen ? 30 : 24}
           color="#31583F"
         />
       </View>
 
-      <View style={styles.chat}>
+      {/* Contenedor del Chat Responsivo */}
+      <View style={[styles.chat, { maxWidth: isLargeScreen ? 800 : '100%', alignSelf: isLargeScreen ? 'center' : 'stretch', width: isLargeScreen ? '80%' : 'auto', maxHeight: isLargeScreen ? height * 0.75 : height * 0.90 }]}>
         <View style={styles.welcome}>
           <Ionicons
             name="chatbubble-ellipses-outline"
-            size={22}
+            size={isLargeScreen ? 26 : 22}
             color="#D99A22"
           />
 
-          <View>
-            <Text style={styles.welcomeTitle}>
+          <View style={{ flex: 1 }}>
+            <Text style={[styles.welcomeTitle, { fontSize: isLargeScreen ? 15 : 13 }]}>
               How can we help?
             </Text>
 
-            <Text style={styles.welcomeText}>
+            <Text style={[styles.welcomeText, { fontSize: isLargeScreen ? 13 : 11 }]}>
               Send us a message and we'll help you.
             </Text>
           </View>
@@ -210,31 +216,32 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    height: 90,
     backgroundColor: '#F4BB45',
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 16,
     gap: 12,
+    borderBottomLeftRadius: 16,
+    borderBottomRightRadius: 16,
+    elevation: 4,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
   },
 
   logo: {
-    width: 48,
-    height: 48,
     borderRadius: 14,
     backgroundColor: '#FFFFFF',
   },
 
   title: {
-    fontSize: 17,
     fontWeight: '800',
     color: '#000000',
   },
 
   online: {
-    color: '#000000',
-    fontSize: 12,
-    marginTop: 3,
+    color: '#333333',
+    marginTop: 2,
   },
 
   chat: {
@@ -242,8 +249,7 @@ const styles = StyleSheet.create({
     margin: 12,
     backgroundColor: '#FFFFFF',
     borderRadius: 22,
-    overflow: 'hidden',
-    borderWidth: 1,
+    borderWidth: 2,
     borderColor: '#F4BB45',
   },
 
@@ -254,6 +260,7 @@ const styles = StyleSheet.create({
     padding: 14,
     borderBottomWidth: 1,
     borderBottomColor: '#F4BB45',
+    backgroundColor: '#FFFCF4',
   },
 
   welcomeTitle: {
@@ -262,8 +269,7 @@ const styles = StyleSheet.create({
   },
 
   welcomeText: {
-    fontSize: 11,
-    color: '#000000',
+    color: '#555555',
     marginTop: 2,
   },
 
@@ -292,7 +298,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F4BB45',
     alignItems: 'center',
     justifyContent: 'center',
-    marginRight: 5,
+    marginRight: 8,
     marginBottom: 5,
   },
 });

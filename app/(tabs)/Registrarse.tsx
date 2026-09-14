@@ -82,7 +82,7 @@ export default function Registro() {
       setEmail("");
       setPassword("");
 
-      router.replace("/Home"); 
+      router.replace("/tTERMINOS" as Parameters<typeof router.replace>[0]);
 
     } catch (error: unknown) {
       console.log(error); 

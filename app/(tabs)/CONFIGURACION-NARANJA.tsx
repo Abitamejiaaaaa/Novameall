@@ -40,7 +40,7 @@ export default function SettingsScreen() {
         <View style={styles.card}>
           <Text style={styles.cardTitle}>My Account</Text>
 
-          <Pressable style={styles.option} android_ripple={{ color: '#eee' }} onPress={() => router.push("/(tabs)/CONFIGURACIÓN-PERFIL")}>
+          <Pressable style={styles.option} android_ripple={{ color: '#eee' }} onPress={() => router.push("/(tabs)/CONFIGURACIpN-PERFIL")}>
             <Ionicons name="person-outline" size={Math.min(width * 0.055, 23)} color="#444" />
             <Text style={styles.optionText}>
               Personal information & data
@@ -63,7 +63,7 @@ export default function SettingsScreen() {
             <Text style={styles.optionText}>Payment methods</Text>
           </Pressable>
 
-          <Pressable style={styles.option} android_ripple={{ color: '#eee' }}>
+          <Pressable style={styles.option} android_ripple={{ color: '#eee' }} onPress={() => router.push("/(tabs)/inbox")}>
             <Ionicons name="notifications-outline" size={Math.min(width * 0.055, 23)} color="#444" />
             <Text style={styles.optionText}>Notifications</Text>
           </Pressable>
@@ -77,12 +77,12 @@ export default function SettingsScreen() {
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Help & Support</Text>
 
-          <Pressable style={styles.option} android_ripple={{ color: '#eee' }}>
+          <Pressable style={styles.option} android_ripple={{ color: '#eee' }} onPress={() => router.push("/chat/${supportChatId")}>
             <Ionicons name="help-circle-outline" size={Math.min(width * 0.055, 23)} color="#444" />
             <Text style={styles.optionText}>Help & support</Text>
           </Pressable>
 
-          <Pressable style={styles.option} android_ripple={{ color: '#eee' }}>
+          <Pressable style={styles.option} android_ripple={{ color: '#eee' }} onPress={() => router.push("/(tabs)/POLITICAS")}>
             <Ionicons
               name="shield-checkmark-outline"
               size={Math.min(width * 0.055, 23)}

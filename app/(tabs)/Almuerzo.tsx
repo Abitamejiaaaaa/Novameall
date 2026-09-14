@@ -20,24 +20,23 @@ const { width } = Dimensions.get("window");
  
 const categories = [
   {
-    name: "Breakfasts",
+    name: "Pizza",
     image:
-      "https://paleobull.com/cdn/shop/articles/vista-superior-cereal-tortilla-panqueques-desayuno_8507cba7-008e-4e3a-a325-268c8cfaa437.jpg?v=1702651842",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS9ZNVFLDhCCq16vmXQqERkmn827qJGAjgtMzVfK-CYjw&s=10",
   },
   {
-    name: "Lunches",
+    name: "Tacos",
     image:
-      "https://i0.wp.com/decoriente.co/wp-content/uploads/2022/11/ALMUERZOS-SALUDABLES.png?fit=600%2C600&ssl=1",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSyB-uvPMau6myWQqvHPaGklx3jE6YcRUtNYK7D5bonag&s=10",
   },
   {
-    name: "Dinners",
-    image:
-      "https://www.annarecetasfaciles.com/files/huevos-rotos-patatas-1024x575-1.jpg",
+    name: "Chicken",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrKW4H2Up1PGwc8sDdI1_-uBBFQ5Y8EMOYmfrdGxKw4g&s=10"
   },
   {
-    name: "Bakery",
+    name: "Salad",
     image:
-      "https://mejorconsalud.as.com/wp-content/uploads/2026/06/postres-sin-horno-368x207.png",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQU0CpSY5QTA0vjNyd3DoMB0NzvZ6RcN8pf4AoMjdKfxA&s=10",
   },
 ];
  
@@ -68,7 +67,7 @@ export default function App() {
  
           <Image
             source={{
-              uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOAiBzm9ODFVldUhVWpYHrBnzmCK8My-1AbV2BNezO4UAgzb8QtNaBVPw&s=10",
+              uri: "https://i0.wp.com/decoriente.co/wp-content/uploads/2022/11/ALMUERZOS-SALUDABLES.png?fit=600%2C600&ssl=1",
             }}
             style={styles.headerImage}
           />
@@ -76,7 +75,7 @@ export default function App() {
           {}
           <View style={styles.headerOverlay} />
  
-          <Text style={styles.title}>Categories</Text>
+          <Text style={styles.title}>Lunches</Text>
  
           <TouchableOpacity style={styles.profileButton} onPress={()=> router.push("/CONFIGURACIpN-PERFIL")}>
             <Ionicons
@@ -128,14 +127,14 @@ export default function App() {
                   "Selected category:",
                   category.name
                 );
-                if (category.name === "Breakfasts") {
-                  router.push("/(tabs)/Desayunos");
-                }else if (category.name === "Lunches") {
-                  router.push("/(tabs)/Almuerzo");
-                }else if (category.name === "Dinners") {
-                  router.push("/(tabs)/cena");
-                }else if (category.name === "Bakery") {
-                  router.push("/(tabs)/postre");
+                if (category.name === "Pizza") {
+                  router.push("/(tabs)/pizza");
+                }else if (category.name === "Tacos") {
+                  router.push("/(tabs)/tacos");
+                }else if (category.name === "Chicken") {
+                  router.push("/(tabs)/pollo-asado");
+                }else if (category.name === "Salad") {
+                  router.push("/(tabs)/salah");
                 }
               }}
             >

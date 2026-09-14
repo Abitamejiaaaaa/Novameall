@@ -1,4 +1,4 @@
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome5, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -8,11 +8,29 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 
 export default function Restaurante() {
   const [cantidad, setCantidad] = useState(5);
+
+  const aumentar = () => {
+    setCantidad(cantidad + 1);
+  };
+
+  const disminuir = () => {
+    if (cantidad > 1) {
+      setCantidad(cantidad - 1);
+    }
+  };
+
+  const irAPagar = () => {
+    router.push({
+      pathname: "/(tabs)/Pago-pollo" as any,
+      params: { cantidadPollos: cantidad },
+    });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -33,7 +51,7 @@ export default function Restaurante() {
             style={styles.profile}
           />
 
-          <Pressable style={styles.leftArrow}>
+          <Pressable style={styles.leftArrow} onPress={router.back}>
             <Ionicons name="chevron-back" size={34} color="#FFFFFF" />
           </Pressable>
 
@@ -49,7 +67,7 @@ export default function Restaurante() {
 
         <View style={styles.content}>
           <View style={styles.titleRow}>
-            <Text style={styles.title}>Pollo asado</Text>
+            <Text style={styles.title}>Tender Chicken</Text>
             <Text style={styles.price}>$6.50</Text>
           </View>
 
@@ -71,41 +89,23 @@ export default function Restaurante() {
           </View>
 
           <Text style={styles.description}>
-            Delicioso pollo asado preparado con una mezcla de especias y
-            condimentos, cocinado hasta quedar jugoso y lleno de sabor. Perfecto
-            para disfrutar con tu familia o amigos.
+            Tender chicken marinated with spices and herbs, then cooked over an open flame until golden and smoky. Juicy on the inside and slightly crisp on the outside, each bite carries a balance of savory flavor and charred aroma. Perfectly paired with fresh salads, rice, or roasted vegetables, this dish is both wholesome and satisfying.
           </Text>
 
           <View style={styles.buyRow}>
-            <Pressable
-              style={styles.buyButton}
-              onPress={() =>
-                router.push({
-                  pathname: "/(tabs)/pagos",
-                  params: { producto: "pollo" },
-                })
-              }
-            >
-              <Text style={styles.buyText}>Comprar</Text>
+            <Pressable style={styles.buyButton} onPress={irAPagar}>
+              <Text style={styles.buyText}>Buy</Text>
             </Pressable>
 
             <View style={styles.quantity}>
-              <Pressable
-                onPress={() => setCantidad(cantidad + 1)}
-                style={styles.quantityButton}
-              >
-                <Text style={styles.quantitySymbol}>+</Text>
+              <Pressable onPress={disminuir} style={styles.quantityButton}>
+                <Text style={styles.quantitySymbol}>−</Text>
               </Pressable>
 
               <Text style={styles.quantityNumber}>{cantidad}</Text>
 
-              <Pressable
-                onPress={() =>
-                  setCantidad(cantidad > 1 ? cantidad - 1 : 1)
-                }
-                style={styles.quantityButton}
-              >
-                <Text style={styles.quantitySymbol}>−</Text>
+              <Pressable onPress={aumentar} style={styles.quantityButton}>
+                <Text style={styles.quantitySymbol}>+</Text>
               </Pressable>
             </View>
           </View>
@@ -113,25 +113,21 @@ export default function Restaurante() {
       </ScrollView>
 
       <View style={styles.bottomBar}>
-        <Pressable>
-          <Ionicons name="home-outline" size={27} color="#000000" />
-        </Pressable>
-
-        <Pressable>
-          <MaterialCommunityIcons name="food-outline" size={29} color="#000000" />
-        </Pressable>
-
-        <Pressable>
-          <Ionicons name="heart-outline" size={29} color="#000000" />
-        </Pressable>
-
-        <Pressable>
-          <Ionicons name="clipboard-outline" size={28} color="#000000" />
-        </Pressable>
-
-        <Pressable>
-          <Ionicons name="headset-outline" size={28} color="#000000" />
-        </Pressable>
+        <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/Home')}>
+          <Ionicons name="home-outline" size={26} color="#111" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/CATEGORIAS')}>
+          <MaterialCommunityIcons name="silverware-clean" size={26} color="#111" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navButton} activeOpacity={0.7}>
+          <Ionicons name="heart-outline" size={26} color="#111" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/inbox')}>
+          <Ionicons name="clipboard-outline" size={26} color="#111" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/chat/${supportChatId')}>
+          <FontAwesome5 name="headset" size={22} color="#111" />
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -299,12 +295,16 @@ const styles = StyleSheet.create({
   },
 
   bottomBar: {
-    height: 64,
-    backgroundColor: "#F5A300",
-    borderTopLeftRadius: 14,
-    borderTopRightRadius: 14,
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
+    flexDirection: 'row',
+    backgroundColor: '#E67E22',
+    height: 60,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+
+  navButton: {
+    padding: 10,
   },
 });

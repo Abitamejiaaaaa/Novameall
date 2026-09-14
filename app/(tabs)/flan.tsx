@@ -27,8 +27,8 @@ export default function Cantidad() {
 
   const irAPagar = () => {
     router.push({
-      pathname: "/Pago-Salad" as any,
-      params: { cantidadSalads: cantidad },
+      pathname: "/Pago-Flan"as any,
+      params: { cantidadFlanes: cantidad },
     });
   };
 
@@ -48,7 +48,7 @@ export default function Cantidad() {
 
           <Pressable onPress={() => router.push("/(tabs)/Restaurante")}>
             <Image
-              source={require("@/assets/images/Salad.jpg")}
+              source={require("@/assets/images/Flan.jpg")}
               style={styles.profile}
             />
           </Pressable>
@@ -58,7 +58,7 @@ export default function Cantidad() {
           </Pressable>
 
           <Image
-            source={require("@/assets/images/Salad.jpg")}
+            source={require("@/assets/images/Flan.jpg")}
             style={styles.foodImage}
           />
 
@@ -69,7 +69,7 @@ export default function Cantidad() {
 
         <View style={styles.content}>
           <View style={styles.titleRow}>
-            <Text style={styles.title}>Salad</Text>
+            <Text style={styles.title}>Flan</Text>
             <Text style={styles.price}>$6.99</Text>
           </View>
 
@@ -91,10 +91,7 @@ export default function Cantidad() {
           </View>
 
           <Text style={styles.description}>
-            A crisp, colorful salad bursting with freshness. Crunchy lettuce, ripe tomatoes,
-             and vibrant vegetables come together,
-             drizzled with a light dressing that enhances every bite. Simple yet full of flavor
-             , it’s the perfect balance of health and taste.
+            A smooth and creamy custard dessert topped with a rich layer of caramel. Its silky texture melts in the mouth, while the golden caramel adds a sweet, slightly bitter contrast. Served chilled, flan is a timeless treat enjoyed across Latin America and Spain, perfect for ending a meal with elegance and flavor.
           </Text>
 
           <View style={styles.buyRow}>
@@ -134,6 +131,7 @@ export default function Cantidad() {
                 <FontAwesome5 name="headset" size={22} color="#111" />
               </TouchableOpacity>
             </View>
+        
     </SafeAreaView>
   );
 }
@@ -172,7 +170,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
-
     navButton: {
     padding: 10,
   },

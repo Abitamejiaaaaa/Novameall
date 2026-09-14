@@ -27,8 +27,8 @@ export default function Cantidad() {
 
   const irAPagar = () => {
     router.push({
-      pathname: "/Pago-Salad" as any,
-      params: { cantidadSalads: cantidad },
+      pathname: "/Pago-carne"as any,
+      params: { cantidadCarne: cantidad },
     });
   };
 
@@ -48,7 +48,7 @@ export default function Cantidad() {
 
           <Pressable onPress={() => router.push("/(tabs)/Restaurante")}>
             <Image
-              source={require("@/assets/images/Salad.jpg")}
+              source={require("@/assets/images/carne.jpg")}
               style={styles.profile}
             />
           </Pressable>
@@ -58,7 +58,7 @@ export default function Cantidad() {
           </Pressable>
 
           <Image
-            source={require("@/assets/images/Salad.jpg")}
+            source={require("@/assets/images/carne.jpg")}
             style={styles.foodImage}
           />
 
@@ -69,8 +69,8 @@ export default function Cantidad() {
 
         <View style={styles.content}>
           <View style={styles.titleRow}>
-            <Text style={styles.title}>Salad</Text>
-            <Text style={styles.price}>$6.99</Text>
+            <Text style={styles.title}>Steak</Text>
+            <Text style={styles.price}>$4.50</Text>
           </View>
 
           <View style={styles.infoRow}>
@@ -91,10 +91,7 @@ export default function Cantidad() {
           </View>
 
           <Text style={styles.description}>
-            A crisp, colorful salad bursting with freshness. Crunchy lettuce, ripe tomatoes,
-             and vibrant vegetables come together,
-             drizzled with a light dressing that enhances every bite. Simple yet full of flavor
-             , it’s the perfect balance of health and taste.
+            Juicy cuts of beef seasoned with spices and herbs, then cooked over hot coals until tender and smoky. The charred edges add a rich flavor, while the inside stays succulent and full of taste. Served with fresh tortillas, rice, beans, or salad, this dish is a celebration of tradition and comfort, perfect for sharing with family and friends.
           </Text>
 
           <View style={styles.buyRow}>
@@ -134,6 +131,7 @@ export default function Cantidad() {
                 <FontAwesome5 name="headset" size={22} color="#111" />
               </TouchableOpacity>
             </View>
+        
     </SafeAreaView>
   );
 }
@@ -172,7 +170,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
-
     navButton: {
     padding: 10,
   },

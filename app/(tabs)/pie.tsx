@@ -27,8 +27,8 @@ export default function Cantidad() {
 
   const irAPagar = () => {
     router.push({
-      pathname: "/Pago-Salad" as any,
-      params: { cantidadSalads: cantidad },
+      pathname: "/Pago-pie"as any,
+      params: { cantidadPie: cantidad },
     });
   };
 
@@ -48,7 +48,7 @@ export default function Cantidad() {
 
           <Pressable onPress={() => router.push("/(tabs)/Restaurante")}>
             <Image
-              source={require("@/assets/images/Salad.jpg")}
+              source={require("@/assets/images/PIE.jpg")}
               style={styles.profile}
             />
           </Pressable>
@@ -58,7 +58,7 @@ export default function Cantidad() {
           </Pressable>
 
           <Image
-            source={require("@/assets/images/Salad.jpg")}
+            source={require("@/assets/images/PIE.jpg")}
             style={styles.foodImage}
           />
 
@@ -69,14 +69,14 @@ export default function Cantidad() {
 
         <View style={styles.content}>
           <View style={styles.titleRow}>
-            <Text style={styles.title}>Salad</Text>
-            <Text style={styles.price}>$6.99</Text>
+            <Text style={styles.title}>Lemon Pie</Text>
+            <Text style={styles.price}>$9.50</Text>
           </View>
 
           <View style={styles.infoRow}>
             <View style={styles.infoItem}>
               <Ionicons name="star" size={23} color="#000000" />
-              <Text style={styles.infoText}>4.5</Text>
+              <Text style={styles.infoText}>5</Text>
             </View>
 
             <View style={styles.infoItem}>
@@ -91,10 +91,7 @@ export default function Cantidad() {
           </View>
 
           <Text style={styles.description}>
-            A crisp, colorful salad bursting with freshness. Crunchy lettuce, ripe tomatoes,
-             and vibrant vegetables come together,
-             drizzled with a light dressing that enhances every bite. Simple yet full of flavor
-             , it’s the perfect balance of health and taste.
+            A delightful dessert with a buttery, flaky crust filled with smooth lemon cream. Its bright citrus flavor balances sweetness and tang, topped with fluffy meringue or whipped cream for a light finish. Refreshing and indulgent, lemon pie is the perfect treat to enjoy after a meal or with a cup of coffee.
           </Text>
 
           <View style={styles.buyRow}>
@@ -134,6 +131,7 @@ export default function Cantidad() {
                 <FontAwesome5 name="headset" size={22} color="#111" />
               </TouchableOpacity>
             </View>
+        
     </SafeAreaView>
   );
 }
@@ -172,7 +170,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
-
     navButton: {
     padding: 10,
   },

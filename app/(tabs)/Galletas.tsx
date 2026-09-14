@@ -1,4 +1,4 @@
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome5, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -8,6 +8,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 
@@ -68,7 +69,7 @@ export default function Cantidad() {
 
         <View style={styles.content}>
           <View style={styles.titleRow}>
-            <Text style={styles.title}>Galletas</Text>
+            <Text style={styles.title}>Cookies</Text>
             <Text style={styles.price}>$1.25</Text>
           </View>
 
@@ -113,27 +114,23 @@ export default function Cantidad() {
         </View>
       </ScrollView>
 
-      <View style={styles.bottomBar}>
-        <Pressable onPress={() => router.push("/(tabs)/Home")}>
-          <Ionicons name="home-outline" size={27} color="#000000" />
-        </Pressable>
-
-        <Pressable>
-          <MaterialCommunityIcons name="food-outline" size={29} color="#000000" />
-        </Pressable>
-
-        <Pressable>
-          <Ionicons name="heart-outline" size={29} color="#000000" />
-        </Pressable>
-
-        <Pressable>
-          <Ionicons name="clipboard-outline" size={28} color="#000000" />
-        </Pressable>
-
-        <Pressable>
-          <Ionicons name="headset-outline" size={28} color="#000000" />
-        </Pressable>
-      </View>
+    <View style={styles.bottomBar}>
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/Home')}>
+                <Ionicons name="home-outline" size={26} color="#111" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/CATEGORIAS')}>
+                <MaterialCommunityIcons name="silverware-clean" size={26} color="#111" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7}>
+                <Ionicons name="heart-outline" size={26} color="#111" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/inbox')}>
+                <Ionicons name="clipboard-outline" size={26} color="#111" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/chat/${supportChatId')}>
+                <FontAwesome5 name="headset" size={22} color="#111" />
+              </TouchableOpacity>
+            </View>
     </SafeAreaView>
   );
 }
@@ -163,5 +160,16 @@ const styles = StyleSheet.create({
   quantityButton: { paddingHorizontal: 2 },
   quantitySymbol: { fontSize: 28, color: "#111111", fontWeight: "500" },
   quantityNumber: { fontSize: 19, fontWeight: "600", color: "#111111" },
-  bottomBar: { height: 64, backgroundColor: "#F5A300", borderTopLeftRadius: 14, borderTopRightRadius: 14, flexDirection: "row", justifyContent: "space-around", alignItems: "center" },
+  bottomBar: {
+    flexDirection: 'row',
+    backgroundColor: '#E67E22',
+    height: 60,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  navButton: {
+    padding: 10,
+  }
 });

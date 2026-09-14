@@ -8,7 +8,7 @@ import { useColorScheme } from '../hooks/use-color-scheme';
 import React from 'react';
 
 export const unstable_settings = {
-  anchor: '(tabs)',
+  anchor: '(login)',
 };
 
 export default function RootLayout() {

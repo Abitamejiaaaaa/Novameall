@@ -32,8 +32,7 @@ import {
   Send,
 } from 'react-native-gifted-chat';
 
-// Firebase/chat is a JavaScript module without TypeScript declarations.
-// @ts-expect-error The module is intentionally consumed as the existing JS implementation.
+
 import { auth, db } from '../../Firebase/chat';
 
 const logo = require('../../assets/images/Logo.jpeg');

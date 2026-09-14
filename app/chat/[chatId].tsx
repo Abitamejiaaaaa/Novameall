@@ -153,8 +153,19 @@ export default function SupportChatScreen() {
         />
       </View>
 
-      {/* Contenedor del Chat Responsivo */}
-      <View style={[styles.chat, { maxWidth: isLargeScreen ? 800 : '100%', alignSelf: isLargeScreen ? 'center' : 'stretch', width: isLargeScreen ? '80%' : 'auto', maxHeight: isLargeScreen ? height * 0.75 : height * 0.90 }]}>
+      {/* Contenedor del Chat Responsivo con altura controlada */}
+      <View 
+        style={[
+          styles.chat, 
+          { 
+            maxWidth: isLargeScreen ? 800 : '100%', 
+            alignSelf: isLargeScreen ? 'center' : 'stretch', 
+            width: isLargeScreen ? '80%' : 'auto', 
+            height: isLargeScreen ? height * 0.75 : height * 0.90,
+            maxHeight: isLargeScreen ? height * 0.75 : height * 0.90 
+          }
+        ]}
+      >
         <View style={styles.welcome}>
           <Ionicons
             name="chatbubble-ellipses-outline"
@@ -173,37 +184,39 @@ export default function SupportChatScreen() {
           </View>
         </View>
 
-        <GiftedChat
-          messages={messages}
-          onSend={onSend}
-          user={{
-            _id: firebaseUser?.uid || 'no-auth',
-          }}
-          renderBubble={props => (
-            <Bubble
-              {...props}
-              wrapperStyle={{
-                left: styles.leftBubble,
-                right: styles.rightBubble,
-              }}
-              textStyle={{
-                left: styles.leftText,
-                right: styles.rightText,
-              }}
-            />
-          )}
-          renderSend={props => (
-            <Send {...props}>
-              <View style={styles.send}>
-                <Ionicons
-                  name="send"
-                  size={18}
-                  color="#FFFFFF"
-                />
-              </View>
-            </Send>
-          )}
-        />
+        <View style={{ flex: 1 }}>
+          <GiftedChat
+            messages={messages}
+            onSend={onSend}
+            user={{
+              _id: firebaseUser?.uid || 'no-auth',
+            }}
+            renderBubble={props => (
+              <Bubble
+                {...props}
+                wrapperStyle={{
+                  left: styles.leftBubble,
+                  right: styles.rightBubble,
+                }}
+                textStyle={{
+                  left: styles.leftText,
+                  right: styles.rightText,
+                }}
+              />
+            )}
+            renderSend={props => (
+              <Send {...props}>
+                <View style={styles.send}>
+                  <Ionicons
+                    name="send"
+                    size={18}
+                    color="#FFFFFF"
+                  />
+                </View>
+              </Send>
+            )}
+          />
+        </View>
       </View>
     </View>
   );
@@ -213,6 +226,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#FFF8E8',
+    justifyContent: 'flex-start',
   },
 
   header: {
@@ -245,12 +259,12 @@ const styles = StyleSheet.create({
   },
 
   chat: {
-    flex: 1,
     margin: 12,
     backgroundColor: '#FFFFFF',
     borderRadius: 22,
     borderWidth: 2,
     borderColor: '#F4BB45',
+    overflow: 'hidden',
   },
 
   welcome: {

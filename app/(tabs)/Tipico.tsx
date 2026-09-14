@@ -27,8 +27,8 @@ export default function Cantidad() {
 
   const irAPagar = () => {
     router.push({
-      pathname: "/Pago-Salad" as any,
-      params: { cantidadSalads: cantidad },
+      pathname: "/Pago-Tipico"as any,
+      params: { cantidadTipicos: cantidad },
     });
   };
 
@@ -48,7 +48,7 @@ export default function Cantidad() {
 
           <Pressable onPress={() => router.push("/(tabs)/Restaurante")}>
             <Image
-              source={require("@/assets/images/Salad.jpg")}
+              source={require("@/assets/images/Tipoco.jpg")}
               style={styles.profile}
             />
           </Pressable>
@@ -58,7 +58,7 @@ export default function Cantidad() {
           </Pressable>
 
           <Image
-            source={require("@/assets/images/Salad.jpg")}
+            source={require("@/assets/images/Tipoco.jpg")}
             style={styles.foodImage}
           />
 
@@ -69,8 +69,8 @@ export default function Cantidad() {
 
         <View style={styles.content}>
           <View style={styles.titleRow}>
-            <Text style={styles.title}>Salad</Text>
-            <Text style={styles.price}>$6.99</Text>
+            <Text style={styles.title}>Salvadorean Breakfast</Text>
+            <Text style={styles.price}>$3.85</Text>
           </View>
 
           <View style={styles.infoRow}>
@@ -91,10 +91,7 @@ export default function Cantidad() {
           </View>
 
           <Text style={styles.description}>
-            A crisp, colorful salad bursting with freshness. Crunchy lettuce, ripe tomatoes,
-             and vibrant vegetables come together,
-             drizzled with a light dressing that enhances every bite. Simple yet full of flavor
-             , it’s the perfect balance of health and taste.
+            A traditional and flavorful morning meal featuring warm handmade corn tortillas, creamy refried beans, and fresh cheese. Often accompanied by scrambled eggs with tomatoes and onions, fried plantains, and a side of sour cream. To complete the experience, a cup of rich Salvadoran coffee brings balance to the hearty and comforting flavors.
           </Text>
 
           <View style={styles.buyRow}>
@@ -134,6 +131,7 @@ export default function Cantidad() {
                 <FontAwesome5 name="headset" size={22} color="#111" />
               </TouchableOpacity>
             </View>
+        
     </SafeAreaView>
   );
 }
@@ -172,7 +170,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
-
     navButton: {
     padding: 10,
   },

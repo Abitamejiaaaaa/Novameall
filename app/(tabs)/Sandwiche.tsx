@@ -27,8 +27,8 @@ export default function Cantidad() {
 
   const irAPagar = () => {
     router.push({
-      pathname: "/Pago-Salad" as any,
-      params: { cantidadSalads: cantidad },
+      pathname: "/Pago-Sandwiche"as any,
+      params: { cantidadSandwiche: cantidad },
     });
   };
 
@@ -48,7 +48,7 @@ export default function Cantidad() {
 
           <Pressable onPress={() => router.push("/(tabs)/Restaurante")}>
             <Image
-              source={require("@/assets/images/Salad.jpg")}
+              source={require("@/assets/images/SAN.jpg")}
               style={styles.profile}
             />
           </Pressable>
@@ -58,7 +58,7 @@ export default function Cantidad() {
           </Pressable>
 
           <Image
-            source={require("@/assets/images/Salad.jpg")}
+            source={require("@/assets/images/SAN.jpg")}
             style={styles.foodImage}
           />
 
@@ -69,8 +69,8 @@ export default function Cantidad() {
 
         <View style={styles.content}>
           <View style={styles.titleRow}>
-            <Text style={styles.title}>Salad</Text>
-            <Text style={styles.price}>$6.99</Text>
+            <Text style={styles.title}>Sandwiche</Text>
+            <Text style={styles.price}>$4.50</Text>
           </View>
 
           <View style={styles.infoRow}>
@@ -91,10 +91,7 @@ export default function Cantidad() {
           </View>
 
           <Text style={styles.description}>
-            A crisp, colorful salad bursting with freshness. Crunchy lettuce, ripe tomatoes,
-             and vibrant vegetables come together,
-             drizzled with a light dressing that enhances every bite. Simple yet full of flavor
-             , it’s the perfect balance of health and taste.
+            Freshly baked bread filled with layers of savory meats, crisp vegetables, and creamy spreads. Each bite offers a perfect balance of textures—soft bread, crunchy greens, and flavorful fillings. Versatile and satisfying, sandwiches can be enjoyed as a quick snack or a hearty meal, paired with fries, salad, or a refreshing drink.
           </Text>
 
           <View style={styles.buyRow}>
@@ -134,6 +131,7 @@ export default function Cantidad() {
                 <FontAwesome5 name="headset" size={22} color="#111" />
               </TouchableOpacity>
             </View>
+        
     </SafeAreaView>
   );
 }
@@ -172,7 +170,6 @@ const styles = StyleSheet.create({
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
-
     navButton: {
     padding: 10,
   },

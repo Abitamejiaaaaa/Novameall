@@ -20,24 +20,23 @@ const { width } = Dimensions.get("window");
  
 const categories = [
   {
-    name: "Breakfasts",
+    name: "Pasta",
     image:
-      "https://paleobull.com/cdn/shop/articles/vista-superior-cereal-tortilla-panqueques-desayuno_8507cba7-008e-4e3a-a325-268c8cfaa437.jpg?v=1702651842",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_Du39Coztmc4zlSJGok0bOuulRxjslHiPcV6eGVLbig&s=10",
   },
   {
-    name: "Lunches",
+    name: "Sandwiche",
     image:
-      "https://i0.wp.com/decoriente.co/wp-content/uploads/2022/11/ALMUERZOS-SALUDABLES.png?fit=600%2C600&ssl=1",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT8WGJbAwxkH3nhKrR77JgskeDXeeLcWOLbt2waWplS8g&s=10",
   },
   {
-    name: "Dinners",
-    image:
-      "https://www.annarecetasfaciles.com/files/huevos-rotos-patatas-1024x575-1.jpg",
+    name: "Steak",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT-yqSxdU0-_3_KUIPOrs5qFTm482HqCIQqn6u-l6xBRg&s=10"
   },
   {
-    name: "Bakery",
+    name: "Pupusas",
     image:
-      "https://mejorconsalud.as.com/wp-content/uploads/2026/06/postres-sin-horno-368x207.png",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQrjFs2pTpFeNnMBMmFW3wNlvT4VWn0cOBWF5tCktB4kw&s=10",
   },
 ];
  
@@ -68,7 +67,7 @@ export default function App() {
  
           <Image
             source={{
-              uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOAiBzm9ODFVldUhVWpYHrBnzmCK8My-1AbV2BNezO4UAgzb8QtNaBVPw&s=10",
+              uri: "https://www.annarecetasfaciles.com/files/huevos-rotos-patatas-1024x575-1.jpg",
             }}
             style={styles.headerImage}
           />
@@ -76,7 +75,7 @@ export default function App() {
           {}
           <View style={styles.headerOverlay} />
  
-          <Text style={styles.title}>Categories</Text>
+          <Text style={styles.title}>Dinners</Text>
  
           <TouchableOpacity style={styles.profileButton} onPress={()=> router.push("/CONFIGURACIpN-PERFIL")}>
             <Ionicons
@@ -128,14 +127,14 @@ export default function App() {
                   "Selected category:",
                   category.name
                 );
-                if (category.name === "Breakfasts") {
-                  router.push("/(tabs)/Desayunos");
-                }else if (category.name === "Lunches") {
-                  router.push("/(tabs)/Almuerzo");
-                }else if (category.name === "Dinners") {
-                  router.push("/(tabs)/cena");
-                }else if (category.name === "Bakery") {
-                  router.push("/(tabs)/postre");
+                if (category.name === "Pasta") {
+                  router.push("/(tabs)/Espagueti");
+                }else if (category.name === "Sandwich") {
+                  router.push("/(tabs)/Sandwiche");
+                }else if (category.name === "Steak") {
+                  router.push("/(tabs)/Carne");
+                }else if (category.name === "Pupusas") {
+                  router.push("/(tabs)/pupusas");
                 }
               }}
             >

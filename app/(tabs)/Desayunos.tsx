@@ -20,24 +20,23 @@ const { width } = Dimensions.get("window");
  
 const categories = [
   {
-    name: "Breakfasts",
+    name: "Salvadorean Breakfasts",
     image:
-      "https://paleobull.com/cdn/shop/articles/vista-superior-cereal-tortilla-panqueques-desayuno_8507cba7-008e-4e3a-a325-268c8cfaa437.jpg?v=1702651842",
+      "https://sazonsula.com/wp-content/uploads/2021/10/receta-desayuno-tipico-sazon-sula.jpg",
   },
   {
-    name: "Lunches",
+    name: "American Breakfasts",
     image:
-      "https://i0.wp.com/decoriente.co/wp-content/uploads/2022/11/ALMUERZOS-SALUDABLES.png?fit=600%2C600&ssl=1",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRTufNUhnYWOYjo5kx4l1AVYYiG0TBYPUPCTuexnFAth7Bh3Y4kPw_twv4&s=10",
   },
   {
-    name: "Dinners",
-    image:
-      "https://www.annarecetasfaciles.com/files/huevos-rotos-patatas-1024x575-1.jpg",
+    name: "Cookies",
+    image: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSc--RFNn8wV6ofDPecouVQlM22IuWwbBlH7X969Blr5_icmg_xo_TAfWk&s=10"
   },
   {
-    name: "Bakery",
+    name: "Toasts",
     image:
-      "https://mejorconsalud.as.com/wp-content/uploads/2026/06/postres-sin-horno-368x207.png",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSt_rFV5VwU8M261C84EXIpvdrkwtG_8vvKVpS1gv_41Q&s=10",
   },
 ];
  
@@ -68,7 +67,7 @@ export default function App() {
  
           <Image
             source={{
-              uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSOAiBzm9ODFVldUhVWpYHrBnzmCK8My-1AbV2BNezO4UAgzb8QtNaBVPw&s=10",
+              uri: "https://paleobull.com/cdn/shop/articles/vista-superior-cereal-tortilla-panqueques-desayuno_8507cba7-008e-4e3a-a325-268c8cfaa437.jpg?v=1702651842",
             }}
             style={styles.headerImage}
           />
@@ -76,7 +75,7 @@ export default function App() {
           {}
           <View style={styles.headerOverlay} />
  
-          <Text style={styles.title}>Categories</Text>
+          <Text style={styles.title}>Breakfasts</Text>
  
           <TouchableOpacity style={styles.profileButton} onPress={()=> router.push("/CONFIGURACIpN-PERFIL")}>
             <Ionicons
@@ -128,14 +127,14 @@ export default function App() {
                   "Selected category:",
                   category.name
                 );
-                if (category.name === "Breakfasts") {
-                  router.push("/(tabs)/Desayunos");
-                }else if (category.name === "Lunches") {
-                  router.push("/(tabs)/Almuerzo");
-                }else if (category.name === "Dinners") {
-                  router.push("/(tabs)/cena");
-                }else if (category.name === "Bakery") {
-                  router.push("/(tabs)/postre");
+                if (category.name === "Salvadorean Breakfasts") {
+                  router.push("/(tabs)/Tipico");
+                }else if (category.name === "American Breakfasts") {
+                  router.push("/(tabs)/Americano");
+                }else if (category.name === "Cookies") {
+                  router.push("/(tabs)/Galletas");
+                }else if (category.name === "Toasts") {
+                  router.push("/(tabs)/TOSTADAS");
                 }
               }}
             >

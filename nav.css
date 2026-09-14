@@ -1,0 +1,33 @@
+/*
+bottomBar: {
+    flexDirection: 'row',
+    backgroundColor: '#E67E22',
+    height: 60,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+
+    navButton: {
+    padding: 10,
+  },
+
+<View style={styles.bottomBar}>
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/Home')}>
+                <Ionicons name="home-outline" size={26} color="#111" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/CATEGORIAS')}>
+                <MaterialCommunityIcons name="silverware-clean" size={26} color="#111" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7}>
+                <Ionicons name="heart-outline" size={26} color="#111" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/inbox')}>
+                <Ionicons name="clipboard-outline" size={26} color="#111" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/chat/${supportChatId')}>
+                <FontAwesome5 name="headset" size={22} color="#111" />
+              </TouchableOpacity>
+            </View>
+/*

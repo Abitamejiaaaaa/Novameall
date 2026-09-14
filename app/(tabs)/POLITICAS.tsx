@@ -1,3 +1,4 @@
+import { router } from 'expo-router';
 import React from 'react';
 import {
   Alert,
@@ -9,8 +10,6 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-
-const { width, height } = Dimensions.get('window');
 
 const privacyPolicies = [
   'NovaMeall is committed to protecting the privacy and personal information of its users. This Privacy Policy explains what information we may collect, how we use it, and with whom it may be shared to provide the services of the platform.',
@@ -47,23 +46,27 @@ const privacyPolicies = [
 ];
 
 export default function PrivacyPolicy() {
-
   const accept = () => {
     Alert.alert(
       'Confirmation',
       'You have accepted NovaMeall\'s Privacy Policy.'
+      
     );
+    router.push('/(tabs)/Home');
   };
 
   return (
     <View style={styles.container}>
-
       <View style={styles.card}>
-
+        
+        {/* Header */}
         <View style={styles.header}>
-
-          <View style={styles.logo}>
-             <Image style={styles.logo} source={require('../../assets/images/Logo.jpeg')}></Image>
+          <View style={styles.logoContainer}>
+             <Image 
+               style={styles.logoImage} 
+               source={require('../../assets/images/Logo.jpeg')}
+               resizeMode="cover"
+             />
           </View>
 
           <Text style={styles.title}>
@@ -73,14 +76,14 @@ export default function PrivacyPolicy() {
           <Text style={styles.subtitle}>
             NovaMeall
           </Text>
-
         </View>
 
+        {/* Content / ScrollView */}
         <ScrollView
           style={styles.content}
+          contentContainerStyle={styles.scrollContentContainer}
           showsVerticalScrollIndicator={true}
         >
-
           {privacyPolicies.map((text, index) => (
             <Text
               key={index}
@@ -89,108 +92,118 @@ export default function PrivacyPolicy() {
               {text}
             </Text>
           ))}
-
         </ScrollView>
 
+        {/* Button */}
         <View style={styles.buttonContainer}>
-
           <TouchableOpacity
             style={styles.button}
             activeOpacity={0.8}
             onPress={accept}
           >
-
             <Text style={styles.buttonText}>
               Accept and Continue
             </Text>
-
           </TouchableOpacity>
-
         </View>
 
       </View>
-
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#F5F5F5', // Un gris suave de fondo para que resalte la tarjeta
     justifyContent: 'center',
     alignItems: 'center',
+    padding: '4%', // Margen responsive alrededor de la pantalla
   },
 
   card: {
-    width: width * 0.88,
-    height: height * 0.82,
+    width: '100%',
+    maxWidth: 500, // Evita que la tarjeta sea demasiado ancha en pantallas de tablets o Web
+    height: '90%', // Ocupa un porcentaje dinámico en lugar de un alto fijo estricto
     backgroundColor: '#FFFFFF',
     borderRadius: 25,
     overflow: 'hidden',
-    elevation: 5,
+    // Sombra compatible con Android e iOS
+    elevation: 6,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 3 },
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
   },
 
   header: {
     backgroundColor: '#EECFA7',
     alignItems: 'center',
-    paddingVertical: 25,
-    paddingHorizontal: 20,
+    paddingVertical: '5%',
+    paddingHorizontal: '5%',
   },
 
-  logo: {
-    width: 85,
-    height: 85,
-    borderRadius: 33,
+  logoContainer: {
+    width: 75,
+    height: 75,
+    borderRadius: 22,
+    overflow: 'hidden', // Asegura que la imagen respete los bordes redondeados
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 8,
+    backgroundColor: '#FFFFFF',
   },
 
-  logoText: {
-    color: '#FFFFFF',
-    fontSize: 30,
-    fontWeight: 'bold',
+  logoImage: {
+    width: '100%',
+    height: '100%',
   },
 
   title: {
-    fontSize: 22,
+    fontSize: 20,
     fontWeight: 'bold',
     color: '#3B3B3B',
     textAlign: 'center',
   },
 
   subtitle: {
-    marginTop: 5,
-    fontSize: 15,
+    marginTop: 4,
+    fontSize: 14,
     color: '#726B25',
     fontWeight: '600',
   },
 
   content: {
     flex: 1,
-    paddingHorizontal: 22,
-    paddingTop: 20,
+  },
+
+  scrollContentContainer: {
+    paddingHorizontal: '5%',
+    paddingTop: 16,
+    paddingBottom: 24,
   },
 
   paragraph: {
-    fontSize: 15,
+    fontSize: 14,
     color: '#444444',
-    lineHeight: 24,
+    lineHeight: 22,
     marginBottom: 16,
     textAlign: 'justify',
   },
 
   buttonContainer: {
-    padding: 18,
+    padding: '4%',
+    backgroundColor: '#FFFFFF',
+    borderTopWidth: 1,
+    borderTopColor: '#F0F0F0', // Una línea sutil opcional para separar el botón del texto
   },
 
   button: {
     backgroundColor: '#B8D95B',
-    paddingVertical: 15,
+    paddingVertical: 14,
     borderRadius: 30,
     alignItems: 'center',
+    width: '100%',
   },
 
   buttonText: {
@@ -198,5 +211,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-
 });

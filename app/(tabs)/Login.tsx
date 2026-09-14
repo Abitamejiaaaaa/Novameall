@@ -1,7 +1,6 @@
 import { router } from 'expo-router';
 import React from 'react';
 import {
-  Dimensions,
   Image,
   StyleSheet,
   Text,
@@ -10,11 +9,10 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const { width, height } = Dimensions.get('window');
-
 export default function HomeScreen() {
   return (
     <SafeAreaView style={styles.container} edges={['top', 'left', 'right']}>
+      scrollView
       <View style={styles.fondoAmarillo} />
       <View style={styles.fondoBlanco} />
       
@@ -84,27 +82,29 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
   },
   header: {
-    height: height * 0.22,
+    flex: 2,
     justifyContent: 'center',
     alignItems: 'center',
+    minHeight: 100,
   },
   logo: {
-    width: Math.min(width * 0.35, 140),
-    height: Math.min(width * 0.35, 140),
+    width: 120,
+    height: 120,
+    maxWidth: '40%',
+    maxHeight: '80%',
   },
   content: {
-    flex: 1,
+    flex: 5,
     backgroundColor: '#FFFFFF',
     borderTopLeftRadius: 35,
     borderTopRightRadius: 35,
     alignItems: 'center',
-    paddingHorizontal: width * 0.06,
-    paddingTop: height * 0.03,
-    paddingBottom: height * 0.03,
+    paddingHorizontal: '6%',
+    paddingVertical: '4%',
     justifyContent: 'space-between',
   },
   title: {
-    fontSize: Math.min(width * 0.075, 32),
+    fontSize: 28,
     fontWeight: 'bold',
     textAlign: 'center',
   },
@@ -119,11 +119,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    maxHeight: height * 0.32,
+    marginVertical: 10,
   },
   image: {
-    width: width * 0.65,
+    width: '100%',
     height: '100%',
+    maxHeight: 220,
   },
   footerContainer: {
     width: '100%',
@@ -134,7 +135,7 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 400,
     backgroundColor: '#B8D95B',
-    paddingVertical: height * 0.018,
+    paddingVertical: 15,
     borderRadius: 30,
     alignItems: 'center',
     shadowColor: '#000',
@@ -147,7 +148,7 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: 400,
     backgroundColor: '#DA8D07',
-    paddingVertical: height * 0.018,
+    paddingVertical: 15,
     borderRadius: 30,
     alignItems: 'center',
     shadowColor: '#000',
@@ -157,7 +158,7 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   buttonText: {
-    fontSize: Math.min(width * 0.045, 18),
+    fontSize: 16,
     fontWeight: 'bold',
     color: '#000',
   },

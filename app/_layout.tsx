@@ -7,21 +7,14 @@ import Toast from 'react-native-toast-message';
 import { useColorScheme } from '../hooks/use-color-scheme';
 import React from 'react';
 
-export const unstable_settings = {
-  anchor: '(login)',
-};
-
 export default function RootLayout() {
   const colorScheme = useColorScheme();
 
   return (
     <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
+      {/* Al dejar el Stack vacío, Expo Router reconoce automáticamente todos tus archivos .tsx de la carpeta app */}
+      <Stack screenOptions={{ headerShown: false }} />
       <StatusBar style="auto" />
-      
       <Toast />
     </ThemeProvider>
   );

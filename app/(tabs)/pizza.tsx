@@ -48,7 +48,7 @@ export default function Cantidad() {
 
           <Pressable onPress={() => router.push("/(tabs)/Restaurante")}>
             <Image
-              source={require("@/assets/images/Galletas.png")}
+              source={require("@/assets/images/Pizza.jpg")}
               style={styles.profile}
             />
           </Pressable>

@@ -1,4 +1,5 @@
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../Firebase/config";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -25,23 +26,26 @@ export default function SignUpScreen() {
   const router = useRouter();
 
   const iniciarSesion = async () => {
-    if (!username.trim() || !password.trim()) {
+    const cleanEmail = username.trim();
+
+    if (!cleanEmail || !password.trim()) {
       Alert.alert("Incomplete Fields", "Please enter your email and password.");
       return;
     }
 
-    if (!username.includes("@")) {
+    if (!cleanEmail.includes("@")) {
       Alert.alert("Invalid Email", "Please enter a valid email address.");
       return;
     }
 
     try {
-      const userCredential = await signInWithEmailAndPassword(getAuth(), username, password);
+      const userCredential = await signInWithEmailAndPassword(auth, cleanEmail, password);
       console.log("Inicio de sesión exitoso:", userCredential.user.email);
-      router.push("/Home");
+      // Usamos replace en lugar de push para que Home sea el nuevo punto central y no pueda volver atrás
+      router.replace("/Home");
     } catch (error: any) {
       console.log(error);
-      if (error.code === 'auth/invalid-credential') {
+      if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
         Alert.alert("Error", "The email or password is incorrect.");
       } else if (error.code === 'auth/invalid-email') {
         Alert.alert("Error", "The email format is invalid.");

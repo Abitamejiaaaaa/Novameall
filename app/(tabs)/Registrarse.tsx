@@ -29,7 +29,6 @@ export default function Registro() {
   const router = useRouter();
 
   const registrarUsuario = async (): Promise<void> => {
-
     if (!name.trim() || !lastname.trim() || !email.trim() || !password) {
       Alert.alert("Incomplete Fields", "Please fill in all fields.");
       return;
@@ -51,7 +50,9 @@ export default function Registro() {
       return;
     }
 
-    if (!/[a-zA-Z]+$/.test(name) || !/[a-zA-Z]+$/.test(lastname) || /[0-9]/.test(name) || /[0-9]/.test(lastname)) {
+    const nameRegex = /^[a-zA-ZÁÉÍÓÚáéíóúÑñ\s]+$/;
+
+    if (!nameRegex.test(name) || !nameRegex.test(lastname)) {
       Alert.alert(
         "Invalid Name",
         "Please enter a valid name (letters only)."
@@ -82,6 +83,7 @@ export default function Registro() {
       setEmail("");
       setPassword("");
 
+      // Envía a Términos reemplazando la pantalla actual
       router.replace("/tTERMINOS" as Parameters<typeof router.replace>[0]);
 
     } catch (error: unknown) {
@@ -133,7 +135,6 @@ export default function Registro() {
           <Text style={styles.subtitle}>Sign up to continue</Text>
 
           <View style={styles.form}>
-            {/* First Name */}
             <Text style={styles.label}>First Name</Text>
             <View style={styles.inputContainer}>
               <FontAwesome name="user" size={18} color="#E89218" style={styles.inputIcon} />
@@ -209,159 +210,27 @@ export default function Registro() {
 }
 
 export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#F2B84B",
-  },
-  scrollContent: {
-    flexGrow: 1,
-    backgroundColor: "#F2B84B",
-  },
-  header: {
-    height: height * 0.28,
-    backgroundColor: "#F2B84B",
-    justifyContent: "center",
-    alignItems: "center",
-    paddingTop: 10,
-  },
-  logoContainer: {
-    width: 140,
-    height: 140,
-    backgroundColor: "#FFFFFF",
-    borderRadius: 28,
-    justifyContent: "center",
-    alignItems: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 4,
-    overflow: "hidden",
-  },
-  logo: {
-    width: "85%",
-    height: "85%",
-  },
-  card: {
-    flex: 1,
-    backgroundColor: "#FFFFFF",
-    borderTopLeftRadius: 32,
-    borderTopRightRadius: 32,
-    paddingHorizontal: 28,
-    paddingTop: 28,
-    paddingBottom: 40,
-    position: "relative",
-    alignItems: "center",
-  },
-  title: {
-    fontSize: 26,
-    fontWeight: "bold",
-    color: "#DA8D07",
-    textAlign: "center",
-    marginBottom: 4,
-  },
-  subtitle: {
-    fontSize: 13,
-    color: "#888888",
-    textAlign: "center",
-    marginBottom: 22,
-  },
-  form: {
-    width: "100%",
-  },
-  label: {
-    fontSize: 13,
-    fontWeight: "600",
-    color: "#333333",
-    marginBottom: 6,
-    marginLeft: 2,
-  },
-  inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    borderWidth: 1.2,
-    borderColor: "#5C6B32",
-    borderRadius: 14,
-    backgroundColor: "#FFFFFF",
-    paddingHorizontal: 12,
-    height: 48,
-    marginBottom: 16,
-  },
-  inputIcon: {
-    marginRight: 10,
-  },
-  input: {
-    flex: 1,
-    fontSize: 14,
-    color: "#333333",
-  },
-  eyeIconContainer: {
-    padding: 4,
-  },
-  button: {
-    width: "100%",
-    backgroundColor: "#FF9800",
-    height: 50,
-    borderRadius: 25,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 10,
-    shadowColor: "#FF9800",
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.3,
-    shadowRadius: 6,
-    elevation: 3,
-  },
-  buttonText: {
-    color: "#FFFFFF",
-    fontSize: 17,
-    fontWeight: "bold",
-  },
-  dot: {
-    position: "absolute",
-    borderRadius: 50,
-    opacity: 0.85,
-  },
-  dot1: {
-    width: 22,
-    height: 22,
-    backgroundColor: "#F2C94C",
-    top: 15,
-    left: "48%",
-  },
-  dot2: {
-    width: 26,
-    height: 26,
-    backgroundColor: "#F2C94C",
-    top: 40,
-    right: 35,
-  },
-  dot3: {
-    width: 24,
-    height: 24,
-    backgroundColor: "#FFB74D",
-    top: 70,
-    left: 20,
-  },
-  dot4: {
-    width: 24,
-    height: 24,
-    backgroundColor: "#FF9800",
-    bottom: "45%",
-    right: 20,
-  },
-  dot5: {
-    width: 22,
-    height: 22,
-    backgroundColor: "#F2C94C",
-    bottom: 90,
-    left: 30,
-  },
-  dot6: {
-    width: 20,
-    height: 20,
-    backgroundColor: "#FF9800",
-    bottom: 25,
-    left: "48%",
-  },
+  container: { flex: 1, backgroundColor: "#F2B84B" },
+  scrollContent: { flexGrow: 1, backgroundColor: "#F2B84B" },
+  header: { height: height * 0.28, backgroundColor: "#F2B84B", justifyContent: "center", alignItems: "center", paddingTop: 10 },
+  logoContainer: { width: 140, height: 140, backgroundColor: "#FFFFFF", borderRadius: 28, justifyContent: "center", alignItems: "center", shadowColor: "#000", shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.1, shadowRadius: 8, elevation: 4, overflow: "hidden" },
+  logo: { width: "85%", height: "85%" },
+  card: { flex: 1, backgroundColor: "#FFFFFF", borderTopLeftRadius: 32, borderTopRightRadius: 32, paddingHorizontal: 28, paddingTop: 28, paddingBottom: 40, position: "relative", alignItems: "center" },
+  title: { fontSize: 26, fontWeight: "bold", color: "#DA8D07", textAlign: "center", marginBottom: 4 },
+  subtitle: { fontSize: 13, color: "#888888", textAlign: "center", marginBottom: 22 },
+  form: { width: "100%" },
+  label: { fontSize: 13, fontWeight: "600", color: "#333333", marginBottom: 6, marginLeft: 2 },
+  inputContainer: { flexDirection: "row", alignItems: "center", borderWidth: 1.2, borderColor: "#5C6B32", borderRadius: 14, backgroundColor: "#FFFFFF", paddingHorizontal: 12, height: 48, marginBottom: 16 },
+  inputIcon: { marginRight: 10 },
+  input: { flex: 1, fontSize: 14, color: "#333333" },
+  eyeIconContainer: { padding: 4 },
+  button: { width: "100%", backgroundColor: "#FF9800", height: 50, borderRadius: 25, justifyContent: "center", alignItems: "center", marginTop: 10, shadowColor: "#FF9800", shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.3, shadowRadius: 6, elevation: 3 },
+  buttonText: { color: "#FFFFFF", fontSize: 17, fontWeight: "bold" },
+  dot: { position: "absolute", borderRadius: 50, opacity: 0.85 },
+  dot1: { width: 22, height: 22, backgroundColor: "#F2C94C", top: 15, left: "48%" },
+  dot2: { width: 26, height: 26, backgroundColor: "#F2C94C", top: 40, right: 35 },
+  dot3: { width: 24, height: 24, backgroundColor: "#FFB74D", top: 70, left: 20 },
+  dot4: { width: 24, height: 24, backgroundColor: "#FF9800", bottom: "45%", right: 20 },
+  dot5: { width: 22, height: 22, backgroundColor: "#F2C94C", bottom: 90, left: 30 },
+  dot6: { width: 20, height: 20, backgroundColor: "#FF9800", bottom: 25, left: "48%" },
 });

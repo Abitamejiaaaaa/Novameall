@@ -26,7 +26,7 @@ export default function TabLayout() {
       <Tabs.Screen name="Espagueti" options={{ href: null }} />
       <Tabs.Screen name="Galletas" options={{ href: null }} />
       <Tabs.Screen name="Iniciar" options={{ href: null }} />
-      <Tabs.Screen name="MAPA" options={{ href: null }} />
+      <Tabs.Screen name="mapa" options={{ href: null }} />
       <Tabs.Screen name="MEXICANA" options={{ href: null }} />
       <Tabs.Screen name="Olividar" options={{ href: null }} />
       <Tabs.Screen name="POLITICAS" options={{ href: null }} />

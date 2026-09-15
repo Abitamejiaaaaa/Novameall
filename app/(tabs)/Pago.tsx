@@ -29,7 +29,6 @@ export default function Pago() {
   const total = subtotal + costoEnvio;
 
   function simulacionDeCompra() {
-
     Toast.show({
       type: 'success',
       text1: 'Payment successful',
@@ -63,7 +62,14 @@ export default function Pago() {
 
           <Text style={styles.section}>Delivery Address </Text>
 
-          <TouchableOpacity style={styles.address} onPress={() => router.push("/mapa")}>
+          {/* AQUÍ ESTÁ EL CAMBIO: Se le indica que el mapa debe regresar a esta ruta ("/Pago") */}
+          <TouchableOpacity 
+            style={styles.address} 
+            onPress={() => router.push({
+              pathname: "/mapa",
+              params: { returnScreen: "/Pago" }
+            })}
+          >
             <Ionicons name="location" size={23} color="#000" style={{ marginTop: 2 }} />
             <View style={styles.info}>
               <Text style={styles.bold}>
@@ -113,7 +119,6 @@ export default function Pago() {
             </View>
           </View>
 
-          {/* 3. El onPress se coloca directamente en el TouchableOpacity */}
           <TouchableOpacity style={styles.confirm} onPress={()=> simulacionDeCompra()}>
             <Ionicons name="lock-closed" size={18} color="#fff" />
             <Text style={styles.confirmText}>Confirm Order</Text>

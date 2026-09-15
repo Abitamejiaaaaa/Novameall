@@ -161,7 +161,7 @@ export default function SupportChatScreen() {
             maxWidth: isLargeScreen ? 800 : '100%', 
             alignSelf: isLargeScreen ? 'center' : 'stretch', 
             width: isLargeScreen ? '80%' : 'auto', 
-            height: isLargeScreen ? height * 0.75 : height * 0.90,
+            height: isLargeScreen ? height * 0.75 : height * 0.80,
             maxHeight: isLargeScreen ? height * 0.75 : height * 0.90 
           }
         ]}

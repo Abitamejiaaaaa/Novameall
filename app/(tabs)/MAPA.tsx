@@ -9,33 +9,35 @@ import {
 } from 'react-native';
 import MapView, {
   Marker,
-  Region,
+  UrlTile,
 } from 'react-native-maps';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { router } from 'expo-router';
+import { router, useLocalSearchParams } from 'expo-router';
 import { onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../../Firebase/config';
 
 export default function MapaScreen() {
 
+  // Capturamos los parámetros para saber a qué pantalla regresar (por defecto manda a '/Pago' si no recibe nada)
+  const params = useLocalSearchParams();
+  const returnScreen = (params.returnScreen as string) || '/Pago';
+
   const [coordinates, setCoordinates] = useState({
-    latitude: 13.9929,
+    latitude: 13.6929, // Coordenadas por defecto (ej. El Salvador)
     longitude: -89.2182,
   });
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        console.log("Usuario autenticado detectado:", user.uid);
         try {
           const docRef = doc(db, "Usuarios", user.uid);
           const docSnap = await getDoc(docRef);
 
           if (docSnap.exists()) {
             const data = docSnap.data();
-
             const ubi = data.ubicacion || data.ubicación;
             
             if (ubi) {
@@ -47,15 +49,12 @@ export default function MapaScreen() {
                   latitude: lat,
                   longitude: lng,
                 });
-                console.log("Ubicación cargada desde Firestore:", lat, lng);
               }
             }
           }
         } catch (error) {
           console.error("Error al cargar la ubicación:", error);
         }
-      } else {
-        console.log("No hay usuario autenticado en este momento.");
       }
     });
 
@@ -77,8 +76,9 @@ export default function MapaScreen() {
 
       const userRef = doc(db, "Usuarios", user.uid);
       
+      // Redirige dinámicamente a la pantalla de pago que solicitó el mapa
       router.push({
-        pathname: '/Pago',
+        pathname: returnScreen as any,
         params: { 
           lat: coordinates.latitude, 
           lng: coordinates.longitude 
@@ -93,7 +93,6 @@ export default function MapaScreen() {
         }
       }, { merge: true }); 
 
-      console.log("Guardado exitoso para el usuario UID:", user.uid);
     } catch (error) {
       console.error("Error al guardar la ubicación:", error);
       Alert.alert("Error", "No se pudo guardar la ubicación.");
@@ -104,7 +103,7 @@ export default function MapaScreen() {
     <SafeAreaView style={styles.container}>
 
       <View style={styles.header}>
-        <Image style={styles.logo} source={require('../../assets/images/Logo.jpeg')}></Image>
+        <Image style={styles.logo} source={require('../../assets/images/Logo.jpeg')} />
         <Text style={styles.headerTitle}>Location</Text>
       </View>
 
@@ -118,6 +117,13 @@ export default function MapaScreen() {
             longitudeDelta: 0.05,
           }}
         >
+          {/* Mapa libre y gratuito sin necesidad de API Key ni tarjetas */}
+          <UrlTile
+            urlTemplate="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            maximumZ={19}
+            flipY={false}
+          />
+
           <Marker
             coordinate={coordinates}
             draggable
@@ -129,7 +135,6 @@ export default function MapaScreen() {
       </View>
 
       <View style={styles.infoContainer}>
-
         <Text style={styles.title}>
           Select location
         </Text>
@@ -150,7 +155,6 @@ export default function MapaScreen() {
             Save location
           </Text>
         </TouchableOpacity>
-
       </View>
 
     </SafeAreaView>
@@ -162,7 +166,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#FFFFFF',
   },
-
   header: {
     height: 65,
     backgroundColor: '#F2B84B',
@@ -170,31 +173,25 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 20,
   },
-
   logo: {
-    fontWeight: 'bold',
-    color: '#726B25',
-    marginRight: 30,
-    height: 70,
-    width: 70,
+    height: 50,
+    width: 50,
     resizeMode: 'contain',
+    marginRight: 15,
+    borderRadius: 10,
   },
-
   headerTitle: {
     fontSize: 22,
     fontWeight: 'bold',
     color: '#fff',
   },
-
   mapContainer: {
     flex: 1,
     width: '100%',
   },
-
   map: {
     ...StyleSheet.absoluteFill,
   },
-
   infoContainer: {
     position: 'absolute',
     bottom: 20,
@@ -205,14 +202,10 @@ const styles = StyleSheet.create({
     padding: 18,
     elevation: 6,
     shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
+    shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
     shadowRadius: 5,
   },
-
   title: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -220,14 +213,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginBottom: 8,
   },
-
   coordinates: {
     fontSize: 14,
     color: '#555555',
     textAlign: 'center',
     marginBottom: 3,
   },
-
   saveButton: {
     backgroundColor: '#B8D95B',
     paddingVertical: 13,
@@ -235,7 +226,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginTop: 12,
   },
-
   saveText: {
     fontSize: 16,
     fontWeight: 'bold',

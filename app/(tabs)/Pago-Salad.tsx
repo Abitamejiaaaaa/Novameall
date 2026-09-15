@@ -61,7 +61,14 @@ export default function Pago() {
 
           <Text style={styles.section}>Delivery Address </Text>
 
-          <TouchableOpacity style={styles.address} onPress={() => router.push("/mapa")}>
+          {/* AQUÍ ESTÁ EL CAMBIO: Se indica que el mapa debe regresar a esta pantalla específica de ensaladas */}
+          <TouchableOpacity 
+            style={styles.address} 
+            onPress={() => router.push({
+              pathname: "/mapa",
+              params: { returnScreen: "/PagoSalads" } // Ajusta esta ruta según el nombre exacto de tu archivo
+            })}
+          >
             <Ionicons name="location" size={23} color="#000" style={{ marginTop: 2 }} />
             <View style={styles.info}>
               <Text style={styles.bold}>

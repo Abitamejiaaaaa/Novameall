@@ -61,7 +61,13 @@ export default function Pago() {
 
           <Text style={styles.section}>Delivery Address </Text>
 
-          <TouchableOpacity style={styles.address} onPress={() => router.push("/mapa")}>
+          <TouchableOpacity 
+            style={styles.address} 
+            onPress={() => router.push({
+              pathname: "/mapa",
+              params: { returnScreen: "/PagoCakes" }
+            })}
+          >
             <Ionicons name="location" size={23} color="#000" style={{ marginTop: 2 }} />
             <View style={styles.info}>
               <Text style={styles.bold}>

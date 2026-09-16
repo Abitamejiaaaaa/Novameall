@@ -61,12 +61,12 @@ export default function Pago() {
 
           <Text style={styles.section}>Delivery Address </Text>
 
-          {/* AQUÍ ESTÁ EL CAMBIO: Se indica que el mapa debe regresar a esta pantalla específica de limonadas */}
+          
           <TouchableOpacity 
             style={styles.address} 
             onPress={() => router.push({
               pathname: "/mapa",
-              params: { returnScreen: "/PagoLemonades" } // Ajusta esta ruta según el nombre exacto de tu archivo de pago de limonadas
+              params: { returnScreen: "/Pago-lemon" } 
             })}
           >
             <Ionicons name="location" size={23} color="#000" style={{ marginTop: 2 }} />

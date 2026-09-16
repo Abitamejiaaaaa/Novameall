@@ -61,12 +61,12 @@ export default function Pago() {
 
           <Text style={styles.section}>Delivery Address </Text>
 
-          {/* AQUÍ ESTÁ EL CAMBIO: Se indica que el mapa debe regresar a esta pantalla específica de sándwiches */}
+
           <TouchableOpacity 
             style={styles.address} 
             onPress={() => router.push({
               pathname: "/mapa",
-              params: { returnScreen: "/PagoSandwiche" } // Ajusta esta ruta si el archivo tiene otro nombre exacto
+              params: { returnScreen: "/Pago-Sandwiche" } 
             })}
           >
             <Ionicons name="location" size={23} color="#000" style={{ marginTop: 2 }} />

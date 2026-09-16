@@ -46,6 +46,7 @@
     "react-native-screens": "~4.26.0",
     "react-native-toast-message": "^2.4.0",
     "react-native-web": "~0.21.0",
+    "react-native-webview": "13.16.1",
     "react-native-worklets": "0.10.1",
     "reactnative": "^0.0.0",
     "stream-buffers": "^3.0.3"

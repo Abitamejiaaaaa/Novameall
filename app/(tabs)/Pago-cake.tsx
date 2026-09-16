@@ -65,7 +65,7 @@ export default function Pago() {
             style={styles.address} 
             onPress={() => router.push({
               pathname: "/mapa",
-              params: { returnScreen: "/PagoCakes" }
+              params: { returnScreen: "/Pago-cake" }
             })}
           >
             <Ionicons name="location" size={23} color="#000" style={{ marginTop: 2 }} />

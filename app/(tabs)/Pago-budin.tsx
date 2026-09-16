@@ -61,12 +61,12 @@ export default function Pago() {
 
           <Text style={styles.section}>Delivery Address </Text>
 
-          {/* AQUÍ ESTÁ EL CAMBIO: Se indica que el mapa debe regresar a esta pantalla específica de budines */}
+        
           <TouchableOpacity 
             style={styles.address} 
             onPress={() => router.push({
               pathname: "/mapa",
-              params: { returnScreen: "/PagoBudines" } // Ajusta esta ruta si el nombre de tu archivo es diferente
+              params: { returnScreen: "/Pago-budin" } 
             })}
           >
             <Ionicons name="location" size={23} color="#000" style={{ marginTop: 2 }} />

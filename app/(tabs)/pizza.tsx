@@ -42,9 +42,6 @@ export default function Cantidad() {
         <View style={styles.topSection}>
           <View style={styles.yellowBackground} />
 
-          <Pressable style={styles.menuButton}>
-            <Ionicons name="menu" size={32} color="#FFFFFF" />
-          </Pressable>
 
           <Pressable onPress={() => router.push("/(tabs)/Restaurante")}>
             <Image
@@ -53,18 +50,12 @@ export default function Cantidad() {
             />
           </Pressable>
 
-          <Pressable style={styles.leftArrow} onPress={router.back}>
-            <Ionicons name="chevron-back" size={34} color="#FFFFFF" />
-          </Pressable>
 
           <Image
             source={require("@/assets/images/Pizza.jpg")}
             style={styles.foodImage}
           />
 
-          <Pressable style={styles.rightArrow}>
-            <Ionicons name="chevron-forward" size={34} color="#FFFFFF" />
-          </Pressable>
         </View>
 
         <View style={styles.content}>

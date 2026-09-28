@@ -1,6 +1,5 @@
 import { FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
-import { Home } from 'lucide-react-native';
 import React, { useState } from 'react';
 import {
   Image,
@@ -15,14 +14,14 @@ import Toast from 'react-native-toast-message';
 
 export default function Pago() {
   const params = useLocalSearchParams();
-  const cantidadRecibida = params.cantidadBudines ? Number(params.cantidadBudines) : 1;
+  const cantidadRecibida = params.cantidad ? Number(params.cantidad) : 1;
+    const supportChatId = 'support';
 
   const lat = params.lat ? Number(params.lat) : null;
   const lng = params.lng ? Number(params.lng) : null;
-  const supportChatId = 'support';
 
   const [productos, setProductos] = useState([
-    { id: 1, nombre: 'Budin', precioUnitario: 4.99, cantidad: cantidadRecibida, imagen: require('@/assets/images/Budin.webp') },
+    { id: 1, nombre: 'Spagueti', precioUnitario: 6.00, cantidad: cantidadRecibida, imagen: require("@/assets/images/spagueti.jpeg") },
   ]);
   
   const subtotal = productos.reduce((suma, prod) => suma + (prod.precioUnitario * prod.cantidad), 0);
@@ -63,12 +62,12 @@ export default function Pago() {
 
           <Text style={styles.section}>Delivery Address </Text>
 
-        
+          
           <TouchableOpacity 
             style={styles.address} 
             onPress={() => router.push({
               pathname: "/mapa",
-              params: { returnScreen: "/Pago-budin" } 
+              params: { returnScreen: "/Pago-pasta" }
             })}
           >
             <Ionicons name="location" size={23} color="#000" style={{ marginTop: 2 }} />
@@ -128,7 +127,7 @@ export default function Pago() {
         </ScrollView>
       </View>
 
-      <View style={styles.bottomBar}>
+            <View style={styles.bottomBar}>
               <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/Home')}>
                 <Ionicons name="home-outline" size={26} color="#111" />
               </TouchableOpacity>
@@ -183,7 +182,7 @@ const styles = StyleSheet.create({
   confirm: { height: 55, backgroundColor: '#F7952D', borderRadius: 8, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 10 },
   confirmText: { color: '#FFF', fontWeight: 'bold', fontSize: 17, marginLeft: 8 },
   bottom: { position: 'absolute', bottom: 0, left: 0, right: 0, height: 50, backgroundColor: '#FF9800', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', borderTopLeftRadius: 10, borderTopRightRadius: 10 },
-  bottomBar: {
+   bottomBar: {
     flexDirection: 'row',
     backgroundColor: '#E67E22',
     height: 60,

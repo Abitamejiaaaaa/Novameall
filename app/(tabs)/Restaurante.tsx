@@ -1,5 +1,5 @@
 
-import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome5, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React from "react";
 import {
@@ -9,10 +9,12 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
  
 const width = Dimensions.get("window").width;
+const supportChatId = 'support';
  
 export default function Explorar() {
   return (
@@ -64,51 +66,29 @@ export default function Explorar() {
         </View>
  
       </ScrollView>
- 
       <View style={styles.bottomBar}>
- 
-        <Pressable style={styles.navButton}>
-          <MaterialCommunityIcons
-            name="home-outline"
-            size={28}
-            color="#432400"
-          />
-        </Pressable>
- 
-        <Pressable style={styles.navButton}>
-          <MaterialCommunityIcons
-            name="silverware-fork-knife"
-            size={28}
-            color="#432400"
-          />
-        </Pressable>
- 
-        <Pressable style={styles.navButton}>
-          <MaterialCommunityIcons
-            name="heart-outline"
-            size={30}
-            color="#432400"
-          />
-        </Pressable>
- 
-        <Pressable style={styles.navButton}>
-          <MaterialCommunityIcons
-            name="clipboard-outline"
-            size={28}
-            color="#432400"
-          />
-        </Pressable>
- 
-        <Pressable style={styles.navButton}>
-          <MaterialCommunityIcons
-            name="headset"
-            size={28}
-            color="#432400"
-          />
-        </Pressable>
- 
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/Home')}>
+                <Ionicons name="home-outline" size={26} color="#111" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/CATEGORIAS')}>
+                <MaterialCommunityIcons name="silverware-clean" size={26} color="#111" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7}>
+                <Ionicons name="heart-outline" size={26} color="#111" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/inbox')}>
+                <Ionicons name="clipboard-outline" size={26} color="#111" />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.navButton}
+                activeOpacity={0.7}
+                onPress={() => router.push(`/chat/${supportChatId}`)}
+              >
+                <FontAwesome5 name="headset" size={22} color="#111" />
+              </TouchableOpacity>
       </View>
  
+
     </View>
   );
 }
@@ -177,27 +157,17 @@ const styles = StyleSheet.create({
     color: "#E9CB68",
   },
  
-  bottomBar: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
-    height: 62,
-    backgroundColor: "#FF9D00",
+bottomBar: {
+    flexDirection: 'row',
+    backgroundColor: '#E67E22',
+    height: 60,
+    justifyContent: 'space-around',
+    alignItems: 'center',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    paddingHorizontal: 30,
   },
- 
   navButton: {
-    width: 42,
-    height: 55,
-    justifyContent: "center",
-    alignItems: "center",
+    padding: 1,
   },
- 
 });
 

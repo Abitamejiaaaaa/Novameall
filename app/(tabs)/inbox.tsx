@@ -9,8 +9,9 @@ import {
   StatusBar,
   Image,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+  const supportChatId = 'support';
 
 type OrderStatus = 'Active' | 'Preparing' | 'Ready';
 
@@ -223,11 +224,10 @@ export default function CustomerInboxScreen() {
   };
 
   return (
-    <View style={styles.container}>
+    <><View style={styles.container}>
       <StatusBar
         barStyle="dark-content"
-        backgroundColor="#FFF8E8"
-      />
+        backgroundColor="#FFF8E8" />
 
       <FlatList
         data={filteredChats}
@@ -235,126 +235,135 @@ export default function CustomerInboxScreen() {
         renderItem={renderChat}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={styles.list}
-        ListHeaderComponent={
-          <>
-            <View style={styles.header}>
-              <View style={styles.brand}>
-                <View style={styles.logoBox}>
-                  <Image
-                    source={logo}
-                    style={styles.logo}
-                    resizeMode="contain"
-                  />
-                </View>
-
-                <View>
-                  <Text style={styles.brandName}>
-                    NovaMeall
-                  </Text>
-
-                  <View style={styles.restaurantRow}>
-                    <View style={styles.onlineDot} />
-
-                    <Text style={styles.restaurantText}>
-                      Customer
-                    </Text>
-                  </View>
-                </View>
+        ListHeaderComponent={<>
+          <View style={styles.header}>
+            <View style={styles.brand}>
+              <View style={styles.logoBox}>
+                <Image
+                  source={logo}
+                  style={styles.logo}
+                  resizeMode="contain" />
               </View>
 
-              <TouchableOpacity style={styles.bell}>
-                <Ionicons
-                  name="notifications-outline"
-                  size={23}
-                  color="#31583F"
-                />
-
-                <View style={styles.bellDot} />
-              </TouchableOpacity>
-            </View>
-
-            <View style={styles.hero}>
               <View>
-                <Text style={styles.heroTitle}>
-                  Messages
+                <Text style={styles.brandName}>
+                  NovaMeall
                 </Text>
 
-                <Text style={styles.heroText}>
-                  Chat with your restaurants
-                </Text>
-              </View>
+                <View style={styles.restaurantRow}>
+                  <View style={styles.onlineDot} />
 
-              <View style={styles.total}>
-                <Text style={styles.totalNumber}>
-                  {filteredChats.length}
-                </Text>
-
-                <Text style={styles.totalText}>
-                  chats
-                </Text>
+                  <Text style={styles.restaurantText}>
+                    Customer
+                  </Text>
+                </View>
               </View>
             </View>
 
-            <View style={styles.searchBox}>
+            <TouchableOpacity style={styles.bell}>
               <Ionicons
-                name="search-outline"
-                size={20}
-                color="#D99A22"
-              />
+                name="notifications-outline"
+                size={23}
+                color="#31583F" />
 
-              <TextInput
-                value={search}
-                onChangeText={setSearch}
-                placeholder="Search restaurants..."
-                placeholderTextColor="#8B8F87"
-                style={styles.input}
-              />
+              <View style={styles.bellDot} />
+            </TouchableOpacity>
+          </View>
 
-              {search.length > 0 && (
-                <TouchableOpacity
-                  onPress={() => setSearch('')}
-                >
-                  <Ionicons
-                    name="close-circle"
-                    size={19}
-                    color="#D99A22"
-                  />
-                </TouchableOpacity>
-              )}
-            </View>
-
-            <View style={styles.section}>
-              <Text style={styles.sectionTitle}>
-                Recent Orders
+          <View style={styles.hero}>
+            <View>
+              <Text style={styles.heroTitle}>
+                Messages
               </Text>
 
-              <Text style={styles.sectionText}>
-                Tap an order to check updates
+              <Text style={styles.heroText}>
+                Chat with your restaurants
               </Text>
             </View>
-          </>
-        }
-        ListEmptyComponent={
-          <View style={styles.empty}>
-            <View style={styles.emptyIcon}>
-              <Ionicons
-                name="search-outline"
-                size={30}
-                color="#D99A22"
-              />
-            </View>
 
-            <Text style={styles.emptyTitle}>
-              No chats found
+            <View style={styles.total}>
+              <Text style={styles.totalNumber}>
+                {filteredChats.length}
+              </Text>
+
+              <Text style={styles.totalText}>
+                chats
+              </Text>
+            </View>
+          </View>
+
+          <View style={styles.searchBox}>
+            <Ionicons
+              name="search-outline"
+              size={20}
+              color="#D99A22" />
+
+            <TextInput
+              value={search}
+              onChangeText={setSearch}
+              placeholder="Search restaurants..."
+              placeholderTextColor="#8B8F87"
+              style={styles.input} />
+
+            {search.length > 0 && (
+              <TouchableOpacity
+                onPress={() => setSearch('')}
+              >
+                <Ionicons
+                  name="close-circle"
+                  size={19}
+                  color="#D99A22" />
+              </TouchableOpacity>
+            )}
+          </View>
+
+          <View style={styles.section}>
+            <Text style={styles.sectionTitle}>
+              Recent Orders
             </Text>
 
-            <Text style={styles.emptyText}>
-              Try another search.
+            <Text style={styles.sectionText}>
+              Tap an order to check updates
             </Text>
           </View>
-        }
-      />
-    </View>
+        </>}
+        ListEmptyComponent={<View style={styles.empty}>
+          <View style={styles.emptyIcon}>
+            <Ionicons
+              name="search-outline"
+              size={30}
+              color="#D99A22" />
+          </View>
+
+          <Text style={styles.emptyTitle}>
+            No chats found
+          </Text>
+
+          <Text style={styles.emptyText}>
+            Try another search.
+          </Text>
+        </View>} />
+    </View><View style={styles.bottomBar}>
+        <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/Home')}>
+          <Ionicons name="home-outline" size={26} color="#111" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/CATEGORIAS')}>
+          <MaterialCommunityIcons name="silverware-clean" size={26} color="#111" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navButton} activeOpacity={0.7}>
+          <Ionicons name="heart-outline" size={26} color="#111" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/inbox')}>
+          <Ionicons name="clipboard-outline" size={26} color="#111" />
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.navButton}
+          activeOpacity={0.7}
+          onPress={() => router.push(`/chat/${supportChatId}`)}
+        >
+          <FontAwesome5 name="headset" size={22} color="#111" />
+        </TouchableOpacity>
+      </View></>
   );
 }
 
@@ -751,5 +760,17 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: '#000000',
     marginTop: 4,
+  },
+  bottomBar: {
+    flexDirection: 'row',
+    backgroundColor: '#E67E22',
+    height: 60,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  navButton: {
+    padding: 1,
   },
 });

@@ -42,27 +42,18 @@ export default function Restaurante() {
         <View style={styles.topSection}>
           <View style={styles.yellowBackground} />
 
-          <Pressable style={styles.menuButton}>
-            <Ionicons name="menu" size={32} color="#FFFFFF" />
-          </Pressable>
 
           <Image
             source={require("../../assets/images/local-pollo.jpg")}
             style={styles.profile}
           />
 
-          <Pressable style={styles.leftArrow} onPress={router.back}>
-            <Ionicons name="chevron-back" size={34} color="#FFFFFF" />
-          </Pressable>
 
           <Image
             source={require("../../assets/images/pollo-asado.png")}
             style={styles.foodImage}
           />
 
-          <Pressable style={styles.rightArrow}>
-            <Ionicons name="chevron-forward" size={34} color="#FFFFFF" />
-          </Pressable>
         </View>
 
         <View style={styles.content}>

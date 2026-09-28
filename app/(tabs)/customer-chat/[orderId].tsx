@@ -27,8 +27,6 @@ import {
   serverTimestamp,
 } from 'firebase/firestore';
 
-// Firebase chat is a JavaScript module without TypeScript declarations.
-// @ts-expect-error — the module provides the runtime Firestore instance.
 import { db } from '../../../Firebase/chat';
 
 const logo = require('../../../assets/images/Logo.jpeg');
@@ -119,7 +117,7 @@ export default function CustomerChatScreen() {
       <Stack.Screen options={{ headerShown: false }} />
 
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()}>
+        <TouchableOpacity onPress={() => router.push("/inbox")}>
           <Ionicons
             name="chevron-back"
             size={28}

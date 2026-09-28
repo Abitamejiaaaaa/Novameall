@@ -1,4 +1,4 @@
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
+import { FontAwesome5, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -8,11 +8,29 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 
 export default function Restaurante() {
-  const [cantidad, setCantidad] = useState(5);
+  const [cantidad, setCantidad] = useState(1);
+
+  const aumentar = () => {
+    setCantidad(cantidad + 1);
+  };
+
+  const disminuir = () => {
+    if (cantidad > 1) {
+      setCantidad(cantidad - 1);
+    }
+  };
+
+  const irAPagar = () => {
+    router.push({
+      pathname: "/(tabs)/Pago-pasta" as any,
+      params: { cantidadEspagueti: cantidad },
+    });
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -24,27 +42,15 @@ export default function Restaurante() {
         <View style={styles.topSection}>
           <View style={styles.yellowBackground} />
 
-          <Pressable style={styles.menuButton}>
-            <Ionicons name="menu" size={32} color="#FFFFFF" />
-          </Pressable>
-
           <Image
             source={require("../../assets/images/local-spagueti.jpg")}
             style={styles.profile}
           />
 
-          <Pressable style={styles.leftArrow}>
-            <Ionicons name="chevron-back" size={34} color="#FFFFFF" />
-          </Pressable>
-
           <Image
             source={require("@/assets/images/spagueti.jpeg")}
             style={styles.foodImage}
           />
-
-          <Pressable style={styles.rightArrow}>
-            <Ionicons name="chevron-forward" size={34} color="#FFFFFF" />
-          </Pressable>
         </View>
 
         <View style={styles.content}>
@@ -71,46 +77,50 @@ export default function Restaurante() {
           </View>
 
           <Text style={styles.description}>
-            Delicioso espagueti preparado con pasta perfectamente cocida,
-            acompañado de una sabrosa salsa de tomate, carne sazonada y queso
-            parmesano. Una comida casera, deliciosa y perfecta para compartir.
+            Delicious spaghetti prepared with perfectly cooked pasta,
+            accompanied by a savory tomato sauce, seasoned meat,
+            and Parmesan cheese. A homemade meal, delicious and
+            perfect for sharing.
           </Text>
 
           <View style={styles.buyRow}>
-            <Pressable
-              style={styles.buyButton}
-              onPress={() =>
-                router.push({
-                  pathname: "/(tabs)/pagos",
-                  params: { producto: "espagueti" },
-                })
-              }
-            >
-              <Text style={styles.buyText}>Comprar</Text>
+            <Pressable style={styles.buyButton} onPress={irAPagar}>
+              <Text style={styles.buyText}>Buy</Text>
             </Pressable>
 
             <View style={styles.quantity}>
-              <Pressable
-                onPress={() => setCantidad(cantidad + 1)}
-                style={styles.quantityButton}
-              >
-                <Text style={styles.quantitySymbol}>+</Text>
+              <Pressable onPress={disminuir} style={styles.quantityButton}>
+                <Text style={styles.quantitySymbol}>−</Text>
               </Pressable>
 
               <Text style={styles.quantityNumber}>{cantidad}</Text>
 
-              <Pressable
-                onPress={() =>
-                  setCantidad(cantidad > 1 ? cantidad - 1 : 1)
-                }
-                style={styles.quantityButton}
-              >
-                <Text style={styles.quantitySymbol}>−</Text>
+              <Pressable onPress={aumentar} style={styles.quantityButton}>
+                <Text style={styles.quantitySymbol}>+</Text>
               </Pressable>
             </View>
           </View>
         </View>
       </ScrollView>
+
+      {/* Barra de navegación inferior agregada */}
+      <View style={styles.bottomBar}>
+        <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/Home')}>
+          <Ionicons name="home-outline" size={26} color="#111" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/CATEGORIAS')}>
+          <MaterialCommunityIcons name="silverware-clean" size={26} color="#111" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navButton} activeOpacity={0.7}>
+          <Ionicons name="heart-outline" size={26} color="#111" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/inbox')}>
+          <Ionicons name="clipboard-outline" size={26} color="#111" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/chat/support')}>
+          <FontAwesome5 name="headset" size={22} color="#111" />
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 }
@@ -141,13 +151,6 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 45,
   },
 
-  menuButton: {
-    position: "absolute",
-    top: 18,
-    left: 22,
-    zIndex: 10,
-  },
-
   profile: {
     position: "absolute",
     top: 15,
@@ -168,20 +171,6 @@ const styles = StyleSheet.create({
     top: 80,
     alignSelf: "center",
     zIndex: 5,
-  },
-
-  leftArrow: {
-    position: "absolute",
-    left: 28,
-    top: 205,
-    zIndex: 10,
-  },
-
-  rightArrow: {
-    position: "absolute",
-    right: 28,
-    top: 205,
-    zIndex: 10,
   },
 
   content: {
@@ -274,5 +263,19 @@ const styles = StyleSheet.create({
     fontSize: 19,
     fontWeight: "600",
     color: "#111111",
+  },
+
+  bottomBar: {
+    flexDirection: 'row',
+    backgroundColor: '#E67E22',
+    height: 60,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+
+  navButton: {
+    padding: 10,
   },
 });

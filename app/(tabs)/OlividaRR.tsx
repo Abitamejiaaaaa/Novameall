@@ -86,7 +86,7 @@ export default function ForgotPasswordScreen() {
             </Pressable>
           </View>
 
-          <Text style={styles.subtitl} onPress={()=> router.push("/Iniciar")}>Come back</Text>
+          <Text style={styles.subtitl} onPress={()=> router.push("/CONFIGURACION-NARANJA")}>Come back</Text>
         </ScrollView>
       </KeyboardAvoidingView>
     </SafeAreaView>

@@ -16,6 +16,7 @@ export default function TabLayout() {
         tabBarButton: HapticTab as any,
       }}>
       <Tabs.Screen name="Login" options={{ href: null }} />
+      <Tabs.Screen name='OlividaRR' options={{href: null}}/>
       <Tabs.Screen name="Home" options={{ href: null }} />
       <Tabs.Screen name="ALMUERZOS" options={{ href: null }} />
       <Tabs.Screen name="CATEGORIAS" options={{ href: null }} />
@@ -79,6 +80,7 @@ export default function TabLayout() {
       <Tabs.Screen name="Pago-pie" options={{ href: null }} />
       <Tabs.Screen name="postre" options={{ href: null }} />
       <Tabs.Screen name="Pago-Flan" options={{ href: null }} />
+      <Tabs.Screen name="Pago-pasta" options={{ href: null }} />
     </Tabs>
   );
 }

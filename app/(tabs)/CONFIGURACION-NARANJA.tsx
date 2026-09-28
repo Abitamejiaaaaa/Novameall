@@ -1,4 +1,4 @@
-import { Ionicons } from "@expo/vector-icons";
+import { FontAwesome5, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React from "react";
 import {
@@ -8,9 +8,11 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TouchableOpacity,
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+const supportChatId = 'support';
 
 const { width, height } = Dimensions.get("window");
 
@@ -47,7 +49,7 @@ export default function SettingsScreen() {
             </Text>
           </Pressable>
 
-          <Pressable style={styles.option} android_ripple={{ color: '#eee' }} onPress={() => router.push("/Olividar")}>
+          <Pressable style={styles.option} android_ripple={{ color: '#eee' }} onPress={() => router.push("/OlividaRR")}>
             <Ionicons name="lock-closed-outline" size={Math.min(width * 0.055, 23)} color="#444" />
             <Text style={styles.optionText}>
               Change password
@@ -58,20 +60,12 @@ export default function SettingsScreen() {
         <View style={styles.card}>
           <Text style={styles.cardTitle}>Preferences</Text>
 
-          <Pressable style={styles.option} android_ripple={{ color: '#eee' }}>
-            <Ionicons name="card-outline" size={Math.min(width * 0.055, 23)} color="#444" />
-            <Text style={styles.optionText}>Payment methods</Text>
-          </Pressable>
 
           <Pressable style={styles.option} android_ripple={{ color: '#eee' }} onPress={() => router.push("/(tabs)/inbox")}>
             <Ionicons name="notifications-outline" size={Math.min(width * 0.055, 23)} color="#444" />
             <Text style={styles.optionText}>Notifications</Text>
           </Pressable>
 
-          <Pressable style={styles.option} android_ripple={{ color: '#eee' }}>
-            <Ionicons name="language-outline" size={Math.min(width * 0.055, 23)} color="#444" />
-            <Text style={styles.optionText}>Language</Text>
-          </Pressable>
         </View>
 
         <View style={styles.card}>
@@ -94,10 +88,31 @@ export default function SettingsScreen() {
           </Pressable>
         </View>
 
-        <Pressable style={styles.logoutButton} android_ripple={{ color: '#ff8000' }}>
+        <Pressable style={styles.logoutButton} android_ripple={{ color: '#ff8000' }} onPress={()=> router.push("/(tabs)/Login")}>
           <Text style={styles.logoutText}>Log Out</Text>
         </Pressable>
       </ScrollView>
+      <View style={styles.bottomBar}>
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/Home')}>
+                <Ionicons name="home-outline" size={26} color="#111" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/CATEGORIAS')}>
+                <MaterialCommunityIcons name="silverware-clean" size={26} color="#111" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7}>
+                <Ionicons name="heart-outline" size={26} color="#111" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/inbox')}>
+                <Ionicons name="clipboard-outline" size={26} color="#111" />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.navButton}
+                activeOpacity={0.7}
+                onPress={() => router.push(`/chat/${supportChatId}`)}
+              >
+                <FontAwesome5 name="headset" size={22} color="#111" />
+              </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 }
@@ -195,5 +210,18 @@ const styles = StyleSheet.create({
     fontSize: Math.min(width * 0.042, 16),
     fontWeight: "bold",
     color: "#222",
+  },
+
+  bottomBar: {
+    flexDirection: 'row',
+    backgroundColor: '#E67E22',
+    height: 60,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  navButton: {
+    padding: 1,
   },
 });

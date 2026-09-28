@@ -211,7 +211,7 @@ export default function PerfilScreen() {
 
       </ScrollView>
 
-      {/* Bottom Navigation Bar */}
+
       <View style={styles.bottomBar}>
         <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/Home')}>
           <Ionicons name="home-outline" size={26} color="#111" />

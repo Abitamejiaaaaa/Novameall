@@ -129,7 +129,7 @@ export default function App() {
                 );
                 if (category.name === "Pasta") {
                   router.push("/(tabs)/Espagueti");
-                }else if (category.name === "Sandwich") {
+                }else if (category.name === "Sandwiche") {
                   router.push("/(tabs)/Sandwiche");
                 }else if (category.name === "Steak") {
                   router.push("/(tabs)/Carne");

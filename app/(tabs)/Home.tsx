@@ -77,9 +77,6 @@ export default function HomeScreen() {
                 <Ionicons name="menu" size={24} color="#333" />
               </TouchableOpacity>
 
-              <TouchableOpacity style={styles.filterButton} activeOpacity={0.8}>
-                <Ionicons name="swap-horizontal" size={18} color="#FFF" />
-              </TouchableOpacity>
             </View>
           </View>
 

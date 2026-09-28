@@ -1,4 +1,4 @@
-import { Ionicons } from '@expo/vector-icons';
+import { FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { router, useLocalSearchParams } from 'expo-router';
 import React, { useState } from 'react';
 import {
@@ -15,6 +15,7 @@ import Toast from 'react-native-toast-message';
 export default function Pago() {
   const params = useLocalSearchParams();
   const cantidadRecibida = params.cantidadAmericanos ? Number(params.cantidadAmericanos) : 1;
+  const supportChatId = 'support';
 
   const lat = params.lat ? Number(params.lat) : null;
   const lng = params.lng ? Number(params.lng) : null;
@@ -41,7 +42,7 @@ export default function Pago() {
         <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scroll}>
           
           <View style={styles.header}>
-            <TouchableOpacity style={styles.back} onPress={() => router.back()}>
+            <TouchableOpacity style={styles.back} onPress={() => router.push("/Home")}>
               <Ionicons name="arrow-back" size={21} color="#fff" />
             </TouchableOpacity>
             <Text style={styles.title}>Payment</Text>
@@ -125,14 +126,27 @@ export default function Pago() {
         </ScrollView>
       </View>
 
-      <View style={styles.bottom}>
-        <TouchableOpacity onPress={() => router.push("/(tabs)/Home")}>
-          <Ionicons name="home-outline" size={27} color="#000" />
-        </TouchableOpacity>
-        <TouchableOpacity><Ionicons name="restaurant-outline" size={27} color="#000" /></TouchableOpacity>
-        <TouchableOpacity><Ionicons name="heart-outline" size={28} color="#000" /></TouchableOpacity>
-        <TouchableOpacity><Ionicons name="clipboard-outline" size={27} color="#000" /></TouchableOpacity>
-        <TouchableOpacity><Ionicons name="person-outline" size={27} color="#000" /></TouchableOpacity>
+
+      <View style={styles.bottomBar}>
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/Home')}>
+                <Ionicons name="home-outline" size={26} color="#111" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/CATEGORIAS')}>
+                <MaterialCommunityIcons name="silverware-clean" size={26} color="#111" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7}>
+                <Ionicons name="heart-outline" size={26} color="#111" />
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/inbox')}>
+                <Ionicons name="clipboard-outline" size={26} color="#111" />
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.navButton}
+                activeOpacity={0.7}
+                onPress={() => router.push(`/chat/${supportChatId}`)}
+              >
+                <FontAwesome5 name="headset" size={22} color="#111" />
+              </TouchableOpacity>
       </View>
     </SafeAreaView>
   );
@@ -168,4 +182,16 @@ const styles = StyleSheet.create({
   confirm: { height: 55, backgroundColor: '#F7952D', borderRadius: 8, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', marginTop: 10 },
   confirmText: { color: '#FFF', fontWeight: 'bold', fontSize: 17, marginLeft: 8 },
   bottom: { position: 'absolute', bottom: 0, left: 0, right: 0, height: 50, backgroundColor: '#FF9800', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', borderTopLeftRadius: 10, borderTopRightRadius: 10 },
+  bottomBar: {
+    flexDirection: 'row',
+    backgroundColor: '#E67E22',
+    height: 60,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  navButton: {
+    padding: 1,
+  },
 });

@@ -21,7 +21,7 @@ export default function Pago() {
   const lng = params.lng ? Number(params.lng) : null;
 
   const [productos, setProductos] = useState([
-    { id: 1, nombre: 'American Breakfast', precioUnitario: 3.50, cantidad: cantidadRecibida, imagen: require('@/assets/images/AMERICANO.jpg') },
+    { id: 1, nombre: 'American Breakfast', precioUnitario: 2.50, cantidad: cantidadRecibida, imagen: require('@/assets/images/AMERICANO.jpg') },
   ]);
   
   const subtotal = productos.reduce((suma, prod) => suma + (prod.precioUnitario * prod.cantidad), 0);

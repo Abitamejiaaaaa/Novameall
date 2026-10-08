@@ -22,7 +22,7 @@ export default function Pago() {
   const supportChatId = 'support';
 
   const [productos, setProductos] = useState([
-    { id: 1, nombre: 'Budin', precioUnitario: 4.99, cantidad: cantidadRecibida, imagen: require('@/assets/images/Budin.webp') },
+    { id: 1, nombre: 'Budin', precioUnitario: 1.99, cantidad: cantidadRecibida, imagen: require('@/assets/images/Budin.webp') },
   ]);
   
   const subtotal = productos.reduce((suma, prod) => suma + (prod.precioUnitario * prod.cantidad), 0);

@@ -22,7 +22,7 @@ export default function Pago() {
   const lng = params.lng ? Number(params.lng) : null;
 
   const [productos, setProductos] = useState([
-    { id: 1, nombre: 'Lemonade', precioUnitario: 1.99, cantidad: cantidadRecibida, imagen: require('@/assets/images/lemon.webp') },
+    { id: 1, nombre: 'Lemonade', precioUnitario: 1.00, cantidad: cantidadRecibida, imagen: require('@/assets/images/lemon.webp') },
   ]);
   
   const subtotal = productos.reduce((suma, prod) => suma + (prod.precioUnitario * prod.cantidad), 0);

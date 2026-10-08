@@ -21,7 +21,7 @@ export default function Pago() {
   const lng = params.lng ? Number(params.lng) : null;
 
   const [productos, setProductos] = useState([
-    { id: 1, nombre: 'Tender Chicken', precioUnitario: 6.50, cantidad: cantidadRecibida, imagen: require('@/assets/images/pollo-asado.png') },
+    { id: 1, nombre: 'Tender Chicken', precioUnitario: 4.50, cantidad: cantidadRecibida, imagen: require('@/assets/images/pollo-asado.png') },
   ]);
   
   const subtotal = productos.reduce((suma, prod) => suma + (prod.precioUnitario * prod.cantidad), 0);

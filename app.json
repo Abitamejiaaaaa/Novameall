@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "scheme": "novameall",
     "userInterfaceStyle": "automatic",
-    "icon": "./assets/images/Logo.jpeg",
+    "icon": "./assets/images/ICON.jpg",
     "ios": {
       "supportsTablet": true
     },

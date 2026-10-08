@@ -22,7 +22,6 @@ export default function Pago() {
 
   const [productos, setProductos] = useState([
     { id: 1, nombre: 'Taco al pastor', precioUnitario: 3.25, cantidad: cantidadRecibida, imagen: require('../../assets/images/tacos.jpg') },
-    { id: 2, nombre: 'Soft Drink', precioUnitario: 1.75, cantidad: 2, imagen: require('../../assets/images/bebida.jpg') },
   ]);
 
   const subtotal = productos.reduce((suma, prod) => suma + (prod.precioUnitario * prod.cantidad), 0);

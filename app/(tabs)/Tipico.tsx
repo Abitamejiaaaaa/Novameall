@@ -60,8 +60,12 @@ export default function Cantidad() {
 
         <View style={styles.content}>
           <View style={styles.titleRow}>
-            <Text style={styles.title}>Salvadorean Breakfast</Text>
-            <Text style={styles.price}>$3.85</Text>
+            <Text style={styles.title}>Salvadorean</Text>
+            <Text style={styles.price}>$2.85</Text>
+          </View>
+
+          <View style={styles.titleRow}>
+            <Text style={styles.title}>Breakfast</Text>
           </View>
 
           <View style={styles.infoRow}>
@@ -138,7 +142,7 @@ const styles = StyleSheet.create({
   leftArrow: { position: "absolute", left: 28, top: 205, zIndex: 10 },
   rightArrow: { position: "absolute", right: 28, top: 205, zIndex: 10 },
   content: { paddingHorizontal: 30, paddingTop: 15 },
-  titleRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 20 },
+  titleRow: { flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: 5 },
   title: { fontSize: 31, fontWeight: "700", color: "#111111" },
   price: { fontSize: 29, fontWeight: "700", color: "#111111" },
   infoRow: { flexDirection: "row", justifyContent: "space-around", marginBottom: 20 },

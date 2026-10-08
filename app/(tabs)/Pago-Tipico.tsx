@@ -21,7 +21,7 @@ export default function Pago() {
   const supportChatId = 'support';
 
   const [productos, setProductos] = useState([
-    { id: 1, nombre: 'Salvadorean Breakfast', precioUnitario: 3.85, cantidad: cantidadRecibida, imagen: require('@/assets/images/Tipoco.jpg') },
+    { id: 1, nombre: 'Salvadorean Breakfast', precioUnitario: 2.85, cantidad: cantidadRecibida, imagen: require('@/assets/images/Tipoco.jpg') },
   ]);
   
   const subtotal = productos.reduce((suma, prod) => suma + (prod.precioUnitario * prod.cantidad), 0);

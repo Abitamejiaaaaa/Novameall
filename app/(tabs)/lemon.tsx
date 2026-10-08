@@ -61,7 +61,7 @@ export default function Cantidad() {
         <View style={styles.content}>
           <View style={styles.titleRow}>
             <Text style={styles.title}>Lemonade</Text>
-            <Text style={styles.price}>$1.99</Text>
+            <Text style={styles.price}>$1.00</Text>
           </View>
 
           <View style={styles.infoRow}>

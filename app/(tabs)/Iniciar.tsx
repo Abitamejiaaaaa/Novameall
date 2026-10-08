@@ -1,6 +1,5 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../Firebase/config";
 import { useRouter } from "expo-router";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import {
   Alert,
@@ -16,6 +15,7 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
+import { auth } from "../../Firebase/config";
 
 const { width, height } = Dimensions.get("window");
 
@@ -57,18 +57,18 @@ export default function SignUpScreen() {
 
   return (
     <SafeAreaView style={styles.safeArea} edges={['top', 'left', 'right']}>
-      <View style={styles.fondoAmarillo} />
-      <View style={styles.fondoBlanco} />
-
-      <KeyboardAvoidingView 
-        behavior={Platform.OS === "ios" ? "padding" : "height"} 
+      <KeyboardAvoidingView
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.keyboardView}
       >
-        <ScrollView 
+        <ScrollView
           contentContainerStyle={styles.container}
           showsVerticalScrollIndicator={false}
           keyboardShouldPersistTaps="handled"
         >
+          <View style={styles.fondoAmarillo} />
+          <View style={styles.fondoBlanco} />
+
           <View style={styles.imageContainer}>
             <Image
               source={require("../../assets/images/Logo.jpeg")}
@@ -118,7 +118,7 @@ export default function SignUpScreen() {
               onChangeText={(text) => setPassword(text)}
             />
 
-            <Pressable 
+            <Pressable
               style={styles.button}
               onPress={iniciarSesion}
               android_ripple={{ color: '#a3c44e' }}

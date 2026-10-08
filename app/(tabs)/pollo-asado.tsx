@@ -59,7 +59,7 @@ export default function Restaurante() {
         <View style={styles.content}>
           <View style={styles.titleRow}>
             <Text style={styles.title}>Tender Chicken</Text>
-            <Text style={styles.price}>$6.50</Text>
+            <Text style={styles.price}>$4.50</Text>
           </View>
 
           <View style={styles.infoRow}>

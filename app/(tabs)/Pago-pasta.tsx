@@ -21,7 +21,7 @@ export default function Pago() {
   const lng = params.lng ? Number(params.lng) : null;
 
   const [productos, setProductos] = useState([
-    { id: 1, nombre: 'Spagueti', precioUnitario: 6.00, cantidad: cantidadRecibida, imagen: require("@/assets/images/spagueti.jpeg") },
+    { id: 1, nombre: 'Spagueti', precioUnitario: 3.00, cantidad: cantidadRecibida, imagen: require("@/assets/images/spagueti.jpeg") },
   ]);
   
   const subtotal = productos.reduce((suma, prod) => suma + (prod.precioUnitario * prod.cantidad), 0);

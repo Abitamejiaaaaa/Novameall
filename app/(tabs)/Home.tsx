@@ -117,15 +117,15 @@ export default function HomeScreen() {
                     setSelectedCategory(item.id);
 
                     if (item.name === 'Snacks') {
-                      router.push('/(tabs)/Galletas');
+                      router.push('/(tabs)/COSITAS' as never);
                     } else if (item.name === 'Meals') {
-                      router.push('/(tabs)/pizza');
+                      router.push('/(tabs)/CATEGORIAS');
                     } else if (item.name === 'Vegan') {
-                      router.push('/(tabs)/salah');
+                      router.push('/(tabs)/CATEGORIAS');
                     } else if (item.name === 'Desserts') {
-                      router.push('/(tabs)/cake');
+                      router.push('/(tabs)/CATEGORIAS');
                     } else if (item.name === 'Drinks') {
-                      router.push('/(tabs)/lemon');
+                      router.push('/(tabs)/CATEGORIAS');
                     }
                   }}
                 >

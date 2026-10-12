@@ -12,9 +12,9 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
- 
+import { SUPPORT_CHAT_ID } from '@/constants/navigation';
+
 const width = Dimensions.get("window").width;
-const supportChatId = 'support';
  
 export default function Explorar() {
   return (
@@ -28,7 +28,7 @@ export default function Explorar() {
         <View style={styles.card}>
  
           <Image
-            source={require("../../assets/images/Restaurante.jpeg")}
+            source={require("@/assets/images/Restaurante.jpeg")}
             style={styles.restaurantImage}
           />
  
@@ -82,7 +82,7 @@ export default function Explorar() {
               <TouchableOpacity
                 style={styles.navButton}
                 activeOpacity={0.7}
-                onPress={() => router.push(`/chat/${supportChatId}`)}
+                onPress={() => router.push(`/chat/${SUPPORT_CHAT_ID}`)}
               >
                 <FontAwesome5 name="headset" size={22} color="#111" />
               </TouchableOpacity>

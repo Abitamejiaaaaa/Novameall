@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-  const supportChatId = 'support';
+import { SUPPORT_CHAT_ID } from '@/constants/navigation';
 
 type OrderStatus = 'Active' | 'Preparing' | 'Ready';
 
@@ -359,7 +359,7 @@ export default function CustomerInboxScreen() {
         <TouchableOpacity
           style={styles.navButton}
           activeOpacity={0.7}
-          onPress={() => router.push(`/chat/${supportChatId}`)}
+          onPress={() => router.push(`/chat/${SUPPORT_CHAT_ID}`)}
         >
           <FontAwesome5 name="headset" size={22} color="#111" />
         </TouchableOpacity>

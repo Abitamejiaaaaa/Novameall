@@ -4,9 +4,125 @@ import React from 'react';
 import { HapticTab } from '@/components/haptic-tab';
 import { Colors } from '@/constants/theme';
 import { useColorScheme } from '@/hooks/use-color-scheme';
+import { useAuth } from '@/hooks/useAuth';
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
+  const { user, loading } = useAuth();
+
+  if (loading) {
+    return null;
+  }
+
+  // Define which tabs to show based on auth state
+  // All tabs are registered (href: null) so router.push works,
+  // but we control visibility via the tab bar
+  const authTabs = [
+    'Login',
+    'Iniciar',
+    'Registrarse',
+    'Olividar',
+    'OlividaRR',
+    'tTERMINOS',
+    'POLITICAS',
+    'Queres',
+    'OnboardingWelcome',
+    'OnboardingLocation',
+    'OnboardingPreferences',
+  ];
+
+  const appTabs = [
+    'Home',
+    'CATEGORIAS',
+    'ALMUERZOS',
+    'CHAT',
+    'CONFIGURACION-NARANJA',
+    'CONFIGURACIpN-PERFIL',
+    'inbox',
+    'mapa',
+    'restaurant-order',
+    'MEXICANA',
+    'Americano',
+    'Desayunos',
+    'Almuerzo',
+    'cena',
+    'Vegan',
+    'COSITAS',
+    'NUESES',
+    'Nuggets',
+    'Nachos',
+    'Wraps',
+    'TOSTADAS',
+    'Tipico',
+    'Arros',
+    'Espagueti',
+    'pizza',
+    'Carne',
+    'pollo-asado',
+    'pupusas',
+    'quesadilla',
+    'Sandwiche',
+    'salah',
+    'flan',
+    'budin',
+    'cake',
+    'pie',
+    'Galletas',
+    'postre',
+    'Restaurante',
+    'Restaurante2',
+    'Restaurante Hamburguesa',
+    'Restaurante copy Espaqueti',
+    'Restaurante copy Pizza',
+    'Restaurante copy Pollo',
+    'Zumitos',
+    'Horchata',
+    'Jamaica',
+    'Rollos',
+    'Tamarindo',
+    'lemon',
+    'tacos',
+  ];
+
+  // Payment tabs (accessible when authenticated)
+  const paymentTabs = [
+    'Pago',
+    'Pago-GALLETA',
+    'Pago-Pizza',
+    'Pago-Salad',
+    'Pago-cake',
+    'Pago-lemon',
+    'Pago-Tipico',
+    'Pago-Americano',
+    'Pago-TOSTADAS',
+    'Pago-pupusas',
+    'Pago-carne',
+    'Pago-pollo',
+    'Pago-budin',
+    'Pago-Flan',
+    'Pago-pie',
+    'Pago-pasta',
+    'Pago-QUEADILLA',
+    'Pago-Nachos',
+    'Pago-Lettuce-Wraps',
+    'Pago-NUESES',
+    'Pago-Nuggets',
+    'Pago-Arros',
+    'Pago-Horchata',
+    'Pago-Jamaica',
+    'Pago-Tamarindo',
+    'Pago-Rollo',
+  ];
+
+  // Register ALL tabs so router.push works for any screen
+  // But we'll control the tab bar visibility via a custom tab bar
+  const allTabs = [
+    ...authTabs,
+    ...appTabs,
+    ...paymentTabs,
+    'Registrarse NEGOCIOS',
+    'customer-chat/[orderId]',
+  ];
 
   return (
     <Tabs
@@ -14,74 +130,12 @@ export default function TabLayout() {
         tabBarActiveTintColor: Colors[colorScheme === 'dark' ? 'dark' : 'light'].tint,
         headerShown: false,
         tabBarButton: HapticTab as any,
+        // Hide tab bar entirely - we use custom bottom bars in screens
+        tabBarStyle: { display: 'none' },
       }}>
-      <Tabs.Screen name="Login" options={{ href: null }} />
-      <Tabs.Screen name='OlividaRR' options={{href: null}}/>
-      <Tabs.Screen name="Home" options={{ href: null }} />
-      <Tabs.Screen name="ALMUERZOS" options={{ href: null }} />
-      <Tabs.Screen name="CATEGORIAS" options={{ href: null }} />
-      <Tabs.Screen name="CHAT" options={{ href: null }} />
-      <Tabs.Screen name="CONFIGURACION" options={{ href: null }} />
-      <Tabs.Screen name="CONFIGURACION-NARANJA" options={{ href: null }} />
-      <Tabs.Screen name="CONFIGURACIpN-PERFIL" options={{ href: null }} />
-      <Tabs.Screen name="Espagueti" options={{ href: null }} />
-      <Tabs.Screen name="Galletas" options={{ href: null }} />
-      <Tabs.Screen name="Iniciar" options={{ href: null }} />
-      <Tabs.Screen name="mapa" options={{ href: null }} />
-      <Tabs.Screen name="MEXICANA" options={{ href: null }} />
-      <Tabs.Screen name="Olividar" options={{ href: null }} />
-      <Tabs.Screen name="POLITICAS" options={{ href: null }} />
-      <Tabs.Screen name="Pago" options={{ href: null }} />
-      <Tabs.Screen name="Pago-GALLETA" options={{ href: null }} />
-      <Tabs.Screen name="Pago-Pizza" options={{ href: null }} />
-      <Tabs.Screen name="Pago-Salad" options={{ href: null }} />
-      <Tabs.Screen name="Queres" options={{ href: null }} />
-      <Tabs.Screen name="Registrarse" options={{ href: null }} />
-      <Tabs.Screen name="Registrarse NEGOCIOS" options={{ href: null }} />
-      <Tabs.Screen name="Restaurante" options={{ href: null }} />
-      <Tabs.Screen name="Restaurante Hamburguesa" options={{ href: null }} />
-      <Tabs.Screen name="Restaurante copy Espaqueti" options={{ href: null }} />
-      <Tabs.Screen name="Restaurante copy Pizza" options={{ href: null }} />
-      <Tabs.Screen name="Restaurante copy Pollo" options={{ href: null }} />
-      <Tabs.Screen name="Restaurante2" options={{ href: null }} />
-      <Tabs.Screen name="customer-chat/[orderId]" options={{ href: null }} />
-      <Tabs.Screen name="inbox" options={{ href: null }} />
-      <Tabs.Screen name="pizza" options={{ href: null }} />
-      <Tabs.Screen name="pollo-asado" options={{ href: null }} />
-      <Tabs.Screen name="restaurant-order" options={{ href: null }} />
-      <Tabs.Screen name="salah" options={{ href: null }} />
-      <Tabs.Screen name="tTERMINOS" options={{ href: null }} />
-      <Tabs.Screen name="tacos" options={{ href: null }} />
-      <Tabs.Screen name="cake" options={{ href: null }} />
-      <Tabs.Screen name="Pago-cake" options={{ href: null }} />
-      <Tabs.Screen name="lemon" options={{ href: null }} />
-      <Tabs.Screen name="Pago-lemon" options={{ href: null }} />
-      <Tabs.Screen name="Tipico" options={{ href: null }} />
-      <Tabs.Screen name="Pago-Tipico" options={{ href: null }} />
-      <Tabs.Screen name="Americano" options={{ href: null }} />
-      <Tabs.Screen name="Pago-Americano" options={{ href: null }} />
-      <Tabs.Screen name="TOSTADAS" options={{ href: null }} />
-      <Tabs.Screen name="Pago-TOSTADAS" options={{ href: null }} />
-      <Tabs.Screen name="Desayunos" options={{ href: null }} />
-      <Tabs.Screen name="Pago-pupusas" options={{ href: null }} />
-      <Tabs.Screen name="Carne" options={{ href: null }} />
-      <Tabs.Screen name="Pago-carne" options={{ href: null }} />
-      <Tabs.Screen name="pupusas" options={{ href: null }} />
-      <Tabs.Screen name="Sandwiche" options={{ href: null }} />
-      <Tabs.Screen name="Pago-Sandwiche" options={{ href: null }} />
-      <Tabs.Screen name="cena" options={{ href: null }} />
-      <Tabs.Screen name="Almuerzo" options={{ href: null }} />
-      <Tabs.Screen name="Pago-pollo" options={{ href: null }} />
-      <Tabs.Screen name="flan" options={{ href: null }} />
-      <Tabs.Screen name="budin" options={{ href: null }} />
-      <Tabs.Screen name="Pago-budin" options={{ href: null }} />
-      <Tabs.Screen name="Pago-flan" options={{ href: null }} />
-      <Tabs.Screen name="pie" options={{ href: null }} />
-      <Tabs.Screen name="Pago-pie" options={{ href: null }} />
-      <Tabs.Screen name="postre" options={{ href: null }} />
-      <Tabs.Screen name="Pago-Flan" options={{ href: null }} />
-      <Tabs.Screen name="Pago-pasta" options={{ href: null }} />
+      {allTabs.map((tabName) => (
+        <Tabs.Screen key={tabName} name={tabName} options={{ href: null }} />
+      ))}
     </Tabs>
   );
 }
-

@@ -24,7 +24,7 @@ export default function Explorar() {
         <View style={styles.card}>
 
           <Image
-            source={require("../../assets/images/Restaurante.jpeg")}
+            source={require("@/assets/images/Restaurante.jpeg")}
             style={styles.restaurantImage}
           />
 

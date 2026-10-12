@@ -1,5 +1,6 @@
 import { FontAwesome5, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { SUPPORT_CHAT_ID } from '@/constants/navigation';
 import React, { useState } from "react";
 import {
   Image,
@@ -11,6 +12,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { t } from '@/i18n';
 
 export default function Cantidad() {
   const [cantidad, setCantidad] = useState(1);
@@ -60,7 +62,7 @@ export default function Cantidad() {
 
         <View style={styles.content}>
           <View style={styles.titleRow}>
-            <Text style={styles.title}>Tacos</Text>
+            <Text style={styles.title}>{t('food.tacos')}</Text>
             <Text style={styles.price}>$3.25</Text>
           </View>
 
@@ -72,7 +74,7 @@ export default function Cantidad() {
 
             <View style={styles.infoItem}>
               <MaterialCommunityIcons name="truck" size={25} color="#000000" />
-              <Text style={styles.infoText}>Free</Text>
+              <Text style={styles.infoText}>{t('food.freeDelivery')}</Text>
             </View>
 
             <View style={styles.infoItem}>
@@ -82,16 +84,12 @@ export default function Cantidad() {
           </View>
 
           <Text style={styles.description}>
-            Imagine the irresistible aroma of freshly grilled meat, the sizzling
-            on the griddle, and the warmth of a soft tortilla embracing every
-            ingredient. Our tacos are not just food: they are a direct journey
-            into tradition, prepared with authentic recipes and that special
-            touch only achieved with passion.
+            {t('food.tacosDescription')}
           </Text>
 
           <View style={styles.buyRow}>
             <Pressable style={styles.buyButton} onPress={irAPagar}>
-              <Text style={styles.buyText}>Buy</Text>
+              <Text style={styles.buyText}>{t('food.addToCart')}</Text>
             </Pressable>
 
             <View style={styles.quantity}>
@@ -112,18 +110,23 @@ export default function Cantidad() {
       <View style={styles.bottomBar}>
               <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/Home')}>
                 <Ionicons name="home-outline" size={26} color="#111" />
+                <Text style={styles.navLabel}>{t('home.bottomNav.home')}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/CATEGORIAS')}>
                 <MaterialCommunityIcons name="silverware-clean" size={26} color="#111" />
+                <Text style={styles.navLabel}>{t('home.bottomNav.categories')}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.navButton} activeOpacity={0.7}>
                 <Ionicons name="heart-outline" size={26} color="#111" />
+                <Text style={styles.navLabel}>{t('home.bottomNav.favorites')}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/inbox')}>
                 <Ionicons name="clipboard-outline" size={26} color="#111" />
+                <Text style={styles.navLabel}>{t('home.bottomNav.orders')}</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/chat/${supportChatId')}>
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push(`/chat/${SUPPORT_CHAT_ID}`)}>
                 <FontAwesome5 name="headset" size={22} color="#111" />
+                <Text style={styles.navLabel}>{t('home.bottomNav.support')}</Text>
               </TouchableOpacity>
             </View>
     </SafeAreaView>
@@ -294,14 +297,22 @@ const styles = StyleSheet.create({
   bottomBar: {
     flexDirection: 'row',
     backgroundColor: '#E67E22',
-    height: 60,
+    height: 70,
     justifyContent: 'space-around',
     alignItems: 'center',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
-
-   navButton: {
-    padding: 10,
+  navButton: {
+    flex: 1,
+    padding: 6,
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
+  navLabel: {
+    fontSize: 10,
+    fontWeight: '600',
+    color: '#111',
+    marginTop: 2,
   },
 });

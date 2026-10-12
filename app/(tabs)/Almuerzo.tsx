@@ -14,6 +14,7 @@ import {
  
 import { router } from "expo-router";
 import { Ionicons, MaterialCommunityIcons, FontAwesome5 } from "@expo/vector-icons";
+import { SUPPORT_CHAT_ID } from '@/constants/navigation';
 
  
 const { width } = Dimensions.get("window");
@@ -192,7 +193,7 @@ export default function App() {
               <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/inbox')}>
                 <Ionicons name="clipboard-outline" size={26} color="#111" />
               </TouchableOpacity>
-              <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/chat/${supportChatId')}>
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push(`/chat/${SUPPORT_CHAT_ID}`)}>
                 <FontAwesome5 name="headset" size={22} color="#111" />
               </TouchableOpacity>
             </View>

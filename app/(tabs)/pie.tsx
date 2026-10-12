@@ -1,5 +1,6 @@
 import { FontAwesome5, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { SUPPORT_CHAT_ID } from '@/constants/navigation';
 import React, { useState } from "react";
 import {
   Image,
@@ -117,7 +118,7 @@ export default function Cantidad() {
               <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/inbox')}>
                 <Ionicons name="clipboard-outline" size={26} color="#111" />
               </TouchableOpacity>
-              <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/chat/${supportChatId')}>
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push(`/chat/${SUPPORT_CHAT_ID}`)}>
                 <FontAwesome5 name="headset" size={22} color="#111" />
               </TouchableOpacity>
             </View>

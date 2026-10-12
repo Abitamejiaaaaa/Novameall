@@ -12,6 +12,7 @@ import {
   TouchableOpacity,
   View
 } from 'react-native';
+import { useWindowDimensions } from 'react-native';
  
 import {
   FontAwesome5,
@@ -19,13 +20,15 @@ import {
   MaterialCommunityIcons,
 } from '@expo/vector-icons';
 import { router } from 'expo-router';
+import { SUPPORT_CHAT_ID } from '@/constants/navigation';
+import { t } from '@/i18n';
  
  
 const tacosImg = require('../../assets/images/tacos.jpg');
 const restauranteImg = require('../../assets/images/Restaurante.jpeg');
 const promoImg = require('../../assets/images/imagen.jpeg');
  
-const { width } = Dimensions.get('window');
+const { width, height } = useWindowDimensions();
  
 type MaterialIconName = React.ComponentProps<typeof MaterialCommunityIcons>['name'];
  
@@ -36,11 +39,11 @@ interface Category {
 }
  
 const CATEGORIES: Category[] = [
-  { id: '1', name: 'Snacks', icon: 'cookie-outline' },
-  { id: '2', name: 'Meals', icon: 'silverware-fork-knife' },
-  { id: '3', name: 'Vegan', icon: 'carrot' },
-  { id: '4', name: 'Desserts', icon: 'bowl-mix-outline' },
-  { id: '5', name: 'Drinks', icon: 'glass-wine' },
+  { id: '1', name: 'categories.snacks', icon: 'cookie-outline' },
+  { id: '2', name: 'categories.meals', icon: 'silverware-fork-knife' },
+  { id: '3', name: 'categories.vegan', icon: 'carrot' },
+  { id: '4', name: 'categories.desserts', icon: 'bowl-mix-outline' },
+  { id: '5', name: 'categories.drinks', icon: 'glass-wine' },
 ];
  
 export default function HomeScreen() {
@@ -51,11 +54,11 @@ export default function HomeScreen() {
   const handleSelectOption = (rutaOAccion: string) => {
     setMenuVisible(false);
     
-    if (rutaOAccion === 'Perfil') router.push('/(tabs)/CONFIGURACIpN-PERFIL');
-    if (rutaOAccion === 'CATEGORIAS') router.push('/(tabs)/CATEGORIAS');
-    if (rutaOAccion === 'Configuracion') router.push('/(tabs)/CONFIGURACION-NARANJA');
-    if (rutaOAccion === 'Pedidos') router.push('/(tabs)/restaurant-order');
-    if (rutaOAccion === 'Soporte') router.push('/chat/${supportChatId}');
+    if (rutaOAccion === 'profile') router.push('/(tabs)/CONFIGURACIpN-PERFIL');
+    if (rutaOAccion === 'categories') router.push('/(tabs)/CATEGORIAS');
+    if (rutaOAccion === 'settings') router.push('/(tabs)/CONFIGURACION-NARANJA');
+    if (rutaOAccion === 'orders') router.push('/(tabs)/restaurant-order');
+    if (rutaOAccion === 'support') router.push(`/chat/${SUPPORT_CHAT_ID}`);
   };
 
   return (
@@ -94,9 +97,9 @@ export default function HomeScreen() {
         </View>
 
         <View style={styles.greetingContainer}>
-          <Text style={styles.greetingTitle}>Welcome</Text>
+          <Text style={styles.greetingTitle}>{t('home.welcome')}</Text>
           <Text style={styles.greetingSubtitle}>
-            Savor every flavor and experience
+            {t('home.subTitle')}
           </Text>
         </View>
 
@@ -116,30 +119,30 @@ export default function HomeScreen() {
                   onPress={() => {
                     setSelectedCategory(item.id);
 
-                    if (item.name === 'Snacks') {
+                    if (item.name === 'categories.snacks') {
                       router.push('/(tabs)/COSITAS' as never);
-                    } else if (item.name === 'Meals') {
+                    } else if (item.name === 'categories.meals') {
                       router.push('/(tabs)/CATEGORIAS');
-                    } else if (item.name === 'Vegan') {
+                    } else if (item.name === 'categories.vegan') {
+                      router.push('/(tabs)/Vegan' as never);
+                    } else if (item.name === 'categories.desserts') {
                       router.push('/(tabs)/CATEGORIAS');
-                    } else if (item.name === 'Desserts') {
-                      router.push('/(tabs)/CATEGORIAS');
-                    } else if (item.name === 'Drinks') {
-                      router.push('/(tabs)/CATEGORIAS');
+                    } else if (item.name === 'categories.drinks') {
+                      router.push('/(tabs)/Zumitos' as never);
                     }
                   }}
                 >
                   <View style={[styles.categoryIconCircle, isSelected && styles.selectedCategoryCircle]}>
                     <MaterialCommunityIcons name={item.icon} size={30} color="#E67E22" />
                   </View>
-                  <Text style={styles.categoryText}>{item.name}</Text>
+                  <Text style={styles.categoryText}>{t(item.name)}</Text>
                 </TouchableOpacity>
               );
             })}
           </ScrollView>
 
           <View style={styles.bestSellersContainer}>
-            <Text style={styles.sectionTitle}>Best Sellers</Text>
+            <Text style={styles.sectionTitle}>{t('home.bestSellers')}</Text>
             <View style={styles.cardsRow}>
               <TouchableOpacity style={styles.foodCard} activeOpacity={0.85} onPress={() => router.push('/tacos')}>
                 <Image source={tacosImg} style={styles.foodImage} />
@@ -154,10 +157,10 @@ export default function HomeScreen() {
           <TouchableOpacity style={styles.promoBanner} activeOpacity={0.9}>
             <View style={styles.promoTextContainer}>
               <Text style={styles.promoText}>
-                <Text style={styles.boldOrange}>Experience</Text>
-                <Text style={styles.whiteText}>our latest </Text>
-                <Text style={styles.boldOrange}>culinary </Text>
-                <Text style={styles.boldOrange}>creations.</Text>
+                <Text style={styles.boldOrange}>{t('home.promoTitle.part1')}</Text>
+                <Text style={styles.whiteText}>{t('home.promoTitle.part2')}</Text>
+                <Text style={styles.boldOrange}>{t('home.promoTitle.part3')}</Text>
+                <Text style={styles.boldOrange}>{t('home.promoTitle.part4')}</Text>
               </Text>
             </View>
             <Image source={promoImg} style={styles.promoImage} />
@@ -173,29 +176,29 @@ export default function HomeScreen() {
       >
         <Pressable style={styles.modalOverlay} onPress={() => setMenuVisible(false)}>
           <View style={styles.menuContainer}>
-            <TouchableOpacity style={styles.menuItem} onPress={() => handleSelectOption('Perfil')}>
+            <TouchableOpacity style={styles.menuItem} onPress={() => handleSelectOption('profile')}>
               <Ionicons name="person-outline" size={20} color="#333" />
-              <Text style={styles.menuText}>My Profile</Text>
+              <Text style={styles.menuText}>{t('home.menu.profile')}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.menuItem} onPress={() => handleSelectOption('CATEGORIAS')}>
+            <TouchableOpacity style={styles.menuItem} onPress={() => handleSelectOption('categories')}>
               <Ionicons name="list" size={20} color="#333" />
-              <Text style={styles.menuText}>Categories</Text>
+              <Text style={styles.menuText}>{t('home.menu.categories')}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.menuItem} onPress={() => handleSelectOption('Pedidos')}>
+            <TouchableOpacity style={styles.menuItem} onPress={() => handleSelectOption('orders')}>
               <Ionicons name="clipboard-outline" size={20} color="#333" />
-              <Text style={styles.menuText}>Orders</Text>
+              <Text style={styles.menuText}>{t('home.menu.orders')}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.menuItem} onPress={() => handleSelectOption('Soporte')}>
+            <TouchableOpacity style={styles.menuItem} onPress={() => handleSelectOption('support')}>
               <FontAwesome5 name="headset" size={18} color="#333" />
-              <Text style={styles.menuText}>Support</Text>
+              <Text style={styles.menuText}>{t('home.menu.support')}</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.menuItem} onPress={() => handleSelectOption('Configuracion')}>
+            <TouchableOpacity style={styles.menuItem} onPress={() => handleSelectOption('settings')}>
               <Ionicons name="settings-outline" size={20} color="#333" />
-              <Text style={styles.menuText}>Settings</Text>
+              <Text style={styles.menuText}>{t('home.menu.settings')}</Text>
             </TouchableOpacity>
           </View>
         </Pressable>
@@ -204,18 +207,23 @@ export default function HomeScreen() {
       <View style={styles.bottomBar}>
               <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/Home')}>
                 <Ionicons name="home-outline" size={26} color="#111" />
+                <Text style={styles.navLabel}>{t('home.bottomNav.home')}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/CATEGORIAS')}>
                 <MaterialCommunityIcons name="silverware-clean" size={26} color="#111" />
+                <Text style={styles.navLabel}>{t('home.bottomNav.categories')}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.navButton} activeOpacity={0.7}>
                 <Ionicons name="heart-outline" size={26} color="#111" />
+                <Text style={styles.navLabel}>{t('home.bottomNav.favorites')}</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/inbox')}>
                 <Ionicons name="clipboard-outline" size={26} color="#111" />
+                <Text style={styles.navLabel}>{t('home.bottomNav.orders')}</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/chat/${supportChatId')}>
+              <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push(`/chat/${SUPPORT_CHAT_ID}`)}>
                 <FontAwesome5 name="headset" size={22} color="#111" />
+                <Text style={styles.navLabel}>{t('home.bottomNav.support')}</Text>
               </TouchableOpacity>
             </View>
     </SafeAreaView>
@@ -252,7 +260,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingLeft: 16,
     paddingRight: 4,
-    height: 44,
+    height: height > 700 ? 50 : 44,
     marginBottom: 8,
   },
   menuIconButton: {
@@ -262,9 +270,9 @@ const styles = StyleSheet.create({
   },
   filterButton: {
     backgroundColor: '#E67E22',
-    width: 34,
-    height: 34,
-    borderRadius: 17,
+    width: height > 700 ? 40 : 34,
+    height: height > 700 ? 40 : 34,
+    borderRadius: height > 700 ? 20 : 17,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -273,9 +281,9 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   iconCircle: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
+    width: height > 700 ? 44 : 38,
+    height: height > 700 ? 44 : 38,
+    borderRadius: height > 700 ? 22 : 19,
     backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
@@ -285,12 +293,12 @@ const styles = StyleSheet.create({
     paddingLeft: 25,
   },
   greetingTitle: {
-    fontSize: 24,
+    fontSize: width > 600 ? 28 : 24,
     fontWeight: 'bold',
     color: '#FFFFFF',
   },
   greetingSubtitle: {
-    fontSize: 20,
+    fontSize: width > 600 ? 24 : 20,
     fontWeight: 'bold',
     color: '#E67E22',
     marginTop: 2,
@@ -311,12 +319,13 @@ const styles = StyleSheet.create({
   },
   categoryCard: {
     alignItems: 'center',
-    width: 65,
+    width: width > 600 ? 80 : 65,
+    minWidth: 60,
   },
   categoryIconCircle: {
-    width: 58,
-    height: 58,
-    borderRadius: 29,
+    width: width > 600 ? 70 : 58,
+    height: width > 600 ? 70 : 58,
+    borderRadius: width > 600 ? 35 : 29,
     backgroundColor: '#FDEBD0',
     justifyContent: 'center',
     alignItems: 'center',
@@ -339,7 +348,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   sectionTitle: {
-    fontSize: 22,
+    fontSize: width > 600 ? 26 : 22,
     fontWeight: 'bold',
     color: '#000',
     marginBottom: 12,
@@ -347,10 +356,13 @@ const styles = StyleSheet.create({
   cardsRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    gap: width > 600 ? 20 : 12,
   },
   foodCard: {
-    width: '48%',
-    height: 135,
+    width: width > 600 ? '30%' : '48%',
+    minWidth: 160,
+    maxWidth: 200,
+    height: width > 600 ? 160 : 135,
     borderRadius: 20,
     backgroundColor: '#FAD7A0',
     padding: 10,
@@ -370,8 +382,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     borderRadius: 20,
     flexDirection: 'row',
-    height: 180,
+    height: width > 600 ? 220 : 180,
     overflow: 'hidden',
+    minHeight: 180,
   },
   promoTextContainer: {
     flex: 0.9,
@@ -379,9 +392,9 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   promoText: {
-    fontSize: 18,
+    fontSize: width > 600 ? 22 : 18,
     fontWeight: 'bold',
-    lineHeight: 22,
+    lineHeight: width > 600 ? 28 : 22,
   },
   boldOrange: {
     color: '#E67E22',
@@ -393,50 +406,63 @@ const styles = StyleSheet.create({
     flex: 1,
     height: '100%',
     resizeMode: 'cover',
-    width: 1000
+    minWidth: 100,
   },
  
   bottomBar: {
     flexDirection: 'row',
     backgroundColor: '#E67E22',
-    height: 60,
+    height: height > 700 ? 80 : 70,
     justifyContent: 'space-around',
     alignItems: 'center',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
+    paddingHorizontal: 8,
   },
   navButton: {
-    padding: 10,
+    padding: 4,
+    alignItems: 'center',
+    flexDirection: 'column',
+    flex: 1,
+  },
+  navLabel: {
+    fontSize: width > 400 ? 11 : 9,
+    fontWeight: '600',
+    color: '#111',
+    marginTop: 2,
+    textAlign: 'center',
   },
 
   modalOverlay: {
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.4)',
     justifyContent: 'flex-start',
-    paddingTop: 60,
-    paddingLeft: 16,
+    paddingTop: height > 700 ? 80 : 60,
+    paddingHorizontal: 20,
   },
   menuContainer: {
     backgroundColor: '#FFF',
-    width: 220,
-    borderRadius: 12,
-    paddingVertical: 8,
-    elevation: 5,
+    width: width > 600 ? 280 : 220,
+    maxWidth: '85%',
+    borderRadius: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    elevation: 8,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
   },
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: 12,
-    paddingHorizontal: 16,
+    paddingVertical: 14,
+    paddingHorizontal: 20,
   },
   menuText: {
-    marginLeft: 12,
-    fontSize: 16,
+    marginLeft: 16,
+    fontSize: width > 600 ? 18 : 16,
     color: '#333',
-    fontWeight: '500',
+    fontWeight: '600',
   },
 });

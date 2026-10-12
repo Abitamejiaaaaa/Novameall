@@ -43,6 +43,17 @@ export default function Registro() {
       return;
     }
 
+    const tieneMayuscula = /[A-Z]/.test(password);
+    const tieneMinuscula = /[a-z]/.test(password);
+
+    if (!tieneMayuscula || !tieneMinuscula) {
+      Alert.alert(
+        "Invalid Password",
+        "Password must contain at least one uppercase letter and one lowercase letter."
+      );
+      return;
+    }
+
     if (!email.includes("@")) {
       Alert.alert(
         "Invalid Email",
@@ -106,7 +117,7 @@ export default function Registro() {
         <View style={styles.header}>
           <View style={styles.logoContainer}>
             <Image
-              source={require("../../assets/images/Logo.jpeg")}
+              source={require("@/assets/images/Logo.jpeg")}
               style={styles.logo}
               resizeMode="contain"
             />

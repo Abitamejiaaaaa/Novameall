@@ -43,7 +43,7 @@ export default function Restaurante() {
           <View style={styles.yellowBackground} />
 
           <Image
-            source={require("../../assets/images/local-spagueti.jpg")}
+            source={require("@/assets/images/local-spagueti.jpg")}
             style={styles.profile}
           />
 

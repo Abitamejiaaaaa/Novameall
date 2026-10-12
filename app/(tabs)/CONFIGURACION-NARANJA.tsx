@@ -12,7 +12,8 @@ import {
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-const supportChatId = 'support';
+import { SUPPORT_CHAT_ID } from '@/constants/navigation';
+import { t } from '@/i18n';
 
 const { width, height } = Dimensions.get("window");
 
@@ -26,7 +27,7 @@ export default function SettingsScreen() {
         <View style={styles.header}>
           <View style={styles.logoContainer}>
             <Image
-              source={require("../../assets/images/Logo.jpeg")}
+              source={require("@/assets/images/Logo.jpeg")}
               style={styles.logo}
               resizeMode="contain"
             />
@@ -37,43 +38,43 @@ export default function SettingsScreen() {
           </View>
         </View>
 
-        <Text style={styles.title}>Settings</Text>
+        <Text style={styles.title}>{t('settings.title')}</Text>
 
         <View style={styles.card}>
-          <Text style={styles.cardTitle}>My Account</Text>
+          <Text style={styles.cardTitle}>{t('settings.myAccount')}</Text>
 
           <Pressable style={styles.option} android_ripple={{ color: '#eee' }} onPress={() => router.push("/(tabs)/CONFIGURACIpN-PERFIL")}>
             <Ionicons name="person-outline" size={Math.min(width * 0.055, 23)} color="#444" />
             <Text style={styles.optionText}>
-              Personal information & data
+              My Account
             </Text>
           </Pressable>
 
           <Pressable style={styles.option} android_ripple={{ color: '#eee' }} onPress={() => router.push("/OlividaRR")}>
             <Ionicons name="lock-closed-outline" size={Math.min(width * 0.055, 23)} color="#444" />
             <Text style={styles.optionText}>
-              Change password
+              {t('settings.changePassword')}
             </Text>
           </Pressable>
         </View>
 
         <View style={styles.card}>
-          <Text style={styles.cardTitle}>Preferences</Text>
+          <Text style={styles.cardTitle}>{t('settings.preferences')}</Text>
 
 
           <Pressable style={styles.option} android_ripple={{ color: '#eee' }} onPress={() => router.push("/(tabs)/inbox")}>
             <Ionicons name="notifications-outline" size={Math.min(width * 0.055, 23)} color="#444" />
-            <Text style={styles.optionText}>Notifications</Text>
+            <Text style={styles.optionText}>{t('settings.notifications')}</Text>
           </Pressable>
 
         </View>
 
         <View style={styles.card}>
-          <Text style={styles.cardTitle}>Help & Support</Text>
+          <Text style={styles.cardTitle}>{t('settings.helpSupport')}</Text>
 
-          <Pressable style={styles.option} android_ripple={{ color: '#eee' }} onPress={() => router.push("/chat/${supportChatId")}>
+          <Pressable style={styles.option} android_ripple={{ color: '#eee' }} onPress={() => router.push(`/chat/${SUPPORT_CHAT_ID}`)}>
             <Ionicons name="help-circle-outline" size={Math.min(width * 0.055, 23)} color="#444" />
-            <Text style={styles.optionText}>Help & support</Text>
+            <Text style={styles.optionText}>{t('settings.helpAndSupport')}</Text>
           </Pressable>
 
           <Pressable style={styles.option} android_ripple={{ color: '#eee' }} onPress={() => router.push("/(tabs)/POLITICAS")}>
@@ -83,13 +84,13 @@ export default function SettingsScreen() {
               color="#444"
             />
             <Text style={styles.optionText}>
-              Privacy policy
+              {t('settings.privacyPolicy')}
             </Text>
           </Pressable>
         </View>
 
         <Pressable style={styles.logoutButton} android_ripple={{ color: '#ff8000' }} onPress={()=> router.push("/(tabs)/Login")}>
-          <Text style={styles.logoutText}>Log Out</Text>
+          <Text style={styles.logoutText}>{t('settings.logout')}</Text>
         </Pressable>
       </ScrollView>
       <View style={styles.bottomBar}>
@@ -108,7 +109,7 @@ export default function SettingsScreen() {
               <TouchableOpacity
                 style={styles.navButton}
                 activeOpacity={0.7}
-                onPress={() => router.push(`/chat/${supportChatId}`)}
+                onPress={() => router.push(`/chat/${SUPPORT_CHAT_ID}`)}
               >
                 <FontAwesome5 name="headset" size={22} color="#111" />
               </TouchableOpacity>

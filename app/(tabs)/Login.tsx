@@ -8,6 +8,7 @@ import {
   View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { t } from '@/i18n';
 
 export default function HomeScreen() {
   return (
@@ -26,8 +27,8 @@ export default function HomeScreen() {
       
       <View style={styles.content}>
         <Text style={styles.title}>
-          <Text style={styles.green}>¡Welcome{"\n"}</Text>
-          <Text style={styles.orange}>to NovaMeall!</Text>
+          <Text style={styles.green}>{t('auth.welcome')}{"\n"}</Text>
+          <Text style={styles.orange}>{t('auth.welcomeNovaMeall')}</Text>
         </Text>
         
         <View style={styles.imageContainer}>
@@ -44,7 +45,7 @@ export default function HomeScreen() {
             onPress={() => router.push("../Iniciar")}
             activeOpacity={0.8}
           >
-            <Text style={styles.buttonText}>Login</Text>
+            <Text style={styles.buttonText}>{t('auth.login')}</Text>
           </TouchableOpacity>
 
           <TouchableOpacity
@@ -52,7 +53,7 @@ export default function HomeScreen() {
             onPress={() => router.push("../Registrarse")}
             activeOpacity={0.8}
           >
-            <Text style={styles.buttonText}>Sign Up</Text>
+            <Text style={styles.buttonText}>{t('auth.signUp')}</Text>
           </TouchableOpacity>
         </View>
       </View>

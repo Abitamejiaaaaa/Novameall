@@ -16,6 +16,7 @@ import {
 } from "react-native";
 import { auth, db } from "../../Firebase/config";
 import { useRouter } from "expo-router";
+import { t } from '@/i18n';
 
 const { width, height } = Dimensions.get("window");
 
@@ -30,22 +31,33 @@ export default function Registro() {
 
   const registrarUsuario = async (): Promise<void> => {
     if (!name.trim() || !lastname.trim() || !email.trim() || !password) {
-      Alert.alert("Incomplete Fields", "Please fill in all fields.");
+      Alert.alert(t('errors.generic'), t('errors.generic'));
       return;
     }
 
     if (password.length < 8 || password.length > 20) {
       Alert.alert(
-        "Invalid Password",
-        "Password must be between 8 and 20 characters long."
+        t('errors.invalidPassword'),
+        t('errors.passwordLength')
+      );
+      return;
+    }
+
+    const tieneMayuscula = /[A-Z]/.test(password);
+    const tieneMinuscula = /[a-z]/.test(password);
+
+    if (!tieneMayuscula || !tieneMinuscula) {
+      Alert.alert(
+        t('errors.invalidPassword'),
+        t('errors.passwordComplexity')
       );
       return;
     }
 
     if (!email.includes("@")) {
       Alert.alert(
-        "Invalid Email",
-        "Please enter a valid email address."
+        t('errors.invalidEmail'),
+        t('errors.invalidEmail')
       );
       return;
     }
@@ -54,8 +66,8 @@ export default function Registro() {
 
     if (!nameRegex.test(name) || !nameRegex.test(lastname)) {
       Alert.alert(
-        "Invalid Name",
-        "Please enter a valid name (letters only)."
+        t('errors.invalidName'),
+        t('errors.invalidName')
       );
       return;
     }
@@ -76,15 +88,15 @@ export default function Registro() {
         uid: user.uid,
       });
 
-      Alert.alert("Registration Successful", "Your account has been created.");
+      Alert.alert(t('auth.registrationSuccess'), t('auth.accountCreated'));
 
       setName("");
       setLastname("");
       setEmail("");
       setPassword("");
 
-      // Envía a Términos reemplazando la pantalla actual
-      router.replace("/tTERMINOS" as Parameters<typeof router.replace>[0]);
+      // Redirect to onboarding flow instead of Terms
+      router.replace("/(tabs)/OnboardingWelcome" as Parameters<typeof router.replace>[0]);
 
     } catch (error: unknown) {
       console.log(error); 
@@ -92,16 +104,16 @@ export default function Registro() {
       const err = error as { code?: string };
 
       if (err.code === "auth/email-already-in-use") {
-        Alert.alert("Email in Use", "This email is already registered.");
+        Alert.alert(t('errors.emailInUse'), t('errors.emailInUse'));
       } else if (err.code === "auth/invalid-email") {
-        Alert.alert("Invalid Email", "Please enter a valid email address.");
+        Alert.alert(t('errors.invalidEmail'), t('errors.invalidEmail'));
       } else if (err.code === "auth/weak-password") {
         Alert.alert(
-          "Weak Password",
-          "Password must be at least 8 characters long."
+          t('errors.weakPassword'),
+          t('errors.weakPassword')
         );
       } else {
-        Alert.alert("Error", "Could not create the account.");
+        Alert.alert(t('errors.generic'), t('errors.generic'));
       }
     }
   };
@@ -116,7 +128,7 @@ export default function Registro() {
         <View style={styles.header}>
           <View style={styles.logoContainer}>
             <Image
-              source={require("../../assets/images/Logo.jpeg")}
+              source={require("@/assets/images/Logo.jpeg")}
               style={styles.logo}
               resizeMode="contain"
             />
@@ -131,40 +143,40 @@ export default function Registro() {
           <View style={[styles.dot, styles.dot5]} />
           <View style={[styles.dot, styles.dot6]} />
 
-          <Text style={styles.title}>Welcome</Text>
-          <Text style={styles.subtitle}>Sign up to continue</Text>
+          <Text style={styles.title}>{t('auth.welcome')}</Text>
+          <Text style={styles.subtitle}>{t('auth.signUpToContinue')}</Text>
 
           <View style={styles.form}>
-            <Text style={styles.label}>First Name</Text>
+            <Text style={styles.label}>{t('auth.firstName')}</Text>
             <View style={styles.inputContainer}>
               <FontAwesome name="user" size={18} color="#E89218" style={styles.inputIcon} />
               <TextInput
                 style={styles.input}
-                placeholder="Enter your first name"
+                placeholder={t('auth.firstName')}
                 placeholderTextColor="#A0A0A0"
                 value={name}
                 onChangeText={(text: string) => setName(text)}
               />
             </View>
 
-            <Text style={styles.label}>Last Name</Text>
+            <Text style={styles.label}>{t('auth.lastName')}</Text>
             <View style={styles.inputContainer}>
               <FontAwesome name="user" size={18} color="#E89218" style={styles.inputIcon} />
               <TextInput
                 style={styles.input}
-                placeholder="Enter your last name"
+                placeholder={t('auth.lastName')}
                 placeholderTextColor="#A0A0A0"
                 value={lastname}
                 onChangeText={(text: string) => setLastname(text)}
               />
             </View>
 
-            <Text style={styles.label}>Email Address</Text>
+            <Text style={styles.label}>{t('auth.email')}</Text>
             <View style={styles.inputContainer}>
               <FontAwesome name="envelope" size={16} color="#E89218" style={styles.inputIcon} />
               <TextInput
                 style={styles.input}
-                placeholder="Enter your email"
+                placeholder={t('auth.email')}
                 placeholderTextColor="#A0A0A0"
                 keyboardType="email-address"
                 autoCapitalize="none"
@@ -173,12 +185,12 @@ export default function Registro() {
               />
             </View>
 
-            <Text style={styles.label}>Password</Text>
+            <Text style={styles.label}>{t('auth.password')}</Text>
             <View style={styles.inputContainer}>
               <FontAwesome name="lock" size={18} color="#E89218" style={styles.inputIcon} />
               <TextInput
                 style={styles.input}
-                placeholder="Enter your password"
+                placeholder={t('auth.password')}
                 placeholderTextColor="#A0A0A0"
                 secureTextEntry={!showPassword}
                 value={password}
@@ -200,7 +212,7 @@ export default function Registro() {
               style={styles.button}
               onPress={() => registrarUsuario()}
             >
-              <Text style={styles.buttonText}>Register</Text>
+              <Text style={styles.buttonText}>{t('auth.signUp')}</Text>
             </Pressable>
           </View>
         </View>

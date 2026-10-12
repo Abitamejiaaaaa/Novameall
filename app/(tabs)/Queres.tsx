@@ -44,7 +44,7 @@ export default function Queres() {
 
       <View style={[styles.imageContainer, dynamicStyles.imageContainer]}>
         <Image
-          source={require("../../assets/images/Logo.jpeg")}
+          source={require("@/assets/images/Logo.jpeg")}
           style={dynamicStyles.logo}
         />
       </View>

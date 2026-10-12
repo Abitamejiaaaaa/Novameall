@@ -6,16 +6,18 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Toast from 'react-native-toast-message';
+import { SUPPORT_CHAT_ID } from '@/constants/navigation';
 
 export default function Pago() {
   const params = useLocalSearchParams();
   const cantidadRecibida = params.cantidadPupusas ? Number(params.cantidadPupusas) : 1;
-  const supportChatId = params.supportChatId ? String(params.supportChatId) : 'support';
+  const supportChatId = params.supportChatId ? String(params.supportChatId) : SUPPORT_CHAT_ID;
 
   const lat = params.lat ? Number(params.lat) : null;
   const lng = params.lng ? Number(params.lng) : null;
@@ -23,17 +25,48 @@ export default function Pago() {
   const [productos, setProductos] = useState([
     { id: 1, nombre: 'Pupusas', precioUnitario: 0.50, cantidad: cantidadRecibida, imagen: require('@/assets/images/pupusas.jpg') },
   ]);
-  
+
+  const [cardNumber, setCardNumber] = useState('');
+  const [expiryDate, setExpiryDate] = useState('');
+  const [cvv, setCvv] = useState('');
+  const [cardName, setCardName] = useState('');
+  const [showCvv, setShowCvv] = useState(false);
+  const [errors, setErrors] = useState<{[key: string]: string}>({});
+
+  const formatCardNumber = (value: string) => {
+    const cleaned = value.replace(/\D/g, '').slice(0, 16);
+    const formatted = cleaned.replace(/(\d{4})/g, '$1 ').trim();
+    return formatted;
+  };
+
+  const formatExpiryDate = (value: string) => {
+    const cleaned = value.replace(/\D/g, '').slice(0, 4);
+    if (cleaned.length >= 2) {
+      return cleaned.slice(0, 2) + '/' + cleaned.slice(2);
+    }
+    return cleaned;
+  };
+
+  const validateForm = (): boolean => {
+    const newErrors: {[key: string]: string} = {};
+    if (!cardNumber || cardNumber.replace(/\s/g, '').length !== 16) newErrors.cardNumber = 'Enter a valid 16-digit card number';
+    if (!expiryDate || !/^(0[1-9]|1[0-2])\/\d{2}$/.test(expiryDate)) newErrors.expiryDate = 'Enter a valid date (MM/YY)';
+    if (!cvv || !/^\d{3,4}$/.test(cvv)) newErrors.cvv = 'Enter a valid CVV';
+    if (!cardName || cardName.trim().length < 3) newErrors.cardName = 'Enter the name on the card';
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const subtotal = productos.reduce((suma, prod) => suma + (prod.precioUnitario * prod.cantidad), 0);
   const costoEnvio = 0.00;
   const total = subtotal + costoEnvio;
 
   function simulacionDeCompra() {
-    Toast.show({
-      type: 'success',
-      text1: 'Payment successful',
-      text2: 'Your order has been successfully processed.',
-    });
+    if (!validateForm()) {
+      Toast.show({ type: 'error', text1: 'Invalid Data', text2: 'Please check the card information.' });
+      return;
+    }
+    Toast.show({ type: 'success', text1: 'Payment successful', text2: 'Your order has been successfully processed.' });
   }
 
   return (
@@ -49,16 +82,90 @@ export default function Pago() {
           </View>
 
           <Text style={styles.section}>Payment Method</Text>
-          <TouchableOpacity style={styles.box}>
-            <View style={styles.visa}>
-              <Text style={styles.visaText}>VISA</Text>
+          
+          <View style={styles.cardForm}>
+            <View style={styles.formGroup}>
+              <Text style={styles.label}>Card Number</Text>
+              <TextInput
+                style={[styles.input, errors.cardNumber && styles.inputError]}
+                placeholder="1234 5678 9012 3456"
+                value={cardNumber}
+                onChangeText={(text) => {
+                  setCardNumber(formatCardNumber(text));
+                  if (errors.cardNumber) {
+                    setErrors(prev => ({ ...prev, cardNumber: '' }));
+                  }
+                }}
+                keyboardType="numeric"
+                maxLength={19}
+              />
+              {errors.cardNumber ? <Text style={styles.errorText}>{errors.cardNumber}</Text> : null}
             </View>
-            <View style={styles.info}>
-              <Text style={styles.bold}>Visa **** 4589</Text>
-              <Text style={styles.orangeText}>Change Payment Method</Text>
+
+            <View style={styles.formGroup}>
+              <Text style={styles.label}>Name on Card</Text>
+              <TextInput
+                style={[styles.input, errors.cardName && styles.inputError]}
+                placeholder="John Doe"
+                value={cardName}
+                onChangeText={(text) => {
+                  setCardName(text);
+                  if (errors.cardName) {
+                    setErrors(prev => ({ ...prev, cardName: '' }));
+                  }
+                }}
+                autoCapitalize="words"
+              />
+              {errors.cardName ? <Text style={styles.errorText}>{errors.cardName}</Text> : null}
             </View>
-            <Ionicons name="chevron-forward" size={25} color="#000" />
-          </TouchableOpacity>
+
+            <View style={styles.rowInputs}>
+              <View style={styles.formGroupHalf}>
+                <Text style={styles.label}>Expiry Date</Text>
+                <TextInput
+                  style={[styles.input, errors.expiryDate && styles.inputError]}
+                  placeholder="MM/YY"
+                  value={expiryDate}
+                  onChangeText={(text) => {
+                    setExpiryDate(formatExpiryDate(text));
+                    if (errors.expiryDate) {
+                      setErrors(prev => ({ ...prev, expiryDate: '' }));
+                    }
+                  }}
+                  keyboardType="numeric"
+                  maxLength={5}
+                />
+                {errors.expiryDate ? <Text style={styles.errorText}>{errors.expiryDate}</Text> : null}
+              </View>
+
+              <View style={styles.formGroupHalf}>
+                <Text style={styles.label}>CVV</Text>
+                <View style={styles.cvvContainer}>
+                  <TextInput
+                    style={[styles.input, styles.cvvInput, errors.cvv && styles.inputError]}
+                    placeholder="123"
+                    value={cvv}
+                    onChangeText={(text) => {
+                      setCvv(text.replace(/\D/g, '').slice(0, 4));
+                      if (errors.cvv) {
+                        setErrors(prev => ({ ...prev, cvv: '' }));
+                      }
+                    }}
+                    keyboardType="numeric"
+                    secureTextEntry={!showCvv}
+                    maxLength={4}
+                  />
+                  <TouchableOpacity
+                    style={styles.eyeButton}
+                    onPress={() => setShowCvv(!showCvv)}
+                  >
+                    <Ionicons name={showCvv ? 'eye-off' : 'eye'} size={20} color="#666" />
+                  </TouchableOpacity>
+                </View>
+                {errors.cvv ? <Text style={styles.errorText}>{errors.cvv}</Text> : null}
+              </View>
+            </View>
+          </View>
 
           <Text style={styles.section}>Delivery Address </Text>
 
@@ -72,12 +179,12 @@ export default function Pago() {
             <Ionicons name="location" size={23} color="#000" style={{ marginTop: 2 }} />
             <View style={styles.info}>
               <Text style={styles.bold}>
-                {lat && lng ? "Ubicación seleccionada en Mapa" : "My Home"}
+                {lat && lng ? "Location selected on Map" : "My Home"}
               </Text>
               <Text style={styles.addressText}>
                 {lat && lng 
                   ? `Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)}`
-                  : "Colonia Las Flores, Calle Principal, Casa #12, Ciudad Arce, La Libertad."
+                  : "Colonia Las Flores, Main Street, House #12, Ciudad Arce, La Libertad."
                 }
               </Text>
               <Text style={styles.orangeText}>Change Address </Text>
@@ -103,7 +210,7 @@ export default function Pago() {
               <Text>${subtotal.toFixed(2)}</Text>
             </View>
             <View style={styles.row}>
-              <Text>Envío</Text>
+              <Text>Shipping</Text>
               <Text>${costoEnvio.toFixed(2)}</Text>
             </View>
             <View style={styles.dashed} />
@@ -192,5 +299,56 @@ const styles = StyleSheet.create({
   },
   navButton: {
     padding: 1,
+  },
+  cardForm: {
+    backgroundColor: '#FFF4D9',
+    borderWidth: 1.5,
+    borderColor: '#E9C65A',
+    borderRadius: 8,
+    padding: 15,
+    marginBottom: 10,
+  },
+  formGroup: {
+    marginBottom: 12,
+  },
+  formGroupHalf: {
+    flex: 1,
+  },
+  rowInputs: {
+    flexDirection: 'row',
+    gap: 10,
+  },
+  label: {
+    fontSize: 13,
+    fontWeight: '600',
+    color: '#333',
+    marginBottom: 5,
+  },
+  input: {
+    backgroundColor: '#FFF',
+    borderWidth: 1,
+    borderColor: '#DDD',
+    borderRadius: 6,
+    padding: 10,
+    fontSize: 14,
+  },
+  inputError: {
+    borderColor: '#D95C28',
+  },
+  errorText: {
+    color: '#D95C28',
+    fontSize: 11,
+    marginTop: 3,
+  },
+  cvvContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  cvvInput: {
+    flex: 1,
+  },
+  eyeButton: {
+    padding: 8,
+    marginLeft: 5,
   },
 });

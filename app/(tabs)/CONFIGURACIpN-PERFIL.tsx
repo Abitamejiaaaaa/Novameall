@@ -25,6 +25,7 @@ import {
 import { doc, getDoc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../../Firebase/config';
 import { router } from 'expo-router';
+import { SUPPORT_CHAT_ID } from '@/constants/navigation';
 import * as ImagePicker from 'expo-image-picker';
 import { FontAwesome5, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
@@ -204,7 +205,7 @@ export default function PerfilScreen() {
         {/* Support Section */}
         <View style={styles.supportSection}>
           <Text style={styles.supportText}>Need help?</Text>
-          <TouchableOpacity onPress={() => router.push('/chat/${supportChatId}')}>
+          <TouchableOpacity onPress={() => router.push(`/chat/${SUPPORT_CHAT_ID}`)}>
             <Text style={styles.supportLink}>Contact technical support</Text>
           </TouchableOpacity>
         </View>
@@ -225,7 +226,7 @@ export default function PerfilScreen() {
         <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/inbox')}>
           <Ionicons name="clipboard-outline" size={26} color="#111" />
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/chat/${supportChatId')}>
+        <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push(`/chat/${SUPPORT_CHAT_ID}`)}>
           <FontAwesome5 name="headset" size={22} color="#111" />
         </TouchableOpacity>
       </View>

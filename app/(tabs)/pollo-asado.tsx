@@ -1,5 +1,6 @@
 import { FontAwesome5, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 import { router } from "expo-router";
+import { SUPPORT_CHAT_ID } from '@/constants/navigation';
 import React, { useState } from "react";
 import {
   Image,
@@ -11,6 +12,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { t } from '@/i18n';
 
 export default function Restaurante() {
   const [cantidad, setCantidad] = useState(5);
@@ -44,13 +46,13 @@ export default function Restaurante() {
 
 
           <Image
-            source={require("../../assets/images/local-pollo.jpg")}
+            source={require("@/assets/images/local-pollo.jpg")}
             style={styles.profile}
           />
 
 
           <Image
-            source={require("../../assets/images/pollo-asado.png")}
+            source={require("@/assets/images/pollo-asado.png")}
             style={styles.foodImage}
           />
 
@@ -58,7 +60,7 @@ export default function Restaurante() {
 
         <View style={styles.content}>
           <View style={styles.titleRow}>
-            <Text style={styles.title}>Tender Chicken</Text>
+            <Text style={styles.title}>{t('food.polloAsado')}</Text>
             <Text style={styles.price}>$4.50</Text>
           </View>
 
@@ -70,7 +72,7 @@ export default function Restaurante() {
 
             <View style={styles.infoItem}>
               <MaterialCommunityIcons name="truck" size={25} color="#000000" />
-              <Text style={styles.infoText}>Free</Text>
+              <Text style={styles.infoText}>{t('food.freeDelivery')}</Text>
             </View>
 
             <View style={styles.infoItem}>
@@ -80,12 +82,12 @@ export default function Restaurante() {
           </View>
 
           <Text style={styles.description}>
-            Tender chicken marinated with spices and herbs, then cooked over an open flame until golden and smoky. Juicy on the inside and slightly crisp on the outside, each bite carries a balance of savory flavor and charred aroma. Perfectly paired with fresh salads, rice, or roasted vegetables, this dish is both wholesome and satisfying.
+            {t('food.polloAsadoDescription')}
           </Text>
 
           <View style={styles.buyRow}>
             <Pressable style={styles.buyButton} onPress={irAPagar}>
-              <Text style={styles.buyText}>Buy</Text>
+              <Text style={styles.buyText}>{t('food.addToCart')}</Text>
             </Pressable>
 
             <View style={styles.quantity}>
@@ -106,18 +108,23 @@ export default function Restaurante() {
       <View style={styles.bottomBar}>
         <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/Home')}>
           <Ionicons name="home-outline" size={26} color="#111" />
+          <Text style={styles.navLabel}>{t('home.bottomNav.home')}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/CATEGORIAS')}>
           <MaterialCommunityIcons name="silverware-clean" size={26} color="#111" />
+          <Text style={styles.navLabel}>{t('home.bottomNav.categories')}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.navButton} activeOpacity={0.7}>
           <Ionicons name="heart-outline" size={26} color="#111" />
+          <Text style={styles.navLabel}>{t('home.bottomNav.favorites')}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/(tabs)/inbox')}>
           <Ionicons name="clipboard-outline" size={26} color="#111" />
+          <Text style={styles.navLabel}>{t('home.bottomNav.orders')}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push('/chat/${supportChatId')}>
+        <TouchableOpacity style={styles.navButton} activeOpacity={0.7} onPress={() => router.push(`/chat/${SUPPORT_CHAT_ID}`)}>
           <FontAwesome5 name="headset" size={22} color="#111" />
+          <Text style={styles.navLabel}>{t('home.bottomNav.support')}</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -288,14 +295,22 @@ const styles = StyleSheet.create({
   bottomBar: {
     flexDirection: 'row',
     backgroundColor: '#E67E22',
-    height: 60,
+    height: 70,
     justifyContent: 'space-around',
     alignItems: 'center',
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
   },
-
   navButton: {
-    padding: 10,
+    flex: 1,
+    padding: 6,
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
+  navLabel: {
+    fontSize: 10,
+    fontWeight: '600',
+    color: '#111',
+    marginTop: 2,
   },
 });

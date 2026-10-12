@@ -1,3 +1,5 @@
-export const auth: any;
-export const firebaseAuth: any;
-export const db: any;
+import { Auth } from 'firebase/auth';
+import { Firestore } from 'firebase/firestore';
+
+export const auth: Auth;
+export const db: Firestore;

@@ -16,6 +16,7 @@ import {
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { auth } from "../../Firebase/config";
+import { t } from '@/i18n';
 
 const { width, height } = Dimensions.get("window");
 
@@ -29,12 +30,12 @@ export default function SignUpScreen() {
     const cleanEmail = username.trim();
 
     if (!cleanEmail || !password.trim()) {
-      Alert.alert("Incomplete Fields", "Please enter your email and password.");
+      Alert.alert(t('errors.generic'), t('errors.invalidCredentials'));
       return;
     }
 
     if (!cleanEmail.includes("@")) {
-      Alert.alert("Invalid Email", "Please enter a valid email address.");
+      Alert.alert(t('errors.invalidEmail'), t('errors.invalidEmail'));
       return;
     }
 
@@ -46,11 +47,11 @@ export default function SignUpScreen() {
     } catch (error: any) {
       console.log(error);
       if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-        Alert.alert("Error", "The email or password is incorrect.");
+        Alert.alert(t('errors.generic'), t('errors.invalidCredentials'));
       } else if (error.code === 'auth/invalid-email') {
-        Alert.alert("Error", "The email format is invalid.");
+        Alert.alert(t('errors.invalidEmail'), t('errors.invalidEmail'));
       } else {
-        Alert.alert("Error", "An error occurred while trying to sign in.");
+        Alert.alert(t('errors.generic'), t('errors.generic'));
       }
     }
   };
@@ -71,25 +72,25 @@ export default function SignUpScreen() {
 
           <View style={styles.imageContainer}>
             <Image
-              source={require("../../assets/images/Logo.jpeg")}
+              source={require("@/assets/images/Logo.jpeg")}
               style={styles.logo}
               resizeMode="contain"
             />
           </View>
 
           <Text style={styles.title}>
-            Welcome to NovaMeall!
+            {t('auth.welcome')}
           </Text>
 
           <Text style={styles.subtitle}>
-            Sign up to continue
+            {t('auth.signInToContinue')}
           </Text>
 
           <View style={styles.formCard}>
-            <Text style={styles.label}>Email</Text>
+            <Text style={styles.label}>{t('auth.email')}</Text>
             <TextInput
               style={styles.input}
-              placeholder="Enter your email"
+              placeholder={t('auth.email')}
               placeholderTextColor="#999"
               keyboardType="email-address"
               autoCapitalize="none"
@@ -97,10 +98,10 @@ export default function SignUpScreen() {
               onChangeText={(text) => setEmail(text)}
             />
 
-            <Text style={styles.label}>Phone Number</Text>
+            <Text style={styles.label}>{t('auth.phoneNumber')}</Text>
             <TextInput
               style={styles.input}
-              placeholder="Enter your phone number"
+              placeholder={t('auth.phoneNumber')}
               placeholderTextColor="#999"
               keyboardType="phone-pad"
               autoCapitalize="none"
@@ -108,10 +109,10 @@ export default function SignUpScreen() {
               onChangeText={(text) => setPhone(text)}
             />
 
-            <Text style={styles.label}>Password</Text>
+            <Text style={styles.label}>{t('auth.password')}</Text>
             <TextInput
               style={styles.input}
-              placeholder="Enter your password"
+              placeholder={t('auth.password')}
               placeholderTextColor="#999"
               secureTextEntry
               value={password}
@@ -123,11 +124,11 @@ export default function SignUpScreen() {
               onPress={iniciarSesion}
               android_ripple={{ color: '#a3c44e' }}
             >
-              <Text style={styles.buttonText}>Sign In</Text>
+              <Text style={styles.buttonText}>{t('auth.login')}</Text>
             </Pressable>
 
             <Text style={styles.olvidaste} onPress={() => router.push("/Olividar")}>
-              Forgot your password?
+              {t('auth.forgotPassword')}
             </Text>
           </View>
         </ScrollView>
@@ -192,8 +193,9 @@ const styles = StyleSheet.create({
     color: "#666",
   },
   formCard: {
+    marginTop: 50,
+    paddingTop: 20,
     width: "100%",
-    marginTop: height * 0.04,
     maxWidth: 420,
     backgroundColor: "#FFFFFF",
     alignItems: "center",
